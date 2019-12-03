@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  */
-class Order
+class Orders
 {
     /**
      * @ORM\Id()
@@ -17,14 +17,14 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
-    private $numOrder;
+    private $price;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
-    private $sentAt;
+    private $orderNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
@@ -36,26 +36,26 @@ class Order
         return $this->id;
     }
 
-    public function getNumOrder(): ?int
+    public function getPrice(): ?float
     {
-        return $this->numOrder;
+        return $this->price;
     }
 
-    public function setNumOrder(int $numOrder): self
+    public function setPrice(float $price): self
     {
-        $this->numOrder = $numOrder;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getSentAt(): ?\DateTimeInterface
+    public function getOrderNumber(): ?int
     {
-        return $this->sentAt;
+        return $this->orderNumber;
     }
 
-    public function setSentAt(\DateTimeInterface $sentAt): self
+    public function setOrderNumber(int $orderNumber): self
     {
-        $this->sentAt = $sentAt;
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }

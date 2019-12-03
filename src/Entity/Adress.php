@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Adress
 {
+
+    public function __toString()
+    {
+        return $this->getStreet();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

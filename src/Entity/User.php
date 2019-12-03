@@ -13,14 +13,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public function __toString()
+    {
+        return $this->getFirstName().$this->getLastName();
+    }
+
+
     /**
      * @var UserPasswordEncoderInterface
      */
     private $encoder;
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct()
     {
-        $this->encoder = $encoder;
+        //$this->encoder = $encoder;
         $this->orders = new ArrayCollection();
+
     }
 
     /**
@@ -67,7 +74,7 @@ class User implements UserInterface
     private $adress;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user")
      */
     private $orders;
 
@@ -198,14 +205,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|Orders[]
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrder(Orders $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
@@ -215,7 +222,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrder(Orders $order): self
     {
         if ($this->orders->contains($order)) {
             $this->orders->removeElement($order);
