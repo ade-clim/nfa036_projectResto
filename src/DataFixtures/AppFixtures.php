@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Adress;
+use App\Entity\Category;
 use App\Entity\Orders;
 use App\Entity\Product;
 use App\Entity\User;
@@ -16,14 +17,23 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         $orderNumberCpt = 1;
-        for ($p=0; $p < 15; $p++){ //boucle de creation de produit
 
-            $produit = new Product();
-            $produit->setName($faker->sentence($nbWords = 3, $variableNbWords = true))
-                ->setPrice(mt_rand(2,12));
+        for ($c = 0; $c < 5; $c++){ // boucle de creation de categories
+            $category = new Category();
+            $category->setTitle($faker->word);
 
-            $manager->persist($produit);
+            $manager->persist($category);
+            for ($p=0; $p < 5; $p++){ // boucle de creation de produit
+                $produit = new Product();
+                $produit->setTitle($faker->sentence($nbWords = 3, $variableNbWords = true))
+                    ->setPrice(mt_rand(2,12))
+                    ->setDescription($faker->text($maxNbChars = 200))
+                    ->setCategory($category); // ajoute le produit à la categorie
+
+                $manager->persist($produit);
+            }
         }
+
 
 
         for ($i = 0; $i <30; $i++){ // boucle de creation d'utilisateur
