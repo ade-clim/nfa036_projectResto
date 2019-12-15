@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"order_read"}}
+ * )
  */
 class Orders
 {
@@ -15,23 +20,38 @@ class Orders
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"order_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"order_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"order_read"})
      */
     private $orderNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
+     * @Groups({"order_read"})
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderDetail", mappedBy="orders")
+     * @Groups({"order_read"})
+     */
+    private $orderDetails;
+
+    public function __construct()
+    {
+        $this->orderDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,4 +93,36 @@ class Orders
 
         return $this;
     }
+
+    /**
+     * @return Collection|OrderDetail[]
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetail $orderDetail): self
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self
+    {
+        if ($this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails->removeElement($orderDetail);
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getOrders() === $this) {
+                $orderDetail->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -4,43 +4,45 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdressRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"adress_read"}}
+ * )
  */
 class Adress
 {
-
-    public function __toString()
-    {
-        return $this->getStreet();
-    }
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"adress_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"adress_read"})
      */
     private $street;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"adress_read"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"adress_read"})
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"adress_read"})
      */
     private $city;
 

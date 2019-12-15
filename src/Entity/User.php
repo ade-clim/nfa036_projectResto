@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -15,22 +16,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    public function __toString()
-    {
-        return $this->getFirstName().$this->getLastName();
-    }
-
-
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $encoder;
-    public function __construct()
-    {
-        //$this->encoder = $encoder;
-        $this->orders = new ArrayCollection();
-
-    }
 
     /**
      * @ORM\Id()
@@ -79,6 +64,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user")
      */
     private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
