@@ -42,7 +42,6 @@ class AppFixtures extends Fixture
 
             }
 
-
             for ($i = 0; $i < 30; $i++) { // boucle de creation d'utilisateur
 
                 $adresse = new Adress();

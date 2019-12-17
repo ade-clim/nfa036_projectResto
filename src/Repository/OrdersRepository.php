@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Orders;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,17 @@ class OrdersRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Orders::class);
+    }
+
+    public function findNextChrono(User $user){
+        return $this->createQueryBuilder("i")
+                ->select("i.orderNumber")
+                ->where("i.user = :user")
+                ->setParameter("user", $user)
+                ->orderBy("i.orderNumber", "DESC")
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleScalarResult() + 1;
     }
 
     // /**

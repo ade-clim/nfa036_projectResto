@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
-class CustomerUserSubscriber implements EventSubscriberInterface{
+class OrderUserSubscriber implements EventSubscriberInterface{
 
     /**
      * @var Security
