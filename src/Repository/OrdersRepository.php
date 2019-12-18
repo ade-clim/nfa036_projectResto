@@ -20,12 +20,10 @@ class OrdersRepository extends ServiceEntityRepository
         parent::__construct($registry, Orders::class);
     }
 
-    public function findNextChrono(User $user){
+    public function findNextChrono(){
         try {
             return $this->createQueryBuilder("i")
                     ->select("i.orderNumber")
-                    ->where("i.user = :user")
-                    ->setParameter("user", $user)
                     ->orderBy("i.orderNumber", "DESC")
                     ->setMaxResults(1)
                     ->getQuery()

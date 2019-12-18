@@ -46,7 +46,7 @@ class OrderChronoSubscriber implements EventSubscriberInterface{
         if($order instanceof Orders && $method === "POST"){
 
             // recup le dernier chrono et appeler la methode findNextChrono pour incrementer
-            $nextChrono = $this->repository->findNextChrono($user);
+            $nextChrono = $this->repository->findNextChrono();
             $order->setOrderNumber($nextChrono);
 
             //ajout de la date dans la facture
