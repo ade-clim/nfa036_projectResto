@@ -21,14 +21,18 @@ class OrdersRepository extends ServiceEntityRepository
     }
 
     public function findNextChrono(User $user){
-        return $this->createQueryBuilder("i")
-                ->select("i.orderNumber")
-                ->where("i.user = :user")
-                ->setParameter("user", $user)
-                ->orderBy("i.orderNumber", "DESC")
-                ->setMaxResults(1)
-                ->getQuery()
-                ->getSingleScalarResult() + 1;
+        try {
+            return $this->createQueryBuilder("i")
+                    ->select("i.orderNumber")
+                    ->where("i.user = :user")
+                    ->setParameter("user", $user)
+                    ->orderBy("i.orderNumber", "DESC")
+                    ->setMaxResults(1)
+                    ->getQuery()
+                    ->getSingleScalarResult() + 1;
+        } catch (\Exception $e){
+            return 1;
+        }
     }
 
     // /**
