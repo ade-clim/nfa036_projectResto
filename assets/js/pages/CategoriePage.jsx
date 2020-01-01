@@ -1,31 +1,71 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import Pagination from "../components/Pagination";
+import categoryApi from "../services/categoryApi";
 
-const CategoriePage = () => {
+const CategoriePage = (props) => {
+
     const [categorys, setCategorys] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const itemsPerPage = 3;
+
+
+    // Permet de recuperer les categories
+    const fetchCategorys = async () => {
+        try {
+            const data = await categoryApi.findAll();
+            setCategorys(data);
+        }catch (error) {
+            console.log(error.response);
+        }
+    };
+
+
+    // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
-        axios
-            .get("https://localhost:8000/api/categories")
-            .then(response => response.data['hydra:member'])
-            .then(data => setCategorys(data))
-            .catch(error => console.log(error.response));
-    },[])
+        fetchCategorys();
+    },[]);
 
-    const handleDelete = (id)=>{
 
+    // Supprimer une categorie en fonction de l'id
+    const handleDelete = async (id)=>{
         const originalCategorys = [...categorys];
-        setCategorys(categorys.filter(categorys => categorys.id !== id))
+        setCategorys(categorys.filter(category => category.id !== id));
 
-        axios.delete("https://localhost:8000/api/categories/"+ id)
-            .catch(error => {
-                setCategorys (originalCategorys);
-                console.log(error.response);
-            });
+        try {
+            await categoryApi.delete(id);
+        }catch (error) {
+            setCategorys(originalCategorys);
+        }
+    };
 
-    }
+    // Gestion du changement de page
+    const handlePageChange = (page) => setCurrentPage(page);
+
+    // Gestion de la recherche
+    const handleSearch = (event) => {
+        const value = event.currentTarget.value;
+        setSearch(value);
+        setCurrentPage(1);
+    };
+
+    // Filtrage des categories en fonction de la recherche
+    const filteredCategorys = categorys.filter(
+        c =>
+            c.title.toLowerCase().includes(search.toLowerCase())
+            );
+
+    // Pagination des données
+    const paginatedCategorys = Pagination.getData(filteredCategorys, currentPage, itemsPerPage);
+
+
+
     return(
         <>
             <h1>Liste des catégories</h1>
+            <div className={"form-group"}>
+                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
+            </div>
             <table className={"table table-hover"}>
                 <thead>
                 <tr>
@@ -34,15 +74,15 @@ const CategoriePage = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {categorys.map(category => <tr key={category.id}>
+                {paginatedCategorys.map(category => <tr key={category.id}>
                     <td>{category.id}</td>
                     <td>{category.title}</td>
                     <td><button disabled={category.products.length > 0} className={"btn btn-sm btn-danger"} onClick={() => handleDelete(category.id)}>supprimer</button></td>
                 </tr>)}
                 </tbody>
             </table>
+            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredCategorys.length} onPageChanged={handlePageChange}/>
         </>
-
     )
 }
 
