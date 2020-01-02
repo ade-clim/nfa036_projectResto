@@ -1,6 +1,7 @@
 import React,{useState, useContext} from 'react';
 import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
+import Field from "../components/forms/Fields";
 
 const LoginPage = ({history}) => {
 
@@ -36,30 +37,21 @@ const LoginPage = ({history}) => {
         <>
         <h1>Connexion a l'application</h1>
             <form onSubmit={handleSubmit}>
-                <div className={"form-group"}>
-                    <label htmlFor={"username"}>Adresse email</label>
-                    <input
-                        value={credentials.username}
-                        onChange={handleChange}
-                        type={"email"}
-                        id={"username"}
-                        placeholder={"Adresse email de connexion"}
-                        name={"username"}
-                        className={"form-control" + (error && " is-invalid")}/>
-                    {error && <p className={"invalid-feedback"}>{error}</p>}
-                </div>
-
-                <div className={"form-group"}>
-                    <label htmlFor={"password"}>Mot de passe</label>
-                    <input
-                        value={credentials.password}
-                        onChange={handleChange}
-                        type={"password"}
-                        id={"password"}
-                        placeholder={"mot de passe"}
-                        name={"password"}
-                        className={"form-control"}/>
-                </div>
+                <Field type={"email"}
+                       error={error}
+                       name={"username"}
+                       label={"Adresse email"}
+                       placeholder={"Adresse email de connexion"}
+                       value={credentials.username}
+                       onChange={handleChange}
+                />
+                <Field type={"password"}
+                       name={"password"}
+                       label={"Mot de passe"}
+                       placeholder={"Mot de passe"}
+                       value={credentials.password}
+                       onChange={handleChange}
+                />
                 <div className={"form-group"}>
                     <button className={"btn btn-success"}>Je me connecte</button>
                 </div>

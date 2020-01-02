@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
 
-const UserPage = (props) => {
+const UsersPage = (props) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -93,4 +93,4 @@ const UserPage = (props) => {
     )
 };
 
-export default UserPage;
+export default UsersPage;

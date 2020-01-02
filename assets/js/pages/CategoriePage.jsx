@@ -1,89 +1,110 @@
-import React, {useEffect, useState} from 'react';
-import Pagination from "../components/Pagination";
+import React,{useState, useEffect} from 'react';
+import {Link} from "react-router-dom";
 import categoryApi from "../services/categoryApi";
-
-const CategoriePage = (props) => {
-
-    const [categorys, setCategorys] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [search, setSearch] = useState("");
-    const itemsPerPage = 3;
+import Field from "../components/forms/Fields";
 
 
-    // Permet de recuperer les categories
-    const fetchCategorys = async () => {
+
+
+const CategoriePage = ({match, history}) => {
+
+    const {id = "new"} = match.params;
+
+
+    const [category, setCategory] = useState({
+        title: ""
+    });
+
+    const [errors, setErrors] = useState({
+        title: ""
+    });
+
+    const [editing, setEditing] = useState(false);
+
+
+    // Recuperation du customer en fonction de l'id
+    const fetchCategory = async id => {
         try {
-            const data = await categoryApi.findAll();
-            setCategorys(data);
+            const {title} = await categoryApi.find(id);
+            setCategory({title});
+
         }catch (error) {
             console.log(error.response);
+            // TODO : notification flash d'une erreur
+            history.replace("/category");
         }
     };
 
 
-    // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
+    // Chargement du customer si besoin au chargement du composant ou au changement de l'id
     useEffect(() => {
-        fetchCategorys();
-    },[]);
+        if(id !== "new"){
+            setEditing(true);
+            fetchCategory(id);
+        };
+    }, [id]);
 
 
-    // Supprimer une categorie en fonction de l'id
-    const handleDelete = async (id)=>{
-        const originalCategorys = [...categorys];
-        setCategorys(categorys.filter(category => category.id !== id));
+    // Gestion des changements des inputs dans le formulaire
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+        setCategory({...category, [name]: value});
+    };
+
+
+    // Gestion de la soumission du formulaire
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         try {
-            await categoryApi.delete(id);
-        }catch (error) {
-            setCategorys(originalCategorys);
+            if(editing){
+                await categoryApi.update(id,category);
+
+                // TODO : Flash notification de succés
+            }else{
+                await categoryApi.create(category);
+
+                // TODO : Flash notification de succés
+                history.replace("/category");
+            }
+
+            setErrors({});
+
+        }catch ({response}) {
+            const {violations} = response.data;
+
+            if(violations){
+                const apiErrors = {};
+                violations.forEach(({propertyPath, message}) => {
+                    apiErrors[propertyPath] = message;
+                });
+                setErrors(apiErrors);
+                // TODO : Flash notification de d'erreurs
+            }
         }
     };
-
-    // Gestion du changement de page
-    const handlePageChange = (page) => setCurrentPage(page);
-
-    // Gestion de la recherche
-    const handleSearch = (event) => {
-        const value = event.currentTarget.value;
-        setSearch(value);
-        setCurrentPage(1);
-    };
-
-    // Filtrage des categories en fonction de la recherche
-    const filteredCategorys = categorys.filter(
-        c =>
-            c.title.toLowerCase().includes(search.toLowerCase())
-            );
-
-    // Pagination des données
-    const paginatedCategorys = Pagination.getData(filteredCategorys, currentPage, itemsPerPage);
-
-
-
     return(
         <>
-            <h1>Liste des catégories</h1>
-            <div className={"form-group"}>
-                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
-            </div>
-            <table className={"table table-hover"}>
-                <thead>
-                <tr>
-                    <th>Id.</th>
-                    <th>Title</th>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedCategorys.map(category => <tr key={category.id}>
-                    <td>{category.id}</td>
-                    <td>{category.title}</td>
-                    <td><button disabled={category.products.length > 0} className={"btn btn-sm btn-danger"} onClick={() => handleDelete(category.id)}>supprimer</button></td>
-                </tr>)}
-                </tbody>
-            </table>
-            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredCategorys.length} onPageChanged={handlePageChange}/>
+            {(!editing && <h1>Création d'une catégorie</h1>) || (<h1>Modification d'une catégorie'</h1>) }
+            <form onSubmit={handleSubmit}>
+                <Field name={"title"}
+                       label={"Titre catégorie"}
+                       placeholder={"Titre de la catégorie"}
+                       value={category.title}
+                       onChange={handleChange}
+                       error={errors.title}
+                />
+                <div className={"form-group"}>
+                    <button type={"submit"} className={"btn btn-success"}>
+                        Enregister
+                    </button>
+                    <Link to={"/category"} className={"btn btn-link"}>
+                        Retour à la liste
+                    </Link>
+                </div>
+            </form>
         </>
     )
-}
+};
 
 export default CategoriePage;

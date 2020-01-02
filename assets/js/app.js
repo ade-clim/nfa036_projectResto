@@ -2,14 +2,15 @@ import React, {useState}from 'react';
 import ReactDom from 'react-dom';
 import HomePage from "./pages/HomePage";
 import {HashRouter, Switch, Route, withRouter} from "react-router-dom";
-import CategoriePage from "./pages/CategoriePage";
+import CategoriesPage from "./pages/CategoriesPage";
 import Navbar from "./components/Navbar";
 import ProductsPage from "./pages/ProductsPage";
-import UserPage from "./pages/UserPage";
+import UsersPage from "./pages/UsersPage";
 import LoginPage from "./pages/LoginPage";
 import AuthContext from "./contexts/AuthContext";
 import authApi from "./services/authApi";
 import PrivateRoute from "./components/PrivateRoute";
+import CategoriePage from "./pages/CategoriePage";
 require('../css/app.css');
 
 authApi.setup();
@@ -31,9 +32,10 @@ const App = () => {
             <main className={"container pt-5"}>
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
-                    <PrivateRoute path={"/user"} component={UserPage}/>
+                    <PrivateRoute path={"/user"} component={UsersPage}/>
                     <PrivateRoute path={"/product"} component={ProductsPage}/>
-                    <PrivateRoute path={"/Category"} component={CategoriePage}/>
+                    <PrivateRoute path={"/category/:id"} component={CategoriePage}/>
+                    <PrivateRoute path={"/category"} component={CategoriesPage}/>
                     <Route path={"/"} component={HomePage}/>
                 </Switch>
             </main>

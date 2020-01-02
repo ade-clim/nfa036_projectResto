@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -27,6 +28,8 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"products_read","category_read"})
+     * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="doit faire moins de 255 caracteres")
+     * @Assert\NotBlank(message="le titre de la catégorie est obligatoire")
      */
     private $title;
 
