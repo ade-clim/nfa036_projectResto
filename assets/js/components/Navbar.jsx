@@ -25,13 +25,13 @@ const Navbar = ({history}) => {
                 <ul className="navbar-nav mr-auto">
 
                     <li className="nav-item">
-                        <NavLink className="nav-link" to={"/user"}>Clients</NavLink>
+                        <NavLink className="nav-link" to={"/users"}>Clients</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link" to={"/product"}>Produits</NavLink>
+                        <NavLink className="nav-link" to={"/products"}>Produits</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link" to={"/category"}>Catégories</NavLink>
+                        <NavLink className="nav-link" to={"/categorys"}>Catégories</NavLink>
                     </li>
                 </ul>
                 <ul className="navbar-nav ml-auto">

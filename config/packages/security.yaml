@@ -47,10 +47,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/product, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/orders, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/categories, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/order_details, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/product, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/orders, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/categories, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/order_details, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY , methods:[GET, PUT, DELETE] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -31,7 +31,7 @@ const CategoriePage = ({match, history}) => {
         }catch (error) {
             console.log(error.response);
             // TODO : notification flash d'une erreur
-            history.replace("/category");
+            history.replace("/categorys");
         }
     };
 
@@ -65,10 +65,10 @@ const CategoriePage = ({match, history}) => {
                 await categoryApi.create(category);
 
                 // TODO : Flash notification de succés
-                history.replace("/category");
+                setErrors({});
+                history.replace("/categorys");
             }
 
-            setErrors({});
 
         }catch ({response}) {
             const {violations} = response.data;
@@ -98,7 +98,7 @@ const CategoriePage = ({match, history}) => {
                     <button type={"submit"} className={"btn btn-success"}>
                         Enregister
                     </button>
-                    <Link to={"/category"} className={"btn btn-link"}>
+                    <Link to={"/categorys"} className={"btn btn-link"}>
                         Retour à la liste
                     </Link>
                 </div>

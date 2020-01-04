@@ -9,13 +9,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ApiResource(attributes={"pagination_enabled" = true,
- *     "order"= {"price":"asc"}
+ *     "order"= {"id":"desc"}
  *     },
- *     normalizationContext={"groups"={"products_read"}}
+ *     normalizationContext={"groups"={"products_read"}},
+ *     denormalizationContext={"disable_type_enforcement"= true},
  *
  * )
  * @ApiFilter(SearchFilter::class, properties={"title":"partial", "category.title":"partial"})
@@ -33,24 +35,29 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"products_read"})
+     * @Assert\NotBlank(message="la dscription du produit doit etre renseigné")
      */
     private $title;
 
     /**
      * @ORM\Column(type="float")
      * @Groups({"products_read"})
+     * @Assert\NotBlank(message="montant obligatoire")
+     * @Assert\Type(type="numeric", message="le montant du produit doit être numérique")
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"products_read"})
+     * @Assert\Length(min=3, minMessage="La description doit faire entre 3 et 50 caracteres", max=50, maxMessage="doit faire moins de 50 caracteres")
+     * @Assert\NotBlank(message="la dscription du produit doit etre renseigné")
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
-     * @Groups({"products_read",})
+     * @Groups({"products_read"})
      */
     private $category;
 
@@ -87,7 +94,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice($price): self
     {
         $this->price = $price;
 

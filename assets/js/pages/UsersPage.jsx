@@ -71,8 +71,7 @@ const UsersPage = (props) => {
                 <thead>
                 <tr>
                     <th>Id.</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
+                    <th>Client</th>
                     <th>Email</th>
                     <th>Phone</th>
                 </tr>
@@ -80,8 +79,7 @@ const UsersPage = (props) => {
                 <tbody>
                 {paginatedUsers.map(user => <tr key={user.id}>
                     <td>{user.id}</td>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
+                    <td>{user.firstName} {user.lastName}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
                     <td><button disabled={user.orders.length > 0} className={"btn btn-sm btn-danger"}  onClick={() => handleDelete(user.id)}>supprimer</button></td>

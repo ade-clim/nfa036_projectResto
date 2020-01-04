@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import productApi from "../services/productApi";
 import Pagination from "../components/Pagination";
+import {Link} from "react-router-dom";
 
 const ProductsPage = (props) => {
     const [products, setProducts] = useState([]);
@@ -58,7 +59,11 @@ const ProductsPage = (props) => {
 
     return(
         <>
-            <h1>Liste des produits</h1>
+            <div className={"mb-5 d-flex justify-content-between align-items-center"}>
+                <h1>Liste des produits</h1>
+                <Link className="btn btn-primary" to={"/products/new"}>Créer un produit</Link>
+            </div>
+
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
             </div>
@@ -69,6 +74,7 @@ const ProductsPage = (props) => {
                     <th>Titre</th>
                     <th>Description</th>
                     <th>Prix</th>
+                    <th>Catégorie</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -76,8 +82,10 @@ const ProductsPage = (props) => {
                     <td>{product.id}</td>
                     <td>{product.title}</td>
                     <td>{product.description}</td>
-                    <td>{product.price}</td>
+                    <td>{product.price.toLocaleString()}</td>
+                    <td>{product.category.title}</td>
                     <td>
+                        <Link to={"/products/" + product.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
                         <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(product.id)}>Supprimer</button>
                     </td>
                 </tr>)}

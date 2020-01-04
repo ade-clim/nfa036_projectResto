@@ -81,7 +81,10 @@ const CategoriesPage = (props) => {
                 {paginatedCategorys.map(category => <tr key={category.id}>
                     <td>{category.id}</td>
                     <td>{category.title}</td>
-                    <td><button disabled={category.products.length > 0} className={"btn btn-sm btn-danger"} onClick={() => handleDelete(category.id)}>supprimer</button></td>
+                    <td>
+                        <Link  to={"/categorys/" + category.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
+                        <button disabled={category.products.length > 0} className={"btn btn-sm btn-danger"} onClick={() => handleDelete(category.id)}>supprimer</button>
+                    </td>
                 </tr>)}
                 </tbody>
             </table>

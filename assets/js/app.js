@@ -11,6 +11,8 @@ import AuthContext from "./contexts/AuthContext";
 import authApi from "./services/authApi";
 import PrivateRoute from "./components/PrivateRoute";
 import CategoriePage from "./pages/CategoriePage";
+import RegisterPage from "./pages/RegisterPage";
+import ProductPage from "./pages/ProductPage";
 require('../css/app.css');
 
 authApi.setup();
@@ -32,10 +34,12 @@ const App = () => {
             <main className={"container pt-5"}>
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
-                    <PrivateRoute path={"/user"} component={UsersPage}/>
-                    <PrivateRoute path={"/product"} component={ProductsPage}/>
-                    <PrivateRoute path={"/category/:id"} component={CategoriePage}/>
-                    <PrivateRoute path={"/category"} component={CategoriesPage}/>
+                    <Route path={"/register"} component={RegisterPage}/>
+                    <PrivateRoute path={"/users"} component={UsersPage}/>
+                    <PrivateRoute path={"/products/:id"} component={ProductPage}/>
+                    <PrivateRoute path={"/products"} component={ProductsPage}/>
+                    <PrivateRoute path={"/categorys/:id"} component={CategoriePage}/>
+                    <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
                     <Route path={"/"} component={HomePage}/>
                 </Switch>
             </main>
