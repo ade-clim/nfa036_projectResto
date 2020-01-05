@@ -54,7 +54,6 @@ function setup(){
 
 /**
  * Permet de savoir si on est authentifié ou pas
- * @returns {boolean}
  */
 function isAuthenticated() {
     // 1. Voir si on a un token

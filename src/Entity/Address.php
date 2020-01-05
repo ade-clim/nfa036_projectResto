@@ -9,40 +9,40 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdressRepository")
  * @ApiResource(
- *     normalizationContext={"groups"={"adress_read"}}
+ *     normalizationContext={"groups"={"address_read"}}
  * )
  */
-class Adress
+class Address
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"adress_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"adress_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $street;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"adress_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"adress_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"adress_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $city;
 

@@ -22,12 +22,13 @@ const LoginPage = ({history}) => {
     // Gestion du submit
     const handleSubmit = async (event) =>{
         event.preventDefault();
-        
         try {
+
             await authApi.authenticate(credentials);
+            console.log(credentials);
             setError("");
             setIsAuthenticated(true);
-            history.replace("/user");
+            history.replace("/users");
         }catch (error) {
             setError("Aucun compte ne possède cette adresse ou alors les informations ne correspondent pas !")
         }

@@ -1,18 +1,22 @@
 <?php
 
 namespace App\Entity;
-
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ApiResource(attributes={"order"= {"id":"desc"}})
+ * @ApiResource(
+ *     attributes={"order"= {"id":"desc"}},
+ *     normalizationContext={"groups"={"user_read"}}
+ *     )
+ * @UniqueEntity("email", message="un utilisateur ayant cette email existe déja")
  */
 class User implements UserInterface
 {
@@ -21,6 +25,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
@@ -28,6 +33,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="L'email doit etre renseigné")
      * @Assert\Email(message="Le format de l'adresse email doit etre valide")
+     * @Groups({"user_read"})
      */
     private $email;
 
@@ -46,27 +52,32 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le prenom doit etre renseigné")
+     * @Groups({"user_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le nom doit etre renseigné")
+     * @Groups({"user_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_read"})
      */
     private $phone;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adress", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove"})
+     * @Groups({"user_read"})
      */
-    private $adress;
+    private $address;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user")
+     * @Groups({"user_read"})
      */
     private $orders;
 
@@ -189,14 +200,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdress(): ?Adress
+    public function getAddress(): ?Address
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(?Adress $adress): self
+    public function setAddress(?Address $address): self
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }

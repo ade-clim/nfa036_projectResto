@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
+import {Link} from "react-router-dom";
 
 const UsersPage = (props) => {
     const [users, setUsers] = useState([]);
@@ -32,7 +33,6 @@ const UsersPage = (props) => {
         try {
             await userApi.delete(id);
         }catch (error) {
-            console.log(error.response);
            setUsers(originalUsers);
         }
     };
@@ -63,7 +63,7 @@ const UsersPage = (props) => {
 
     return(
         <>
-            <h1>Liste des utilisateurs</h1>
+            <h1>Liste des clients</h1>
             <div>
                 <input type={"text"} onChange={handleSearch} className={"form-control"} value={search} placeholder={"Rechercher ..."}/>
             </div>
@@ -82,7 +82,10 @@ const UsersPage = (props) => {
                     <td>{user.firstName} {user.lastName}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
-                    <td><button disabled={user.orders.length > 0} className={"btn btn-sm btn-danger"}  onClick={() => handleDelete(user.id)}>supprimer</button></td>
+                    <td>
+                        <Link to={"/users/" + user.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
+                        <button disabled={user.orders.length > 0} className={"btn btn-sm btn-danger"}  onClick={() => handleDelete(user.id)}>supprimer</button>
+                    </td>
                 </tr>)}
                 </tbody>
             </table>

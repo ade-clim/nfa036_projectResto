@@ -13,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import CategoriePage from "./pages/CategoriePage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductPage from "./pages/ProductPage";
+import UserPage from "./pages/UserPage";
 require('../css/app.css');
 
 authApi.setup();
@@ -35,6 +36,7 @@ const App = () => {
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
+                    <PrivateRoute path={"/users/:id"} component={UserPage}/>
                     <PrivateRoute path={"/users"} component={UsersPage}/>
                     <PrivateRoute path={"/products/:id"} component={ProductPage}/>
                     <PrivateRoute path={"/products"} component={ProductsPage}/>
