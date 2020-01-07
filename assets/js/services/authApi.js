@@ -9,6 +9,8 @@ function logout(){
     delete axios.defaults.headers["Authorization"];
 }
 
+
+
 /**
  * Requête HTTP d'authentification et stockage du token dans le storage et sur Axios
  * @param {object} credentials

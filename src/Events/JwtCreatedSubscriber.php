@@ -11,10 +11,12 @@ class JwtCreatedSubscriber{
 
         // enrichir les data pour qu'elles contiennent ces données
         $data = $event->getData();
+        $data['id'] = $user->getId();
         $data['firstName'] = $user->getFirstName();
         $data['lastName'] = $user->getLastName();
 
-        // on reinjecte le data dans l'event
+
+        // on réinjecte le data dans l'event
         $event->setData($data);
     }
 }

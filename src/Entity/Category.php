@@ -12,6 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ApiResource(
+ *     collectionOperations={
+            "get"
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *     },
  *     normalizationContext={"groups"={"category_read"}}
  * )
  */

@@ -7,5 +7,5 @@ api_platform:
         versions: [3]
     collection:
         pagination:
-            enabled: true
+            enabled: false
 

@@ -2,12 +2,16 @@ import React,{useState, useEffect} from 'react';
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
+import jwtDecode from 'jwt-decode';
+
 
 const UsersPage = (props) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 30;
+
+
 
     // Permet de recuperer les users
     const fetchUsers =  async () => {
@@ -60,6 +64,7 @@ const UsersPage = (props) => {
 
     // Pagination des données
     const paginatedUsers = Pagination.getData(filteredUsers, currentPage, itemsPerPage);
+
 
     return(
         <>

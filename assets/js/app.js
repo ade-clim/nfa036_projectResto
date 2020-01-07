@@ -14,6 +14,8 @@ import CategoriePage from "./pages/CategoriePage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductPage from "./pages/ProductPage";
 import UserPage from "./pages/UserPage";
+import Footer from "./components/Footer";
+import Card from "./pages/Card";
 require('../css/app.css');
 
 authApi.setup();
@@ -31,8 +33,14 @@ const App = () => {
             setIsAuthenticated
         }}>
         <HashRouter>
+            <main>
             <NavbarWithRouter/>
-            <main className={"container pt-5"}>
+
+                <Switch>
+                    <Route path={"/card"} component={Card}/>
+                </Switch>
+
+            <div className={"container pt-5"}>
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
@@ -44,6 +52,8 @@ const App = () => {
                     <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
                     <Route path={"/"} component={HomePage}/>
                 </Switch>
+            </div>
+            <Footer/>
             </main>
         </HashRouter>
         </AuthContext.Provider>

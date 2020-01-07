@@ -1,0 +1,54 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.navbar{
+    max-height: 100px;
+}
+
+.vertical-nav {
+    height: 100vh;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.img{
+
+    min-width: 50px;
+    width: 350px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -18rem;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        width: 100%;
+        margin: 0;
+    }
+    #content.active {
+        margin-left: 17rem;
+        width: calc(100% - 17rem);
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #7d8293;
+}

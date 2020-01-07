@@ -13,7 +13,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(
- *     attributes={"order"= {"id":"desc"}},
+ *     attributes={
+ *     "order"= {"id":"desc"}},
+ *     itemOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_USER')"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *         "put"={"security"="is_granted('ROLE_ADMIN')or is_granted('ROLE_MANAGER') or is_granted('ROLE_USER')"},
+ *     },
  *     normalizationContext={"groups"={"user_read"}}
  *     )
  * @UniqueEntity("email", message="un utilisateur ayant cette email existe déja")

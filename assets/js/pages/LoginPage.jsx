@@ -23,9 +23,7 @@ const LoginPage = ({history}) => {
     const handleSubmit = async (event) =>{
         event.preventDefault();
         try {
-
             await authApi.authenticate(credentials);
-            console.log(credentials);
             setError("");
             setIsAuthenticated(true);
             history.replace("/users");

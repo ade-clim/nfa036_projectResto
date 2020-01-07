@@ -13,12 +13,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
- * @ApiResource(attributes={"pagination_enabled" = true,
- *     "order"= {"id":"desc"}
+ * @ApiResource(
+ *     attributes={
+ *     "order"= {"id":"desc"},
+ *     "security"="is_granted('ROLE_ADMIN')"},
+ *     itemOperations={
+        "get"
  *     },
  *     normalizationContext={"groups"={"products_read"}},
  *     denormalizationContext={"disable_type_enforcement"= true},
- *
  * )
  * @ApiFilter(SearchFilter::class, properties={"title":"partial", "category.title":"partial"})
  */
@@ -28,20 +31,20 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"products_read"})
+     * @Groups({"products_read", "category_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"products_read"})
+     * @Groups({"products_read", "category_read"})
      * @Assert\NotBlank(message="la dscription du produit doit etre renseigné")
      */
     private $title;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"products_read"})
+     * @Groups({"products_read", "category_read"})
      * @Assert\NotBlank(message="montant obligatoire")
      * @Assert\Type(type="numeric", message="le montant du produit doit être numérique")
      */
@@ -49,7 +52,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"products_read"})
+     * @Groups({"products_read", "category_read"})
      * @Assert\Length(min=3, minMessage="La description doit faire entre 3 et 50 caracteres", max=50, maxMessage="doit faire moins de 50 caracteres")
      * @Assert\NotBlank(message="la dscription du produit doit etre renseigné")
      */

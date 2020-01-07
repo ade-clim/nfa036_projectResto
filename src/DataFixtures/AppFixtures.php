@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             $manager->persist($category);
             for ($p = 0; $p < 5; $p++) { // boucle de creation de produit
                 $produit = new Product();
-                $produit->setTitle($faker->sentence($nbWords = 3, $variableNbWords = true))
+                $produit->setTitle($faker->text($maxNbChars = 20))
                     ->setPrice(mt_rand(2, 12))
                     ->setDescription($faker->text($maxNbChars = 50))
                     ->setCategory($category); // ajoute le produit à la categorie
