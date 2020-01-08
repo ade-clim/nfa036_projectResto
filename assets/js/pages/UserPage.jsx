@@ -86,6 +86,7 @@ const UserPage = ({history, match}) => {
 
     return(
         <>
+            <div className={"container pt-5 homecontainer"}>
             <h1>Modification du client</h1>
             <form onSubmit={handleSubmit}>
                 <Field name={"lastName"}
@@ -149,7 +150,7 @@ const UserPage = ({history, match}) => {
                     </Link>
                 </div>
             </form>
-
+            </div>
         </>
     )
 };

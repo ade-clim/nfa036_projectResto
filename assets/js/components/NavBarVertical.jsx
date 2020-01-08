@@ -19,16 +19,16 @@ const NavBarVertical = () => {
                       </a>
                   </li>
                   <li className="nav-item">
-                      <Link to={"/card/1"} toto={"Bonjour"} className="nav-link text-white" >
+                      <Link to={"/card/1"} className="nav-link text-white" >
                           <span data-feather="shopping-cart"></span>
                           Burgers
                       </Link>
                   </li>
                   <li className="nav-item">
-                      <a className="nav-link text-white" href="#">
+                      <Link to={"/card/2"} className="nav-link text-white" >
                           <span data-feather="users"></span>
-                          Customers
-                      </a>
+                          Boissons
+                      </Link>
                   </li>
                   <li className="nav-item">
                       <a className="nav-link text-white" href="#">

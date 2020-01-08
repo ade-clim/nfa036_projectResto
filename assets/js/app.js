@@ -40,7 +40,7 @@ const App = () => {
                     <Route path={"/card"} component={Card}/>
                 </Switch>
 
-            <div className={"container pt-5"}>
+
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
@@ -52,7 +52,7 @@ const App = () => {
                     <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
                     <Route path={"/"} component={HomePage}/>
                 </Switch>
-            </div>
+
             <Footer/>
             </main>
         </HashRouter>

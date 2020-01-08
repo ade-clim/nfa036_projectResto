@@ -8,7 +8,7 @@ const CategoriesPage = (props) => {
     const [categorys, setCategorys] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
-    const itemsPerPage = 3;
+    const itemsPerPage = 10;
 
 
     // Permet de recuperer les categories
@@ -63,6 +63,7 @@ const CategoriesPage = (props) => {
 
     return(
         <>
+            <div className={"container pt-5 homecontainer"}>
             <div className={"mb-5 d-flex justify-content-between align-items-center"}>
                 <h1>Liste des catégories</h1>
                 <Link to={"/category/new"} className={"btn btn-primary"} >Créer une catégorie</Link>
@@ -75,12 +76,15 @@ const CategoriesPage = (props) => {
                 <tr>
                     <th>Id.</th>
                     <th>Title</th>
+                    <th className={"text-center"}>Produits</th>
                 </tr>
                 </thead>
                 <tbody>
                 {paginatedCategorys.map(category => <tr key={category.id}>
                     <td>{category.id}</td>
                     <td>{category.title}</td>
+                    <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{category.products.length}</span></td>
+
                     <td>
                         <Link  to={"/categorys/" + category.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
                         <button disabled={category.products.length > 0} className={"btn btn-sm btn-danger"} onClick={() => handleDelete(category.id)}>supprimer</button>
@@ -89,6 +93,7 @@ const CategoriesPage = (props) => {
                 </tbody>
             </table>
             <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredCategorys.length} onPageChanged={handlePageChange}/>
+            </div>
         </>
     )
 }

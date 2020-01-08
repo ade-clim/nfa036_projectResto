@@ -9,7 +9,7 @@ const UsersPage = (props) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 30;
+    const itemsPerPage = 20;
 
 
 
@@ -17,6 +17,7 @@ const UsersPage = (props) => {
     const fetchUsers =  async () => {
         try {
             const data = await userApi.findAll();
+            console.log(data)
             setUsers(data);
         }catch (error) {
             console.log(error.response);
@@ -33,7 +34,6 @@ const UsersPage = (props) => {
     const handleDelete = async (id) => {
         const originalUsers = [...users];
         setUsers(users.filter(user => user.id !== id));
-
         try {
             await userApi.delete(id);
         }catch (error) {
@@ -68,6 +68,7 @@ const UsersPage = (props) => {
 
     return(
         <>
+            <div className={"container homecontainer pt-5"}>
             <h1>Liste des clients</h1>
             <div>
                 <input type={"text"} onChange={handleSearch} className={"form-control"} value={search} placeholder={"Rechercher ..."}/>
@@ -78,7 +79,8 @@ const UsersPage = (props) => {
                     <th>Id.</th>
                     <th>Client</th>
                     <th>Email</th>
-                    <th>Phone</th>
+                    <th>Tel.</th>
+                    <th className={"text-center"}>Commande</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,6 +89,7 @@ const UsersPage = (props) => {
                     <td>{user.firstName} {user.lastName}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
+                    <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{user.orders.length}</span></td>
                     <td>
                         <Link to={"/users/" + user.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
                         <button disabled={user.orders.length > 0} className={"btn btn-sm btn-danger"}  onClick={() => handleDelete(user.id)}>supprimer</button>
@@ -95,6 +98,7 @@ const UsersPage = (props) => {
                 </tbody>
             </table>
             <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredUsers.length} onPageChanged={handlePageChange}/>
+            </div>
         </>
     )
 };

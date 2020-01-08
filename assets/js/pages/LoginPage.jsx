@@ -34,6 +34,7 @@ const LoginPage = ({history}) => {
 
     return(
         <>
+            <div className={"container pt-5 homecontainer"}>
         <h1>Connexion a l'application</h1>
             <form onSubmit={handleSubmit}>
                 <Field type={"email"}
@@ -55,6 +56,7 @@ const LoginPage = ({history}) => {
                     <button className={"btn btn-success"}>Je me connecte</button>
                 </div>
             </form>
+            </div>
         </>
     )
 };

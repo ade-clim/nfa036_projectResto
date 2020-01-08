@@ -19,8 +19,11 @@ html {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.img{
+.mycard{
 
+}
+
+.img{
     min-width: 50px;
     width: 350px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
@@ -50,5 +53,17 @@ html {
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
-    background-color: #7d8293;
+    background-color: black;
+}
+.footer, a, h5{
+    color: white;
+}
+.footert{
+    background-color: black;
+}
+.pagination{
+
+}
+.homecontainer{
+    margin-bottom: 200px;
 }

@@ -10,7 +10,7 @@ const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
         pages.push(i);
     }
     return(
-        <div className={"mb-5"}>
+        <div className={"pagination"}>
             <ul className="pagination pagination-sm">
                 <li className={"page-item" + ( currentPage === 1 && " disabled")}>
                     <button className="page-link" onClick={() => onPageChanged(currentPage - 1)}>&laquo;</button>

@@ -4,17 +4,18 @@ import categoryApi from "../services/categoryApi";
 
 const Burgers = ({history, match}) => {
     const {id = "new"} = match.params;
-
     const [category, setCategory] = useState({
         title:"",
-        products: ""
+        products: []
     });
+    const [products, setProducts] = useState([]);
 
     // Permet de recuperer les produits
     const fetchCategory = async (id) => {
         try {
-            const {title, products} = await categoryApi.find(id);
-            setCategory({title, products});
+            const data = await categoryApi.find(id);
+            setProducts(data.products)
+            setCategory(data);
         }catch (error) {
             console.log(error.response)
         }
@@ -33,39 +34,14 @@ const Burgers = ({history, match}) => {
             <div>
                 <h1>Burgers</h1>
             </div>
+            {category.title}
             <div className="row mt-5">
                 <div className={"mt-5"}>
+                {products.map(product =><>
                     <span>
-                        <img src={h01} className="col-md-3 img"/>
+                        <img src={h01} className="col-md-3 mt-5 img"/>
                     </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                </div>
-                <div className={"mt-5"}>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                </div>
-                <div className={"mt-5"}>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
-                    <span>
-                        <img src={h01} className="col-md-3 img"/>
-                    </span>
+                </>)}
                 </div>
             </div>
         </div>

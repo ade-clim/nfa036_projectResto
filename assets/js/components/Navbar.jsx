@@ -4,7 +4,7 @@ import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import logo from '../../img/logo.png'
-
+import logo01 from'../../img/logo01.png'
 const Navbar = ({history}) => {
 
     const [user, setUser] = useState({
@@ -58,15 +58,21 @@ const Navbar = ({history}) => {
                             <li className="nav-item">
                             <NavLink className="nav-link" to={"/categorys"}>Catégories</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to={"/categorys"}>Commande</NavLink>
+                            </li>
                         </>)}
-
                     </ul>
-                    <ul className={"navbar-nav"}>
+
+                    <ul className={"navbar-nav ml-auto pt-5"}>
                         <li>
-                            <NavLink to={"/"} className="navbar-brand"><img src={logo} width={"120px"}/></NavLink>
+                            <NavLink to={"/"} className="navbar-brand"><img src={logo01} width={"140px"}/></NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
+                        <li>
+                            <NavLink to={"/"} className="navbar-brand mycard"><img src={logo} width={"20px"}/></NavLink>
+                        </li>
                         {(!isAuthenticated &&
                             (<>
                                     <li className="nav-item">
