@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react'
 import h01 from '../../img/h01.jpg'
 import categoryApi from "../services/categoryApi";
 
-const Burgers = ({match}) => {
+const Burgers = ({toto}) => {
 
-    const {id = "new"} = match.params;
-
+    const [burgers, setBurgers] = useState([]);
     const [category, setCategory] = useState({
         title:"",
         products: []
     });
+
 
     const [products, setProducts] = useState([]);
 
@@ -27,20 +27,18 @@ const Burgers = ({match}) => {
 
 // Recuperation de la bonne facture dans l'identifiant de l'url change
     useEffect(() => {
-        if(id !== "new"){
-            fetchCategory(id);
-        }
-    }, [id]);
+        setBurgers(toto);
+    }, []);
 
     return (<>
         <div className="container col-9 homecontainer">
             <div>
                 <h1 on>Burgers</h1>
             </div>
-            {category.title}
+
             <div className="container col-12">
                 <div className={"gallery"}>
-                {products.map(product =><>
+                {burgers.map(product =><>
                     <div className={"row"}>
                     <img key={product.id} src={h01} className="col-md-3 mt-5 img"/>
                     </div>

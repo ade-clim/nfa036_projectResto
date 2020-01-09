@@ -83,7 +83,7 @@ const CategoriesPage = (props) => {
                 {paginatedCategorys.map(category => <tr key={category.id}>
                     <td>{category.id}</td>
                     <td>{category.title}</td>
-                    <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{category.products.length}</span></td>
+                    <td className={"text-center"}><Link to={"/products/"+ category.id} className={"badge badge-pill badge-info"}>{category.products.length}</Link></td>
 
                     <td>
                         <Link  to={"/categorys/" + category.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>

@@ -3,10 +3,9 @@ import {Link, NavLink} from "react-router-dom";
 import authApi from "../services/authApi";
 import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
-import logo from '../../img/logo.png'
 import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCartArrowDown, faShoppingCart, faCartPlus, faLuggageCart} from '@fortawesome/free-solid-svg-icons'
+import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
 
 
 const Navbar = ({history}) => {

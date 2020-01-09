@@ -18,7 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "order"= {"id":"desc"},
  *     "security"="is_granted('ROLE_ADMIN')"},
  *     itemOperations={
-        "get"
+       "get"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *     "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *     "put"={"security"="is_granted('ROLE_ADMIN')"},
  *     },
  *     normalizationContext={"groups"={"products_read"}},
  *     denormalizationContext={"disable_type_enforcement"= true},

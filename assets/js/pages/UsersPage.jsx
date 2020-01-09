@@ -18,7 +18,6 @@ const UsersPage = (props) => {
     const fetchUsers =  async () => {
         try {
             const data = await userApi.findAll();
-            console.log(data)
             setUsers(data);
         }catch (error) {
             console.log(error.response);
@@ -63,10 +62,6 @@ const UsersPage = (props) => {
     );
 
 
-    const handleMouse = () => {
-        console.log("test");
-    };
-
     // Pagination des données
     const paginatedUsers = Pagination.getData(filteredUsers, currentPage, itemsPerPage);
 
@@ -96,7 +91,7 @@ const UsersPage = (props) => {
                     <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{user.orders.length}</span></td>
                     <td>
                         <Link to={"/users/" + user.id} className={"mr-4"}><FontAwesomeIcon color={"black"} icon={faEdit} /></Link>
-                        <button disabled={user.orders.length > 0} className={" border-0 bg-transparent"} onMouseEnter={handleMouse}  onClick={() => handleDelete(user.id)}><FontAwesomeIcon color={"red"} icon={faTrash} /></button>
+                        <button disabled={user.orders.length > 0} className={" border-0 bg-transparent"} onClick={() => handleDelete(user.id)}><FontAwesomeIcon color={"red"} icon={faTrash} /></button>
                     </td>
                 </tr>)}
                 </tbody>

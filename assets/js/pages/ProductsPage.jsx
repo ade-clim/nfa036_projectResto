@@ -50,7 +50,8 @@ const ProductsPage = (props) => {
     const filteredProducts = products.filter(
         c =>
             c.title.toLowerCase().includes(search.toLowerCase()) ||
-            c.description.toLowerCase().includes(search.toLowerCase())
+            c.description.toLowerCase().includes(search.toLowerCase()) ||
+            c.category.title.toLowerCase().includes(search.toLowerCase())
     );
 
     // Pagination des données
