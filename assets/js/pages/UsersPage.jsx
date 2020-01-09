@@ -2,7 +2,8 @@ import React,{useState, useEffect} from 'react';
 import userApi from "../services/userApi";
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
-import jwtDecode from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 
 const UsersPage = (props) => {
@@ -91,8 +92,8 @@ const UsersPage = (props) => {
                     <td>{user.phone}</td>
                     <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{user.orders.length}</span></td>
                     <td>
-                        <Link to={"/users/" + user.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
-                        <button disabled={user.orders.length > 0} className={"btn btn-sm btn-danger"}  onClick={() => handleDelete(user.id)}>supprimer</button>
+                        <Link to={"/users/" + user.id} className={"mr-4"}><FontAwesomeIcon color={"black"} icon={faEdit} /></Link>
+                        <button disabled={user.orders.length > 0} className={" border-0 bg-transparent"}  onClick={() => handleDelete(user.id)}><FontAwesomeIcon color={"red"} icon={faTrash} /></button>
                     </td>
                 </tr>)}
                 </tbody>

@@ -34,6 +34,7 @@ const Navbar = ({history}) => {
     }, []);
 
 
+
     return(
         <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,12 +67,13 @@ const Navbar = ({history}) => {
 
                     <ul className={"navbar-nav ml-auto pt-5"}>
                         <li>
-                            <NavLink to={"/"} className="navbar-brand"><img src={logo01} width={"140px"}/></NavLink>
+                            <NavLink to={"/"} className="navbar-brand logo"><img src={logo01} width={"140px"}/></NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li>
-                            <NavLink to={"/"} className="navbar-brand mycard"><img src={logo} width={"20px"}/></NavLink>
+
+                            <NavLink to={"/"} className="navbar-brand mycard"><img  src={logo} width={"20px"}/></NavLink>
                         </li>
                         {(!isAuthenticated &&
                             (<>
@@ -81,7 +83,7 @@ const Navbar = ({history}) => {
                                         </NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink to={"/login"} className="btn btn-success">
+                                        <NavLink to={"/login"} className="btn btn-primary">
                                             Connexion !
                                         </NavLink>
                                     </li>

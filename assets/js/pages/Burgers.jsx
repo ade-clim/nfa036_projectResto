@@ -32,7 +32,7 @@ const Burgers = ({history, match}) => {
     return (<>
         <div className="container col-9 pt-5 mt-5">
             <div>
-                <h1>Burgers</h1>
+                <h1 on>Burgers</h1>
             </div>
             {category.title}
             <div className="row mt-5">
