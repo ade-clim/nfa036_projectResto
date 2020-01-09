@@ -5,6 +5,10 @@ import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import logo from '../../img/logo.png'
 import logo01 from'../../img/logo01.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCartArrowDown, faShoppingCart, faCartPlus, faLuggageCart} from '@fortawesome/free-solid-svg-icons'
+
+
 const Navbar = ({history}) => {
 
     const [user, setUser] = useState({
@@ -73,7 +77,7 @@ const Navbar = ({history}) => {
                     <ul className="navbar-nav ml-auto">
                         <li>
 
-                            <NavLink to={"/"} className="navbar-brand mycard"><img  src={logo} width={"20px"}/></NavLink>
+                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} /></NavLink>
                         </li>
                         {(!isAuthenticated &&
                             (<>

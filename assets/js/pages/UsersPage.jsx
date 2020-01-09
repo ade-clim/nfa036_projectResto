@@ -63,13 +63,16 @@ const UsersPage = (props) => {
     );
 
 
+    const handleMouse = () => {
+        console.log("test");
+    };
+
     // Pagination des données
     const paginatedUsers = Pagination.getData(filteredUsers, currentPage, itemsPerPage);
 
-
     return(
         <>
-            <div className={"container homecontainer pt-5"}>
+            <div className={"container homecontainer"}>
             <h1>Liste des clients</h1>
             <div>
                 <input type={"text"} onChange={handleSearch} className={"form-control"} value={search} placeholder={"Rechercher ..."}/>
@@ -93,7 +96,7 @@ const UsersPage = (props) => {
                     <td className={"text-center"}><span className={"badge badge-pill badge-info"}>{user.orders.length}</span></td>
                     <td>
                         <Link to={"/users/" + user.id} className={"mr-4"}><FontAwesomeIcon color={"black"} icon={faEdit} /></Link>
-                        <button disabled={user.orders.length > 0} className={" border-0 bg-transparent"}  onClick={() => handleDelete(user.id)}><FontAwesomeIcon color={"red"} icon={faTrash} /></button>
+                        <button disabled={user.orders.length > 0} className={" border-0 bg-transparent"} onMouseEnter={handleMouse}  onClick={() => handleDelete(user.id)}><FontAwesomeIcon color={"red"} icon={faTrash} /></button>
                     </td>
                 </tr>)}
                 </tbody>

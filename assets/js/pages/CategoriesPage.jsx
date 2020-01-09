@@ -63,7 +63,7 @@ const CategoriesPage = (props) => {
 
     return(
         <>
-            <div className={"container pt-5 homecontainer"}>
+            <div className={"container homecontainer"}>
             <div className={"mb-5 d-flex justify-content-between align-items-center"}>
                 <h1>Liste des catégories</h1>
                 <Link to={"/category/new"} className={"btn btn-primary"} >Créer une catégorie</Link>

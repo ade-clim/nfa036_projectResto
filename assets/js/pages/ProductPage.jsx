@@ -101,7 +101,7 @@ const ProductPage = ({history, match}) => {
 
     return(
         <>
-            <div className={"container pt-5 homecontainer"}>
+            <div className={"container homecontainer"}>
             {(!editing && <h1>Création d'un produit</h1>) || (<h1>Modification du produit</h1>) }
             <form onSubmit={handleSubmit}>
                 <Field name={"title"}
