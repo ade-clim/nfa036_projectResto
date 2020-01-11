@@ -28,7 +28,7 @@ const Card = () => {
                 <div className="row ">
                     <NavBarVertical/>
                     <Switch>
-                        <Route path={"/card/burgers"} component={(props) => <Burgers {...props} toto={burgers}/>}/>
+                        <Route path={"/card/burgers"} component={(props) => <Burgers {...props} productList={burgers}/>}/>
                     </Switch>
                     </div>
             </div>
