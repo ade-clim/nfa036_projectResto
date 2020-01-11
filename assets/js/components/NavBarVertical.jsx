@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
 
-const NavBarVertical = () => {
+const NavBarVertical = ({toto}) => {
   return (
       <div className="col-md-2 d-none d-md-block bg-danger sidebar vertical-nav">
           <div className="container">
@@ -35,6 +35,7 @@ const NavBarVertical = () => {
                       <a className="nav-link text-white text-uppercase" href="#">
                           Integrations
                       </a>
+                      {toto}
                   </li>
               </ul>
           </div>

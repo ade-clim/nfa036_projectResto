@@ -16,6 +16,13 @@ function find(id){
         .then(response => response.data);
 }
 
+function findByCategory(id){
+    return axios
+        .get("https://localhost:8000/api/products/" + id)
+        .then(response => response.data);
+}
+
+
 function update(id, product){
     return axios.put("https://localhost:8000/api/products/" + id, {...product, category: `/api/categories/${product.category}`});
 }

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import CartContext from "../contexts/CartContext";
 
 const HomePage = () => {
-    return(<>
+    const contextValue = useContext(CartContext);
+    return(
+        <div className={"homecontainer"}>
 
-    </>)
+
+
+    </div>
+    )
 };
 
 export default HomePage;

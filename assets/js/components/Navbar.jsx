@@ -6,15 +6,22 @@ import jwtDecode from "jwt-decode";
 import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
+import CartContext from "../contexts/CartContext";
 
 
-const Navbar = ({history}) => {
+const Navbar = ({history, changetoto}) => {
+
+    // Recup données du Cartcontext
+    //const contextValue = useContext(CartContext);
 
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
         id:""
     });
+
+
+
 
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
 
@@ -34,7 +41,8 @@ const Navbar = ({history}) => {
 
     useEffect(() => {
         handleFetchUser();
-    }, []);
+        console.log(changetoto);
+    }, [changetoto]);
 
 
 
@@ -76,7 +84,7 @@ const Navbar = ({history}) => {
                     <ul className="navbar-nav ml-auto">
                         <li>
 
-                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} /></NavLink>
+                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{changetoto}</NavLink>
                         </li>
                         {(!isAuthenticated &&
                             (<>

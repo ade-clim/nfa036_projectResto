@@ -71,9 +71,16 @@ class Product
      */
     private $orderDetails;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Extra", mappedBy="product")
+     * @Groups({"products_read", "category_read"})
+     */
+    private $extras;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+        $this->extras = new ArrayCollection();
     }
 
 
@@ -155,6 +162,37 @@ class Product
             // set the owning side to null (unless already changed)
             if ($orderDetail->getProducts() === $this) {
                 $orderDetail->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Extra[]
+     */
+    public function getExtras(): Collection
+    {
+        return $this->extras;
+    }
+
+    public function addExtra(Extra $extra): self
+    {
+        if (!$this->extras->contains($extra)) {
+            $this->extras[] = $extra;
+            $extra->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExtra(Extra $extra): self
+    {
+        if ($this->extras->contains($extra)) {
+            $this->extras->removeElement($extra);
+            // set the owning side to null (unless already changed)
+            if ($extra->getProduct() === $this) {
+                $extra->setProduct(null);
             }
         }
 

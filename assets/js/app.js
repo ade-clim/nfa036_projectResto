@@ -16,6 +16,8 @@ import ProductPage from "./pages/ProductPage";
 import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import Card from "./pages/Card";
+import Burgers from "./pages/Burgers";
+
 require('../css/app.css');
 
 authApi.setup();
@@ -27,23 +29,24 @@ const App = () => {
 
     const NavbarWithRouter = withRouter(Navbar);
 
-    return(
-        <AuthContext.Provider value={{
-            isAuthenticated,
-            setIsAuthenticated
-        }}>
+
+    const [tarifTest, setTarifTest] = useState(0);
+
+    const handleclick = (value) => {
+        setTarifTest(tarifTest + value);
+        console.log(tarifTest);
+    };
+
+
+    return(<>
+        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
         <HashRouter>
             <main>
             <NavbarWithRouter/>
-
-                <Switch>
-                    <Route path={"/card"} component={Card}/>
-                </Switch>
-
-
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
+                    <Route path={"/card"} component={(props) => <Card {...props} tarifTest={handleclick}/>}/>
                     <PrivateRoute path={"/users/:id"} component={UserPage}/>
                     <PrivateRoute path={"/users"} component={UsersPage}/>
                     <PrivateRoute path={"/products/:id"} component={ProductPage}/>
@@ -52,12 +55,12 @@ const App = () => {
                     <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
                     <Route path={"/"} component={HomePage}/>
                 </Switch>
-
             <Footer/>
             </main>
         </HashRouter>
         </AuthContext.Provider>
-    )
+   </> )
 };
+
 const rootElement = document.querySelector('#app');
 ReactDom.render(<App/>, rootElement);

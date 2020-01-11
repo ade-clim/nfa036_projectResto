@@ -3,19 +3,14 @@ import h01 from '../../img/h01.jpg'
 import img from '../../img/h01.jpg'
 import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 
+const Burgers = ({productList, tarifTest}) => {
 
-const Burgers = ({productList}) => {
 
-    const [total, setTotal] = useState(0);
     const [burgers, setBurgers] = useState([]);
     const [product, setProduct] = useState([]);
-
     const [modalShow, setModalShow] = useState(false);
+    const [extras, setExtras] = useState([]);
 
-
-    const handleClickTotal = (tarif) => {
-        setTotal(total + tarif);
-    };
 
     // Recuperation de la bonne facture dans l'identifiant de l'url change
     useEffect(() => {
@@ -23,17 +18,17 @@ const Burgers = ({productList}) => {
     }, []);
 
 
-    return (<>
+    //setExtras(product.extras.map(extras => extras.title))
+    return (
         <div className="container col-9 homecontainer">
             <div>
-                <h1>Burgers</h1>{total}
+                <h1>Burgers</h1>
             </div>
-
             <div className="">
-                <div className={"gallery "}>
+                <div className={"gallery"}>
                 {burgers.map(product =>
                     <div key={product.id}>
-                        <a onClick={() => (setModalShow(true), setProduct(product) )}><img src={h01} className="mt-5 img"/></a>
+                        <a onClick={() => (setModalShow(true), setProduct(product), setExtras(product.extras.map(extras => extras)) )}><img src={h01} className="mt-5 img"/></a>
                     </div>
                 )}
                 </div>
@@ -42,10 +37,10 @@ const Burgers = ({productList}) => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 product={product}
-                changetoto={handleClickTotal}
+                extras={extras}
+                tarifTest={tarifTest}
             />
         </div>
-        </>
     )
 };
 
