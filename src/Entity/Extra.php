@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,26 +18,31 @@ class Extra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"extras_read", "products_read", "category_read"})
+     * @Groups({"extras_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"extras_read", "products_read", "category_read"})
+     * @Groups({"extras_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"extras_read", "products_read", "category_read"})
+     * @Groups({"extras_read"})
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="extras")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
      */
-    private $product;
+    private $productExtras;
+
+    public function __construct()
+    {
+        $this->productExtras = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,14 +73,33 @@ class Extra
         return $this;
     }
 
-    public function getProduct(): ?Product
+    /**
+     * @return Collection|ProductExtra[]
+     */
+    public function getProductExtras(): Collection
     {
-        return $this->product;
+        return $this->productExtras;
     }
 
-    public function setProduct(?Product $product): self
+    public function addProductExtra(ProductExtra $productExtra): self
     {
-        $this->product = $product;
+        if (!$this->productExtras->contains($productExtra)) {
+            $this->productExtras[] = $productExtra;
+            $productExtra->setExtra($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductExtra(ProductExtra $productExtra): self
+    {
+        if ($this->productExtras->contains($productExtra)) {
+            $this->productExtras->removeElement($productExtra);
+            // set the owning side to null (unless already changed)
+            if ($productExtra->getExtra() === $this) {
+                $productExtra->setExtra(null);
+            }
+        }
 
         return $this;
     }

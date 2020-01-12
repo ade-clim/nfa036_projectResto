@@ -27,7 +27,7 @@ function create(category){
 
 export default {
     findAll,
-    delete : deleteCategory,
+    deleteCategory,
     find,
     update,
     create

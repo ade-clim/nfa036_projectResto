@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Address;
 use App\Entity\Category;
+use App\Entity\Extra;
 use App\Entity\Orders;
 use App\Entity\Product;
 use App\Entity\User;
@@ -64,8 +65,33 @@ class AppFixtures extends Fixture
 
                 $manager->persist($client);
             }
-            $manager->flush();
+
         }
+
+        // Création des extras
+
+        $sauces = new Extra();
+        $sauces->setTitle("Sauce")
+            ->setDescription("Choissisez votre sauce");
+        $manager->persist($sauces);
+
+        $cuisson = new Extra();
+        $cuisson->setTitle("Cuisson")
+            ->setDescription("Choissisez votre cuisson");
+        $manager->persist($cuisson);
+
+        $supplements = new Extra();
+        $supplements->setTitle("Suppléments")
+            ->setDescription("Choissisez vos suppléments");
+        $manager->persist($supplements);
+
+        $viandes = new Extra();
+        $viandes->setTitle("Viande")
+            ->setDescription("Choissisez votre viande");
+        $manager->persist($viandes);
+
+
+        $manager->flush();
     }
 }
            /* for ($c = 0; $c < mt_rand(1,8); $c++){ // boucle creation aleatoire de commande pour chaque client

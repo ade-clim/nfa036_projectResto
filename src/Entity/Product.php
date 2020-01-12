@@ -72,15 +72,16 @@ class Product
     private $orderDetails;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Extra", mappedBy="product")
-     * @Groups({"products_read", "category_read"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="product")
      */
-    private $extras;
+    private $productExtras;
+
 
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
         $this->extras = new ArrayCollection();
+        $this->productExtras = new ArrayCollection();
     }
 
 
@@ -169,30 +170,30 @@ class Product
     }
 
     /**
-     * @return Collection|Extra[]
+     * @return Collection|ProductExtra[]
      */
-    public function getExtras(): Collection
+    public function getProductExtras(): Collection
     {
-        return $this->extras;
+        return $this->productExtras;
     }
 
-    public function addExtra(Extra $extra): self
+    public function addProductExtra(ProductExtra $productExtra): self
     {
-        if (!$this->extras->contains($extra)) {
-            $this->extras[] = $extra;
-            $extra->setProduct($this);
+        if (!$this->productExtras->contains($productExtra)) {
+            $this->productExtras[] = $productExtra;
+            $productExtra->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeExtra(Extra $extra): self
+    public function removeProductExtra(ProductExtra $productExtra): self
     {
-        if ($this->extras->contains($extra)) {
-            $this->extras->removeElement($extra);
+        if ($this->productExtras->contains($productExtra)) {
+            $this->productExtras->removeElement($productExtra);
             // set the owning side to null (unless already changed)
-            if ($extra->getProduct() === $this) {
-                $extra->setProduct(null);
+            if ($productExtra->getProduct() === $this) {
+                $productExtra->setProduct(null);
             }
         }
 

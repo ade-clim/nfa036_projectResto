@@ -17,6 +17,8 @@ import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import Card from "./pages/Card";
 import Burgers from "./pages/Burgers";
+import ExtrasPage from "./pages/ExtrasPage";
+import ExtraPage from "./pages/ExtraPage";
 
 require('../css/app.css');
 
@@ -47,6 +49,8 @@ const App = () => {
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
                     <Route path={"/card"} component={(props) => <Card {...props} tarifTest={handleclick}/>}/>
+                    <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
+                    <PrivateRoute path={"/extras"} component={ExtrasPage}/>
                     <PrivateRoute path={"/users/:id"} component={UserPage}/>
                     <PrivateRoute path={"/users"} component={UsersPage}/>
                     <PrivateRoute path={"/products/:id"} component={ProductPage}/>

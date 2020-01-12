@@ -71,7 +71,7 @@ const Navbar = ({history, changetoto}) => {
                             <NavLink className="nav-link" to={"/categorys"}>Catégories</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to={"/categorys"}>Commande</NavLink>
+                                <NavLink className="nav-link" to={"/extras"}>Extras</NavLink>
                             </li>
                         </>)}
                     </ul>

@@ -86,7 +86,7 @@ const CategoriePage = ({match, history}) => {
     return(
         <>
             <div className={"container homecontainer"}>
-            {(!editing && <h1>Création d'une catégorie</h1>) || (<h1>Modification d'une catégorie'</h1>) }
+            {(!editing && <h1>Création d'une catégorie</h1>) || (<h1>Modification d'une catégorie</h1>) }
             <form onSubmit={handleSubmit}>
                 <Field name={"title"}
                        label={"Titre catégorie"}

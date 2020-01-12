@@ -50,7 +50,7 @@ security:
         - { path: ^/api/product, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/addresses, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/orders, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/categories, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/categories, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/order_details, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY , methods:[GET, PUT, DELETE] }
 

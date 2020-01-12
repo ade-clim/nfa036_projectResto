@@ -66,7 +66,7 @@ const CategoriesPage = (props) => {
             <div className={"container homecontainer"}>
             <div className={"mb-5 d-flex justify-content-between align-items-center"}>
                 <h1>Liste des catégories</h1>
-                <Link to={"/category/new"} className={"btn btn-primary"} >Créer une catégorie</Link>
+                <Link to={"/categorys/new"} className={"btn btn-primary"} >Créer une catégorie</Link>
             </div>
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
