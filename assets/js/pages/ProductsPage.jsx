@@ -2,32 +2,53 @@ import React, {useEffect, useState} from 'react';
 import productApi from "../services/productApi";
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
+import extraProductApi from "../services/extraProductApi";
 
 const ProductsPage = (props) => {
     const [products, setProducts] = useState([]);
+    const [extras, setExtras] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const itemsPerPage = 6;
+    const [idLastProduct, setIdLastProduct] = useState();
 
-    // Permet de recuperer les produits
-    const fetchProducts = async () => {
+    // Permet de recuperer les extras
+    const fetchExtras = async (idProduct) => {
         try {
-            const data = await productApi.findAll()
-            setProducts(data)
+            const data = await extraProductApi.findAll();
+            setExtras(data);
         }catch (error) {
             console.log(error.response)
         }
     };
+
+
+    // Permet de recuperer les produits
+    const fetchProducts = async () => {
+        try {
+            const data = await productApi.findAll();
+            setProducts(data);
+
+            // on recupere la derniere id
+            const lastId = data[0];
+
+            setIdLastProduct(lastId);
+        }catch (error) {
+            console.log(error.response)
+        }
+    };
+
     //useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
-        fetchProducts()
+        fetchProducts();
+        fetchExtras();
     },[]);
 
 
     // Supprimer un produit en fonction de l'id
     const handleDelete = async (id)=>{
         const originalProducts = [...products];
-        setProducts(products.filter(product => product.id !== id))
+        setProducts(products.filter(product => product.id !== id));
 
         try {
             await productApi.delete(id);
@@ -57,13 +78,15 @@ const ProductsPage = (props) => {
     // Pagination des données
     const paginatedProducts = Pagination.getData(filteredProducts, currentPage, itemsPerPage);
 
+    // "/products/new"
 
     return(
         <>
             <div className={"container homecontainer"}>
             <div className={"mb-5 d-flex justify-content-between align-items-center"}>
                 <h1>Liste des produits</h1>
-                <Link className="btn btn-primary" to={"/products/new"}>Créer un produit</Link>
+                <Link className="btn btn-primary"
+                      to={{pathname:"/products/new", state: {idlast:"5"}}} >Créer un produit</Link>
             </div>
 
             <div className={"form-group"}>
@@ -77,6 +100,7 @@ const ProductsPage = (props) => {
                     <th>Description</th>
                     <th>Prix</th>
                     <th>Catégorie</th>
+                    <th>Extras</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,6 +114,7 @@ const ProductsPage = (props) => {
                         <Link to={"/products/" + product.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
                         <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(product.id)}>Supprimer</button>
                     </td>
+                    <td></td>
                 </tr>)}
                 </tbody>
             </table>
