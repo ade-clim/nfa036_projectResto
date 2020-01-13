@@ -18,24 +18,25 @@ class Extra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"extras_read","productExtra_read"})
+     * @Groups({"extras_read","productExtra_read", "products_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"extras_read","productExtra_read"})
+     *@Groups({"extras_read","productExtra_read", "products_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"extras_read","productExtra_read"})
+     * @Groups({"extras_read","productExtra_read", "products_read"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
+     *  @Groups({"extras_read"})
      */
     private $productExtras;
 

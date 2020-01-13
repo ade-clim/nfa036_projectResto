@@ -10,11 +10,13 @@ import extraProductApi from "../services/extraProductApi";
 const ProductPage = ({history, match}) => {
 
     const {id = "new"} = match.params;
-
+    const tabTest = [];
     const [idLastProduct, setIdLastProduct] = useState();
     const [extras, setExtras] = useState([]);
     const [optionsChecked, setOptionChecked] = useState([]);
 
+    const [caseCheck, setCaseCheck] = useState([]);
+    const [caseNoCheck, setCaseNoCheck] = useState([]);
     const [extrasByProduct, setExtrasByProduct] = useState([]);
     const [productExtra, setProductExtra] = useState({
         extra: "",
@@ -39,26 +41,7 @@ const ProductPage = ({history, match}) => {
     const [editing, setEditing] = useState(false);
 
 
-    //Recuperation des extras par produit
-    const fetchExtrasByProduct = async (idProduit) => {
-        console.log("je suis dans fetchExtrasByProduct")
-        try {
-            const data = await extraProductApi.findAll();
-            // On stock les extras pour le produit en cours d'editions
-            setExtrasByProduct(data.filter(extra => extra.product.id == idProduit));
 
-            //console.log(Object.values(data));
-
-            //On recupere l' id des extras que le produit en editions contient
-
-
-
-
-        }catch (error) {
-            // TODO : Flash notification erreur
-            history.replace("/products");
-        }
-    };
 
     //Recuperation des extras disponible
     const fetchExtras = async () => {
@@ -101,7 +84,41 @@ const ProductPage = ({history, match}) => {
         }
     };
 
+    // Recuperation des extras par produit
+    const fetchExtrasByProduct = async (idProduit) => {
+        console.log("je suis dans fetchExtrasByProduct")
+        try {
 
+            const data = await extraProductApi.findAll();
+
+            // On stock les extras qui appartiennent au produit en cours d'editions
+            setExtrasByProduct(data.filter(extra => extra.product.id == idProduit));
+
+            ///////
+            const extraCopyTab = [...extras];
+            const extraByProductcopyTab = [...extrasByProduct];
+            const stockIdCaseCheck = [];
+            const stockIdExtraNoCheck = [];
+            console.log(extras.length)
+            for (let i = 0; i < extraByProductcopyTab.length; i++){
+                console.log("test")
+                for (let p = 0; p < extraCopyTab.length; p++){
+
+                    if (extraByProductcopyTab[i] === extraCopyTab[p].title){
+
+                        stockIdCaseCheck.push(extraByProductcopyTab[i]);
+                    }
+                }
+            };
+
+        }catch (error) {
+            // TODO : Flash notification erreur
+            history.replace("/products");
+        }
+    };
+
+    const verifCheck = () => {
+    };
 
 
     // Recuperation de la liste des categorys à chaque chargement de composant
@@ -118,6 +135,7 @@ const ProductPage = ({history, match}) => {
             setEditing(true);
             fetchProduct(id);
             fetchExtrasByProduct(id);
+            verifCheck();
         }
     }, [id]);
 
@@ -141,10 +159,11 @@ const ProductPage = ({history, match}) => {
         }
     };
 
-    const lastProduct= async () => {
+    const lastProductCreate= async () => {
         const extraTab = [...extras];
 
         // on parcours nos options check pour recup les objets extras qui correspondents et on creer en base de données
+
         for (let i = 0; i < optionsChecked.length; i++){
             for (let p = 0; p < extraTab.length; p++){
                 if (optionsChecked[i] === extraTab[p].title){
@@ -155,21 +174,44 @@ const ProductPage = ({history, match}) => {
         };
     };
 
+    const lastProductEditing = async () => {
+        const extraTab = [...extras];
+        for (let i = 0; i < extrasByProduct.length; i++){
+            console.log(extrasByProduct[i].extra.id);
+            for (let o = 0; o < extraTab.length; o++){
+                console.log(extraTab[o].id)
+                if (extrasByProduct[i].extra.id == extraTab[o].id){
+                    console.log("testtesttest")
+                }
+            }
+        };
+
+
+
+        // on parcours nos options check pour recup les objets extras qui correspondents et on creer en base de données
+        for (let i = 0; i < optionsChecked.length; i++){
+            for (let p = 0; p < extraTab.length; p++){
+                if (optionsChecked[i] === extraTab[p].title){
+                    //const ExtraProduct = {extra: extraTab[p].id, product: idLastProduct.id};
+                    //await extraProductApi.create(ExtraProduct);
+                }
+            }
+        };
+    };
+
+
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
-
         event.preventDefault();
         try {
             if(editing){
-                //await productApi.update(id, product);
+                await productApi.update(id, product);
+                lastProductEditing();
                 // TODO : Flash notification success
             }else{
                 await productApi.create(product);
-                // creation des extraProduct en fonction du produit creer
+                lastProductCreate();
 
-                lastProduct();
-
-                //console.log(product);
                 // TODO : Flash notification success
                 history.replace("/products");
             }
@@ -264,23 +306,49 @@ const ProductPage = ({history, match}) => {
                     {optionsChecked.map(oc => <p>{oc}</p>)}
 
                 </div>) || (<div className="form-group">
-                    {extrasByProduct.map(test => <>{test.extra.id}</>)}
-                    {extras.map(extra =>
-                        <div key={extra.id} className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input"
-                                   onChange={handleChecked}
-                                   name={extra.id}
-                                   id={extra.id}
-                                   //extrasByProduct.map(t => t.extra.id === extra.id)
-                            />
-                            <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
-                        </div>
-                    )}
 
-                </div>) }
+                    {extrasByProduct.map(test => <>{test.extra.id}</>)}
+                    {extras.map(e => e.id)}
+
+
+                    {extras.map(extra => {
+                        let check = false;
+                        for (let i = 0; i < extrasByProduct.length; i++){
+                            if(extrasByProduct[i].extra.id === extra.id){
+                                check = true;
+                            }
+                        }
+                        if (check){
+                            return(
+                                <div key={extra.id} className="custom-control custom-checkbox">
+                                    <input type="checkbox" className="custom-control-input"
+                                           onChange={handleChecked}
+                                           value={extra.title}
+                                           id={extra.id}
+                                           defaultChecked
+                                    />
+                                    <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
+                                </div>
+                            )
+                        }else{
+                            return (
+                                <div key={extra.id} className="custom-control custom-checkbox">
+                                    <input type="checkbox" className="custom-control-input"
+                                           onChange={handleChecked}
+                                           value={extra.title}
+                                           id={extra.id}
+                                    />
+                                    <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
+                                </div>
+                            )
+                        }
+                    })}
+
+                    {optionsChecked.map(oc => <p>{oc}</p>)}
+                </div>)}
 
                 <div className={"form-group"}>
-                    <button className={"btn btn-success"}>Enregistrer</button>
+                    <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
                     <Link to={"/products"} className={"btn btn-link"}>Retour à la liste</Link>
                 </div>
             </form>

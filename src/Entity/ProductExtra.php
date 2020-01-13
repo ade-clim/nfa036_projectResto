@@ -17,19 +17,19 @@ class ProductExtra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"productExtra_read"})
+     * @Groups({"productExtra_read","products_read","extras_read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Extra", inversedBy="productExtras")
-     * @Groups({"productExtra_read"})
+     * @Groups({"productExtra_read","products_read"})
      */
     private $extra;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="productExtras")
-     * @Groups({"productExtra_read"})
+     * @Groups({"productExtra_read", "extras_read"})
      */
     private $product;
 

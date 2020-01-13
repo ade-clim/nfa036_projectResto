@@ -24,7 +24,7 @@ function findExtrasByProduct(product){
 
 
 function update(id, productExtra){
-    return axios.put("https://localhost:8000/api/product_extras/" + id, productExtra);
+    return axios.put("https://localhost:8000/api/product_extras/" + id, {...productExtra, extra:`/api/extras/${productExtra.extra}`, product: `/api/products/${productExtra.product}`});
 }
 
 function create(productExtra){

@@ -10,7 +10,6 @@ const ProductsPage = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const itemsPerPage = 6;
-    const [idLastProduct, setIdLastProduct] = useState();
 
     // Permet de recuperer les extras
     const fetchExtras = async (idProduct) => {
@@ -29,10 +28,9 @@ const ProductsPage = (props) => {
             const data = await productApi.findAll();
             setProducts(data);
 
-            // on recupere la derniere id
-            const lastId = data[0];
+            // on recupere la liste des extraproducts pour afficher leur nombres par produit
 
-            setIdLastProduct(lastId);
+
         }catch (error) {
             console.log(error.response)
         }
@@ -110,11 +108,12 @@ const ProductsPage = (props) => {
                     <td width={"25%"}>{product.description}</td>
                     <td>{product.price.toLocaleString()}</td>
                     <td>{product.category.title}</td>
+                    <td><span className={"badge badge-pill badge-info"}>{product.productExtras.length}</span></td>
                     <td>
                         <Link to={"/products/" + product.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
                         <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(product.id)}>Supprimer</button>
                     </td>
-                    <td></td>
+
                 </tr>)}
                 </tbody>
             </table>

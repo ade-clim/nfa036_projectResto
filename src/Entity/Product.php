@@ -33,7 +33,7 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"products_read", "category_read", "productExtra_read"})
+     * @Groups({"products_read", "category_read", "productExtra_read","extras_read"})
      */
     private $id;
 
@@ -73,6 +73,7 @@ class Product
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="product")
+     * @Groups({"products_read"})
      */
     private $productExtras;
 
@@ -80,7 +81,6 @@ class Product
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
-        $this->extras = new ArrayCollection();
         $this->productExtras = new ArrayCollection();
     }
 
