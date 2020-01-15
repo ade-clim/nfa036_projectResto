@@ -1,4 +1,4 @@
-import React, {useState}from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDom from 'react-dom';
 import HomePage from "./pages/HomePage";
 import {HashRouter, Switch, Route, withRouter} from "react-router-dom";
@@ -19,6 +19,7 @@ import Card from "./pages/Card";
 import Burgers from "./pages/Burgers";
 import ExtrasPage from "./pages/ExtrasPage";
 import ExtraPage from "./pages/ExtraPage";
+import categoryApi from "./services/categoryApi";
 
 require('../css/app.css');
 
@@ -31,13 +32,22 @@ const App = () => {
 
     const NavbarWithRouter = withRouter(Navbar);
 
-
+    const [burgers, setBurgers] = useState([]);
     const [tarifTest, setTarifTest] = useState(0);
 
-    const handleclick = (value) => {
-        setTarifTest(tarifTest + value);
-        console.log(tarifTest);
+    const handleProduct = async  () => {
+        try {
+            const data = await categoryApi.find(1);
+            setBurgers(data.products);
+
+        }catch (error) {
+            console.log(error.response);
+        }
     };
+
+    useEffect(() => {
+        handleProduct();
+    },[]);
 
 
     return(<>
@@ -48,7 +58,8 @@ const App = () => {
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
-                    <Route path={"/card"} component={(props) => <Card {...props} tarifTest={handleclick}/>}/>
+                    <Route path="/card/burgers" component={(props) => <Burgers {...props} productList={burgers} />} />
+                    <Route path={"/card"} component={(props) => <Card {...props}/>}/>
                     <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
                     <PrivateRoute path={"/extras"} component={ExtrasPage}/>
                     <PrivateRoute path={"/users/:id"} component={UserPage}/>

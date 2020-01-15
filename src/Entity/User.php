@@ -15,10 +15,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *     attributes={
  *     "order"= {"id":"desc"}},
+
  *     itemOperations={
- *         "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_USER')"},
+ *         "get",
  *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
- *         "put"={"security"="is_granted('ROLE_ADMIN')or is_granted('ROLE_MANAGER') or is_granted('ROLE_USER')"},
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_USER')"}
  *     },
  *     normalizationContext={"groups"={"user_read"}}
  *     )

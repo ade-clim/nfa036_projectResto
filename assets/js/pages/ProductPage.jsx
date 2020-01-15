@@ -10,13 +10,11 @@ import extraProductApi from "../services/extraProductApi";
 const ProductPage = ({history, match}) => {
 
     const {id = "new"} = match.params;
-    const tabTest = [];
+    const tab = [];
     const [idLastProduct, setIdLastProduct] = useState();
     const [extras, setExtras] = useState([]);
     const [optionsChecked, setOptionChecked] = useState([]);
 
-    const [caseCheck, setCaseCheck] = useState([]);
-    const [caseNoCheck, setCaseNoCheck] = useState([]);
     const [extrasByProduct, setExtrasByProduct] = useState([]);
     const [productExtra, setProductExtra] = useState({
         extra: "",
@@ -86,38 +84,18 @@ const ProductPage = ({history, match}) => {
 
     // Recuperation des extras par produit
     const fetchExtrasByProduct = async (idProduit) => {
-        console.log("je suis dans fetchExtrasByProduct")
         try {
-
             const data = await extraProductApi.findAll();
 
-            // On stock les extras qui appartiennent au produit en cours d'editions
-            setExtrasByProduct(data.filter(extra => extra.product.id == idProduit));
+            // On stock les extras qui appartiennent au produit en cour d'editions
+            const value = data.filter(l => l.product.id == idProduit);
+            setExtrasByProduct(value);
 
-            ///////
-            const extraCopyTab = [...extras];
-            const extraByProductcopyTab = [...extrasByProduct];
-            const stockIdCaseCheck = [];
-            const stockIdExtraNoCheck = [];
-            console.log(extras.length)
-            for (let i = 0; i < extraByProductcopyTab.length; i++){
-                console.log("test")
-                for (let p = 0; p < extraCopyTab.length; p++){
-
-                    if (extraByProductcopyTab[i] === extraCopyTab[p].title){
-
-                        stockIdCaseCheck.push(extraByProductcopyTab[i]);
-                    }
-                }
-            };
 
         }catch (error) {
             // TODO : Flash notification erreur
             history.replace("/products");
         }
-    };
-
-    const verifCheck = () => {
     };
 
 
@@ -135,7 +113,6 @@ const ProductPage = ({history, match}) => {
             setEditing(true);
             fetchProduct(id);
             fetchExtrasByProduct(id);
-            verifCheck();
         }
     }, [id]);
 
@@ -159,11 +136,24 @@ const ProductPage = ({history, match}) => {
         }
     };
 
-    const lastProductCreate= async () => {
+    const lastProductCreate= async (id) => {
         const extraTab = [...extras];
 
-        // on parcours nos options check pour recup les objets extras qui correspondents et on creer en base de données
 
+        // Recup les value des case du checkbox cocher
+        const el = document.getElementById('myCheck');
+        const productsExtras = el.getElementsByTagName('input');
+
+        for (let i = 0; i < productsExtras .length; i++) {
+            if (productsExtras[i].type === 'checkbox' && productsExtras[i].checked === true) {
+                const value = extras.filter(f => f.title === productsExtras[i].value);
+                const ExtraProduct = {extra: value[0].id, product: id};
+                await extraProductApi.create(ExtraProduct);
+            }
+        }
+
+        /*
+        // on parcours nos options check pour recup les objets extras qui correspondents et on les creer en base de données
         for (let i = 0; i < optionsChecked.length; i++){
             for (let p = 0; p < extraTab.length; p++){
                 if (optionsChecked[i] === extraTab[p].title){
@@ -172,8 +162,10 @@ const ProductPage = ({history, match}) => {
                 }
             }
         };
+        */
     };
 
+    //
     const lastProductEditing = async () => {
         const extraTab = [...extras];
         for (let i = 0; i < extrasByProduct.length; i++){
@@ -185,8 +177,6 @@ const ProductPage = ({history, match}) => {
                 }
             }
         };
-
-
 
         // on parcours nos options check pour recup les objets extras qui correspondents et on creer en base de données
         for (let i = 0; i < optionsChecked.length; i++){
@@ -204,16 +194,26 @@ const ProductPage = ({history, match}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+
             if(editing){
                 await productApi.update(id, product);
                 lastProductEditing();
-                // TODO : Flash notification success
-            }else{
-                await productApi.create(product);
-                lastProductCreate();
 
                 // TODO : Flash notification success
-                history.replace("/products");
+            }else{
+                const data = await productApi.create(product);
+
+                // on envoie l'id du produit qui viens d'etre créer
+                lastProductCreate(data.data.id);
+
+                // TODO : Flash notification success
+                setProduct({
+                    title: "",
+                    price: "",
+                    description: "",
+                    category: ""
+                });
+                history.replace("/products/new");
             }
 
 
@@ -257,7 +257,7 @@ const ProductPage = ({history, match}) => {
         <>
             <div className={"container homecontainer"}>
             {(!editing && <h1>Création d'un produit</h1>) || (<h1>Modification du produit</h1>) }
-            <form onSubmit={handleSubmit}>
+            <form id={"myCheck"} onSubmit={handleSubmit}>
                 <Field name={"title"}
                        placeholder={"Titre du produit"}
                        label={"Titre"}
@@ -293,12 +293,14 @@ const ProductPage = ({history, match}) => {
                     )}
                 </Select>
 
+                {/*  Verifie si on est en mode edition ou création de produit  */}
+                {/*  MODE CREATION DE PRODUIT  */}
                 {(!editing && <div className="form-group">
                     {extras.map(extra => <div key={extra.id} className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input"
-                               onChange={handleChecked}
                                value={extra.title}
                                id={extra.id}
+
                         />
                         <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
                     </div>)}
@@ -307,15 +309,18 @@ const ProductPage = ({history, match}) => {
 
                 </div>) || (<div className="form-group">
 
-                    {extrasByProduct.map(test => <>{test.extra.id}</>)}
-                    {extras.map(e => e.id)}
+                    {extrasByProduct.map(test => <span key={test.id}>{test.extra.id}</span>)}
 
 
+                    {/*  MODE EDITION DE PRODUIT  */}
+                    {/*  Boucle qui nous permet de verifier si un extra appartient au produit si oui on coche la case directement    */}
                     {extras.map(extra => {
                         let check = false;
+
                         for (let i = 0; i < extrasByProduct.length; i++){
                             if(extrasByProduct[i].extra.id === extra.id){
                                 check = true;
+                                tab.push(extra.title);
                             }
                         }
                         if (check){
@@ -344,9 +349,9 @@ const ProductPage = ({history, match}) => {
                         }
                     })}
 
-                    {optionsChecked.map(oc => <p>{oc}</p>)}
-                </div>)}
 
+                </div>)}
+                {optionsChecked.map(oc => <p>{oc}</p>)}
                 <div className={"form-group"}>
                     <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
                     <Link to={"/products"} className={"btn btn-link"}>Retour à la liste</Link>

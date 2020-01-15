@@ -41,7 +41,6 @@ const Navbar = ({history, changetoto}) => {
 
     useEffect(() => {
         handleFetchUser();
-        console.log(changetoto);
     }, [changetoto]);
 
 

@@ -21,7 +21,7 @@ function update(id, address){
 }
 
 function create(address){
-    return axios.post("https://localhost:8000/addresses", address);
+    return axios.post("https://localhost:8000/api/addresses", address);
 }
 
 export default {

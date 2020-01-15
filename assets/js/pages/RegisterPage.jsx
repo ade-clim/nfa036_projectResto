@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {Link} from "react-router-dom";
 import Field from "../components/forms/Fields";
 import registerApi from "../services/registerApi";
+import addressApi from "../services/addressApi";
 
 const RegisterPage = ({history}) => {
 
@@ -9,8 +10,17 @@ const RegisterPage = ({history}) => {
        firstName: "",
        lastName: "",
         email: "",
+        phone: "",
         password: "",
-        passwordConfirm: ""
+        passwordConfirm: "",
+        address: ""
+    });
+
+    const [address, setAddress]= useState({
+        street: "",
+        number: "",
+        city: " ",
+        postalCode: " "
     });
 
     const [errors, setErrors] = useState({
@@ -40,7 +50,13 @@ const RegisterPage = ({history}) => {
         }
 
         try {
-            await registerApi.register(user);
+
+            // AJOUTER UNE  VERIFICATION AVANT ENVOIE DE L'ADRESSES
+            //Creation addresses par default
+            const addresseUser = await addressApi.create(address);
+            console.log(addresseUser.data.id);
+            const myUser = {...user, address: addresseUser.data.id};
+            await registerApi.register(myUser);
             // TODO : Flash notification success
             setErrors({});
             history.replace("/login");

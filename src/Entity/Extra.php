@@ -24,19 +24,18 @@ class Extra
 
     /**
      * @ORM\Column(type="string", length=255)
-     *@Groups({"extras_read","productExtra_read", "products_read"})
+     *@Groups({"extras_read","productExtra_read", "products_read","category_read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"extras_read","productExtra_read", "products_read"})
+     * @Groups({"extras_read","productExtra_read", "products_read","category_read"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
-     *  @Groups({"extras_read"})
      */
     private $productExtras;
 
@@ -44,6 +43,7 @@ class Extra
     {
         $this->productExtras = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -104,4 +104,5 @@ class Extra
 
         return $this;
     }
+
 }

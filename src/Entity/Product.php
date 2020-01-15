@@ -73,9 +73,10 @@ class Product
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="product")
-     * @Groups({"products_read"})
+     * @Groups({"products_read", "category_read"})
      */
     private $productExtras;
+
 
 
     public function __construct()

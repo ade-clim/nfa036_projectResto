@@ -33,7 +33,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
         //obtenir l'utilisateur
         $user = $this->security->getUser();
 
-        //si on demande des invoices ou customers alors on agis sur la requete pour qu'elle tienne compte de l'utilisateur connecté
+        //si on demande des users alors on agis sur la requete pour qu'elle tienne compte de l'utilisateur connecté
         if(($resourceClass === User::class)
             &&
             !$this->auth->isGranted('ROLE_ADMIN')

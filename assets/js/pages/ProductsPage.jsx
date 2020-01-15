@@ -12,7 +12,7 @@ const ProductsPage = (props) => {
     const itemsPerPage = 6;
 
     // Permet de recuperer les extras
-    const fetchExtras = async (idProduct) => {
+    const fetchExtras = async () => {
         try {
             const data = await extraProductApi.findAll();
             setExtras(data);
@@ -81,43 +81,43 @@ const ProductsPage = (props) => {
     return(
         <>
             <div className={"container homecontainer"}>
-            <div className={"mb-5 d-flex justify-content-between align-items-center"}>
-                <h1>Liste des produits</h1>
-                <Link className="btn btn-primary"
-                      to={{pathname:"/products/new", state: {idlast:"5"}}} >Créer un produit</Link>
-            </div>
+                <div className={"mb-5 d-flex justify-content-between align-items-center"}>
+                    <h1>Liste des produits</h1>
+                    <Link className="btn btn-primary"
+                          to={{pathname:"/products/new", state: {idlast:"5"}}} >Créer un produit</Link>
+                </div>
 
-            <div className={"form-group"}>
-                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
-            </div>
-            <table className={"table table-hover"}>
-                <thead>
-                <tr>
-                    <th>Id.</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Prix</th>
-                    <th>Catégorie</th>
-                    <th>Extras</th>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedProducts.map(product => <tr key={product.id}>
-                    <td>{product.id}</td>
-                    <td>{product.title}</td>
-                    <td width={"25%"}>{product.description}</td>
-                    <td>{product.price.toLocaleString()}</td>
-                    <td>{product.category.title}</td>
-                    <td><span className={"badge badge-pill badge-info"}>{product.productExtras.length}</span></td>
-                    <td>
-                        <Link to={"/products/" + product.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
-                        <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(product.id)}>Supprimer</button>
-                    </td>
+                <div className={"form-group"}>
+                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
+                </div>
+                <table className={"table table-hover"}>
+                    <thead>
+                    <tr>
+                        <th>Id.</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Catégorie</th>
+                        <th>Extras</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {paginatedProducts.map(product => <tr key={product.id}>
+                        <td>{product.id}</td>
+                        <td>{product.title}</td>
+                        <td width={"25%"}>{product.description}</td>
+                        <td>{product.price.toLocaleString()}</td>
+                        <td>{product.category.title}</td>
+                        <td><span className={"badge badge-pill badge-info"}>{product.productExtras.length}</span></td>
+                        <td>
+                            <Link to={"/products/" + product.id} className={"btn btn-sm btn-primary mr-1"}>Editer </Link>
+                            <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(product.id)}>Supprimer</button>
+                        </td>
 
-                </tr>)}
-                </tbody>
-            </table>
-            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredProducts.length} onPageChanged={handlePageChange}/>
+                    </tr>)}
+                    </tbody>
+                </table>
+                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredProducts.length} onPageChanged={handlePageChange}/>
             </div>
         </>
     )
