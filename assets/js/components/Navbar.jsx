@@ -9,7 +9,7 @@ import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
 import CartContext from "../contexts/CartContext";
 
 
-const Navbar = ({history, changetoto}) => {
+const Navbar = ({history, toto}) => {
 
     // Recup données du Cartcontext
     //const contextValue = useContext(CartContext);
@@ -20,10 +20,10 @@ const Navbar = ({history, changetoto}) => {
         id:""
     });
 
-
-
-
+    const [tarifCart, setTarifCart] = useState(0);
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+
+
 
     const handleFetchUser = () => {
         const token = window.localStorage.getItem("authToken");
@@ -41,7 +41,7 @@ const Navbar = ({history, changetoto}) => {
 
     useEffect(() => {
         handleFetchUser();
-    }, [changetoto]);
+    }, []);
 
 
 
@@ -83,7 +83,7 @@ const Navbar = ({history, changetoto}) => {
                     <ul className="navbar-nav ml-auto">
                         <li>
 
-                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{changetoto}</NavLink>
+                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto}</NavLink>
                         </li>
                         {(!isAuthenticated &&
                             (<>

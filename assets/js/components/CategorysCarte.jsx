@@ -4,7 +4,7 @@ import img from '../../img/h01.jpg'
 import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 import NavBarVertical from "../components/NavBarVertical";
 
-const Burgers = ({productList, tarifCart}) => {
+const CategorysCarte = ({productList, tarifCart}) => {
 
 
     const [burgers, setBurgers] = useState([]);
@@ -65,4 +65,4 @@ const Burgers = ({productList, tarifCart}) => {
     </>)
 };
 
-export default Burgers;
+export default CategorysCarte;

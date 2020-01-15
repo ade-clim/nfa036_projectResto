@@ -15,10 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ApiResource(
  *     attributes={
- *     "order"= {"id":"desc"},
- *     "security"="is_granted('ROLE_ADMIN')"},
+ *     "order"= {"id":"desc"}},
  *     itemOperations={
-       "get"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+       "get",
  *     "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
  *     "put"={"security"="is_granted('ROLE_ADMIN')"},
  *     },

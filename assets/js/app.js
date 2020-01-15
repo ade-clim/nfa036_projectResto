@@ -20,6 +20,8 @@ import Burgers from "./pages/Burgers";
 import ExtrasPage from "./pages/ExtrasPage";
 import ExtraPage from "./pages/ExtraPage";
 import categoryApi from "./services/categoryApi";
+import productApi from "./services/productApi";
+import CategorysCarte from "./components/CategorysCarte";
 
 require('../css/app.css');
 
@@ -33,12 +35,41 @@ const App = () => {
     const NavbarWithRouter = withRouter(Navbar);
 
     const [burgers, setBurgers] = useState([]);
-    const [tarifTest, setTarifTest] = useState(0);
+    const [drinks, setDrinks] = useState([]);
+    const [snacks, setSnacks] = useState([]);
+    const [desserts, setDesserts] = useState([]);
+    const [menuKids, setMenuKids] = useState([]);
+    const [others, setOthers] = useState([]);
 
+    const [tarifCart, setTarifCart] = useState(0);
+
+
+    // On va récuperer tous nos produits et les stockers en fonction de leur catégorie
     const handleProduct = async  () => {
         try {
-            const data = await categoryApi.find(1);
-            setBurgers(data.products);
+            const data = await categoryApi.findAll();
+            for (let i = 0 ; i < data.length; i++){
+                if(data[i].id === 1){
+                    setBurgers(data[i].products);
+                }
+                if(data[i].id === 2){
+                    setSnacks(data[i].products);
+                }
+                if(data[i].id === 3){
+                    setDrinks(data[i].products);
+                }
+                if(data[i].id === 4){
+                    setDesserts(data[i].products);
+                }
+                if(data[i].id === 5){
+                    setMenuKids(data[i].products);
+                }
+                if(data[i].id === 6){
+                    setOthers(data[i].products);
+                }
+
+            };
+
 
         }catch (error) {
             console.log(error.response);
@@ -50,16 +81,35 @@ const App = () => {
     },[]);
 
 
+    const handleclick = (value) => {
+        setTarifCart(tarifCart + value);
+        console.log(tarifCart);
+    };
+
+
+
     return(<>
         <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
         <HashRouter>
             <main>
-            <NavbarWithRouter/>
+            <NavbarWithRouter toto={tarifCart}/>
                 <Switch>
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
-                    <Route path="/card/burgers" component={(props) => <Burgers {...props} productList={burgers} />} />
+
+
+                    <Route path="/card/burgers" component={(props) => <Burgers {...props} productList={burgers} tarifCart={handleclick}/>} />
+                    <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} tarifCart={handleclick}/>} />
+                    <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} tarifCart={handleclick}/>} />
+                    <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} tarifCart={handleclick}/>} />
+                    <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} tarifCart={handleclick}/>} />
+                    <Route path="/card/others" component={(props) => <CategorysCarte {...props} productList={others} tarifCart={handleclick}/>} />
+
                     <Route path={"/card"} component={(props) => <Card {...props}/>}/>
+
+
+
+
                     <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
                     <PrivateRoute path={"/extras"} component={ExtrasPage}/>
                     <PrivateRoute path={"/users/:id"} component={UserPage}/>
