@@ -1,27 +1,29 @@
 import axios from 'axios';
+import {ORDER_API} from "../config";
+
 
 function findAll() {
     return axios
-        .get("https://localhost:8000/api/orders")
+        .get(ORDER_API)
         .then(response => response.data['hydra:member'])
 }
 
 function deleteOrder(id) {
-    return axios.delete("https://localhost:8000/api/orders/" + id)
+    return axios.delete(ORDER_API + "/" + id)
 }
 
 function find(id){
     return axios
-        .get("https://localhost:8000/api/orders/" + id)
+        .get(ORDER_API + "/" + id)
         .then(response => response.data);
 }
 
 function update(id, order){
-    return axios.put("https://localhost:8000/api/orders/" + id, order);
+    return axios.put(ORDER_API + "/" + id, order);
 }
 
 function create(order){
-    return axios.post("https://localhost:8000/api/orders", order);
+    return axios.post(ORDER_API, order);
 }
 
 export default {

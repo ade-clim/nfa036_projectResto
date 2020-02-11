@@ -36,6 +36,7 @@ class Extra
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
+     * @Groups({"extras_read","productExtra_read", "products_read"})
      */
     private $productExtras;
 

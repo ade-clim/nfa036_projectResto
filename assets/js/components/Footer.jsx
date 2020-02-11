@@ -4,10 +4,21 @@ import React from 'react';
 const Footer = () => {
     return(
         <footer className="footer">
-            <div className="text-center footert mt-5">
-                <div className="row">
 
-                    <div className="col-md-3 mx-auto">
+
+
+
+        </footer>
+    )
+};
+
+export default Footer;
+
+/*
+
+<div className="text-center footert mt-5">
+                <div className="row">
+                    <div className="col-md-2 mx-auto">
                         <h5 className="font-weight-bold text-uppercase mt-3 mb-4 ">Links</h5>
                         <ul className="list-unstyled">
                             <li>
@@ -24,8 +35,7 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-
-                        <div className="col-md-3 mx-auto">
+                        <div className="col-md-2 mx-auto">
                             <h5 className="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
                             <ul className="list-unstyled">
                                 <li>
@@ -42,47 +52,23 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-
-
-
-                            <div className="col-md-3 mx-auto">
-                                <h5 className="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-                                <ul className="list-unstyled">
-                                    <li>
-                                        <a href="#">Link 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 4</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-
-
-                            <div className="col-md-3 mx-auto">
-                                <h5 className="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-                                <ul className="list-unstyled">
-                                    <li>
-                                        <a href="#">Link 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Link 4</a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div className="col-md-2 mx-auto">
+                            <h5 className="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <a href="#">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Link 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Link 3</a>
+                                </li>
+                                <li>
+                                    <a href="#">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
                 </div>
 
             </div>
@@ -91,9 +77,4 @@ const Footer = () => {
                 <a href="https://mdbootstrap.com/education/bootstrap/"> BurgerChic</a>
             </div>
 
-
-        </footer>
-    )
-};
-
-export default Footer;
+ */

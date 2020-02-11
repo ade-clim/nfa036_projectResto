@@ -43,7 +43,9 @@ const Navbar = ({history, toto}) => {
         handleFetchUser();
     }, []);
 
-
+    const handleMouse = () => {
+        console.log("testtesttest mouse")
+    }
 
     return(
         <header>
@@ -83,7 +85,7 @@ const Navbar = ({history, toto}) => {
                     <ul className="navbar-nav ml-auto">
                         <li>
 
-                            <NavLink to={"/"} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto}</NavLink>
+                            <div onMouseUp={<p>ceci est un test</p>} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto}</div>
                         </li>
                         {(!isAuthenticated &&
                             (<>

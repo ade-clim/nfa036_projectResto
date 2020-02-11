@@ -8,7 +8,6 @@ import extraApi from "../services/extraApi";
 
 
 const ExtraPage = ({match, history}) => {
-
     const {id = "new"} = match.params;
 
 

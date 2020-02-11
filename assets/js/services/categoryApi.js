@@ -1,27 +1,27 @@
 import axios from 'axios';
-
+import {CATEGORY_API} from "../config";
 function findAll() {
     return axios
-        .get("https://localhost:8000/api/categories")
+        .get(CATEGORY_API)
         .then(response => response.data['hydra:member'])
 }
 
 function deleteCategory(id) {
-    return axios.delete("https://localhost:8000/api/categories/" + id)
+    return axios.delete(CATEGORY_API + "/" + id)
 }
 
 function find(id){
     return axios
-        .get("https://localhost:8000/api/categories/" + id)
+        .get(CATEGORY_API + "/" + id)
         .then(response => response.data);
 }
 
 function update(id, category){
-    return axios.put("https://localhost:8000/api/categories/" + id, category);
+    return axios.put(CATEGORY_API + "/" + id, category);
 }
 
 function create(category){
-    return axios.post("https://localhost:8000/api/categories", category);
+    return axios.post(CATEGORY_API, category);
 }
 
 

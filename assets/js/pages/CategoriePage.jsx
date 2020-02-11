@@ -3,9 +3,6 @@ import {Link} from "react-router-dom";
 import categoryApi from "../services/categoryApi";
 import Field from "../components/forms/Fields";
 
-
-
-
 const CategoriePage = ({match, history}) => {
 
     const {id = "new"} = match.params;

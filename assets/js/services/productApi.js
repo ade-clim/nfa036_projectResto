@@ -1,34 +1,35 @@
 import axios from 'axios';
+import {PRODUCT_API} from "../config";
 
 function findAll() {
     return axios
-        .get("https://localhost:8000/api/products")
+        .get(PRODUCT_API)
         .then(response => response.data['hydra:member'])
 }
 
 function deleteProduct(id) {
-    return axios.delete("https://localhost:8000/api/products/" + id)
+    return axios.delete(PRODUCT_API + "/" + id)
 }
 
 function find(id){
     return axios
-        .get("https://localhost:8000/api/products/" + id)
+        .get(PRODUCT_API + "/" + id)
         .then(response => response.data);
 }
 
 function findByCategory(id){
     return axios
-        .get("https://localhost:8000/api/products/" + id)
+        .get(PRODUCT_API + "/" + id)
         .then(response => response.data);
 }
 
 
 function update(id, product){
-    return axios.put("https://localhost:8000/api/products/" + id, {...product, category: `/api/categories/${product.category}`});
+    return axios.put(PRODUCT_API + "/" + id, {...product, category: `/api/categories/${product.category}`});
 }
 
 function create(product){
-    return axios.post("https://localhost:8000/api/products", {...product, category: `/api/categories/${product.category}`});
+    return axios.post(PRODUCT_API, {...product, category: `/api/categories/${product.category}`});
 }
 
 export default {

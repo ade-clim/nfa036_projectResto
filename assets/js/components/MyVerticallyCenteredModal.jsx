@@ -25,7 +25,6 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart}) => 
             aria-labelledby="contained-modal-title-vcenter"
             centered
             multiple
-
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">

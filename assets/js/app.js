@@ -22,6 +22,7 @@ import ExtraPage from "./pages/ExtraPage";
 import categoryApi from "./services/categoryApi";
 import productApi from "./services/productApi";
 import CategorysCarte from "./components/CategorysCarte";
+import CartMove from "./components/CartMove";
 
 require('../css/app.css');
 
@@ -70,7 +71,6 @@ const App = () => {
 
             };
 
-
         }catch (error) {
             console.log(error.response);
         }
@@ -93,7 +93,9 @@ const App = () => {
         <HashRouter>
             <main>
             <NavbarWithRouter toto={tarifCart}/>
+
                 <Switch>
+
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
 

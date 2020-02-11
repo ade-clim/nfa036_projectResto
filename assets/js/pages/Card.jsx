@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import NavBarVertical from "../components/NavBarVertical";
 import {Route} from "react-router-dom";
 import categoryApi from "../services/categoryApi";
+import CartMove from "../components/CartMove";
 
 const Card = () => {
 
@@ -21,14 +22,22 @@ const Card = () => {
         handleProduct();
     },[]);
 
-    return(
+    return(<>
         <div className="container-fluid">
             <div className="row ">
                 <NavBarVertical />
+                {/*
+                <div className="container col-9 homecontainer">
 
+                    <div className={"text-right"}>
+                        <CartMove toto={"test"}/>
+                    </div>
+                </div>
+                */}
             </div>
         </div>
-    )
+
+    </> )
 };
 
 export default Card;

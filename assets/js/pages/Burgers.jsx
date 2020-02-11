@@ -3,8 +3,9 @@ import h01 from '../../img/h01.jpg'
 import img from '../../img/h01.jpg'
 import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 import NavBarVertical from "../components/NavBarVertical";
+import CartMove from "../components/CartMove";
 
-const Burgers = ({productList, tarifCart}) => {
+const Burgers = ({productList, tarifCart, cartMove}) => {
 
 
     const [burgers, setBurgers] = useState([]);
@@ -40,6 +41,11 @@ const Burgers = ({productList, tarifCart}) => {
                     <div>
                         <h1>Burgers</h1>
                     </div>
+                    {/*
+                    <div className={"text-right"}>
+                        <CartMove toto={tarifCart}/>
+                    </div>
+                    */}
                     <div className="">
                         <div className={"gallery"}>
                             {burgers.map(product =>

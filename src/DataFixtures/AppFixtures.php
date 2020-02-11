@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use App\Entity\Address;
 use App\Entity\Category;
 use App\Entity\Extra;
-use App\Entity\Orders;
 use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;

@@ -78,6 +78,7 @@ const ProductPage = ({history, match}) => {
             setProduct({title, price, description, category: category.id});
         }catch (error) {
             // TODO : Flash notification erreur
+            console.log(error.response);
             history.replace("/products");
         }
     };
