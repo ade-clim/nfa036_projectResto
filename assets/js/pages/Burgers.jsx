@@ -41,6 +41,7 @@ const Burgers = ({productList, tarifCart, cartMove}) => {
                     <div>
                         <h1>Burgers</h1>
                     </div>
+
                     {/*
                     <div className={"text-right"}>
                         <CartMove toto={tarifCart}/>

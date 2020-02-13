@@ -23,6 +23,7 @@ import categoryApi from "./services/categoryApi";
 import productApi from "./services/productApi";
 import CategorysCarte from "./components/CategorysCarte";
 import CartMove from "./components/CartMove";
+import NavBarVertical from "./components/NavBarVertical";
 
 require('../css/app.css');
 
@@ -99,15 +100,27 @@ const App = () => {
                     <Route path={"/login"} component={LoginPage}/>
                     <Route path={"/register"} component={RegisterPage}/>
 
+                    <div className="container-fluid">
+                        <div className="row">
+                            <NavBarVertical/>
+                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} tarifCart={handleclick}/>} />
+                            <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} tarifCart={handleclick}/>} />
+                            <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} tarifCart={handleclick}/>} />
+                            <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} tarifCart={handleclick}/>} />
+                            <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} tarifCart={handleclick}/>} />
+                            <Route path="/card/others" component={(props) => <CategorysCarte {...props} productList={others} tarifCart={handleclick}/>} />
+                            <Route path={"/card"} component={(props) => <Card {...props}/>}/>
+                        </div>
 
-                    <Route path="/card/burgers" component={(props) => <Burgers {...props} productList={burgers} tarifCart={handleclick}/>} />
-                    <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} tarifCart={handleclick}/>} />
-                    <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} tarifCart={handleclick}/>} />
-                    <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} tarifCart={handleclick}/>} />
-                    <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} tarifCart={handleclick}/>} />
-                    <Route path="/card/others" component={(props) => <CategorysCarte {...props} productList={others} tarifCart={handleclick}/>} />
 
-                    <Route path={"/card"} component={(props) => <Card {...props}/>}/>
+
+
+
+
+
+                    </div>
+
+
 
 
 

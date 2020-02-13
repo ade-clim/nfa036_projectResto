@@ -23,19 +23,6 @@ const Card = () => {
     },[]);
 
     return(<>
-        <div className="container-fluid">
-            <div className="row ">
-                <NavBarVertical />
-                {/*
-                <div className="container col-9 homecontainer">
-
-                    <div className={"text-right"}>
-                        <CartMove toto={"test"}/>
-                    </div>
-                </div>
-                */}
-            </div>
-        </div>
 
     </> )
 };

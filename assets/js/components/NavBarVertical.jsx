@@ -3,6 +3,7 @@ import {Link, NavLink} from "react-router-dom";
 
 const NavBarVertical = ({toto}) => {
   return (
+
       <div className="col-md-2 d-none d-md-block bg-danger sidebar vertical-nav">
           <div className="container">
               <ul className="nav flex-column mt-3">

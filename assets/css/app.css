@@ -3,6 +3,12 @@ html {
     min-height: 100%;
 }
 
+
+.cart_move{
+    position: fixed;
+}
+
+
 .navbar{
     z-index: 1;
     position:fixed;
@@ -10,15 +16,7 @@ html {
     max-height: 100px;
 }
 
-.vertical-nav {
-    min-width: 200px;
-    min-height: 100vh;
-    padding-top: 100px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-}
-.vertical-nav ul {
-    margin-left: 70px;
-}
+
 
 .mycard{
 
@@ -28,6 +26,15 @@ html {
     min-width: 50px;
     width: 300px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+.vertical-nav {
+    min-width: 200px;
+    min-height: 200vh;
+    padding-top: 100px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+.vertical-nav ul {
+    margin-left: 70px;
 }
 
 @media (max-width: 768px) {

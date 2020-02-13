@@ -10,14 +10,16 @@ const CategorysCarte = ({productList, tarifCart}) => {
     const [burgers, setBurgers] = useState([]);
 
     // recupere le produit actuel pour recuperer ces extras
+    const [products, setProducts] = useState([]);
     const [product, setProduct] = useState([]);
+    const [cart, setCart] = useState(0);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
 
     // Recuperation de la bonne facture dans l'identifiant de l'url change
     useEffect(() => {
-        setBurgers(productList);
+        setProducts(productList);
     }, []);
 
 
@@ -32,19 +34,27 @@ const CategorysCarte = ({productList, tarifCart}) => {
 
 
     return (<>
-        <div className="container-fluid">
-            <div className="row ">
-                <NavBarVertical/>
-
-                <div className="container col-9 homecontainer">
+        <div className={"container homecontainer"}>
+            <div className={""}>
+                <div className={"col-12"}>
                     <div>
                         <h1>Burgers</h1>
                     </div>
+                    <div className={"container cart_move"}>
+                        <div className={"row"}>
+                            <div className={" col-12 text-right"}>
+                                <p>{cart}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div className="">
                         <div className={"gallery"}>
-                            {burgers.map(product =>
+                            {products.map(product =>
                                 <div key={product.id}>
                                     <a onClick={() => (setModalShow(true), setProduct(product), (verifExtraByProduct(product)) )}><img src={h01} className="mt-5 img"/></a>
+                                    <p>{product.title}</p>
                                 </div>
                             )}
                         </div>
@@ -57,10 +67,10 @@ const CategorysCarte = ({productList, tarifCart}) => {
                         tarifCart={tarifCart}
                     />
                 </div>
-
-
             </div>
+
         </div>
+
 
     </>)
 };
