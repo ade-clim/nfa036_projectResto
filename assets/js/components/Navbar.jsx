@@ -6,13 +6,9 @@ import jwtDecode from "jwt-decode";
 import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
-import CartContext from "../contexts/CartContext";
 
 
 const Navbar = ({history, toto}) => {
-
-    // Recup données du Cartcontext
-    //const contextValue = useContext(CartContext);
 
     const [user, setUser] = useState({
         firstName: "",

@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
 
-const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart}) => {
+const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, handleChangeTarif}) => {
 
     const [tarif, setTarif] = useState();
     const [amount, setAmount] = useState(1);
@@ -65,7 +65,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart}) => 
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => tarifCart(tarif)}>Total {tarif} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(tarif)}>Total {tarif} €</Button>
             </Modal.Footer>
         </Modal>
     )

@@ -22,8 +22,7 @@ import ExtraPage from "./pages/ExtraPage";
 import categoryApi from "./services/categoryApi";
 import productApi from "./services/productApi";
 import CategorysCarte from "./components/CategorysCarte";
-import CartMove from "./components/CartMove";
-import NavBarVertical from "./components/NavBarVertical";
+import CartContext from "./contexts/CartContext";
 
 require('../css/app.css');
 
@@ -33,6 +32,13 @@ const App = () => {
 
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
+    const [totalCart, updateTotalCart] = useState(0);
+
+    const contextValue = {
+        totalCart: totalCart,
+        updateTotalCart: updateTotalCart
+    };
+
 
     const NavbarWithRouter = withRouter(Navbar);
 
@@ -83,26 +89,25 @@ const App = () => {
 
 
     const handleclick = (value) => {
-        setTarifCart(tarifCart + value);
-        console.log(tarifCart);
+        //setTarifCart(tarifCart + value);
+        //updateTotalCart(totalCart + value)
     };
 
 
 
     return(<>
         <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
-        <HashRouter>
-            <main>
-            <NavbarWithRouter toto={tarifCart}/>
+            <CartContext.Provider value={contextValue}>
+                <HashRouter>
+                    <main>
+                        <NavbarWithRouter toto={totalCart}/>
 
-                <Switch>
+                        <Switch>
+                            <Route path={"/login"} component={LoginPage}/>
+                            <Route path={"/register"} component={RegisterPage}/>
 
-                    <Route path={"/login"} component={LoginPage}/>
-                    <Route path={"/register"} component={RegisterPage}/>
 
-                    <div className="container-fluid">
-                        <div className="row">
-                            <NavBarVertical/>
+
                             <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} tarifCart={handleclick}/>} />
                             <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} tarifCart={handleclick}/>} />
                             <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} tarifCart={handleclick}/>} />
@@ -110,34 +115,24 @@ const App = () => {
                             <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} tarifCart={handleclick}/>} />
                             <Route path="/card/others" component={(props) => <CategorysCarte {...props} productList={others} tarifCart={handleclick}/>} />
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
-                        </div>
 
 
+                            <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
+                            <PrivateRoute path={"/extras"} component={ExtrasPage}/>
+                            <PrivateRoute path={"/users/:id"} component={UserPage}/>
+                            <PrivateRoute path={"/users"} component={UsersPage}/>
+                            <PrivateRoute path={"/products/:id"} component={ProductPage}/>
+                            <PrivateRoute path={"/products"} component={ProductsPage}/>
+                            <PrivateRoute path={"/categorys/:id"} component={CategoriePage}/>
+                            <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
+                            <Route path={"/"} component={HomePage}/>
 
 
-
-
-
-                    </div>
-
-
-
-
-
-
-                    <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
-                    <PrivateRoute path={"/extras"} component={ExtrasPage}/>
-                    <PrivateRoute path={"/users/:id"} component={UserPage}/>
-                    <PrivateRoute path={"/users"} component={UsersPage}/>
-                    <PrivateRoute path={"/products/:id"} component={ProductPage}/>
-                    <PrivateRoute path={"/products"} component={ProductsPage}/>
-                    <PrivateRoute path={"/categorys/:id"} component={CategoriePage}/>
-                    <PrivateRoute path={"/categorys"} component={CategoriesPage}/>
-                    <Route path={"/"} component={HomePage}/>
-                </Switch>
-            <Footer/>
-            </main>
-        </HashRouter>
+                        </Switch>
+                        <Footer/>
+                    </main>
+                </HashRouter>
+            </CartContext.Provider>
         </AuthContext.Provider>
    </> )
 };
