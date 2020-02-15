@@ -16,7 +16,6 @@ const Navbar = ({history, toto}) => {
         id:""
     });
 
-    const [tarifCart, setTarifCart] = useState(0);
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
 
 
@@ -38,10 +37,6 @@ const Navbar = ({history, toto}) => {
     useEffect(() => {
         handleFetchUser();
     }, []);
-
-    const handleMouse = () => {
-        console.log("testtesttest mouse")
-    }
 
     return(
         <header>
@@ -81,7 +76,7 @@ const Navbar = ({history, toto}) => {
                     <ul className="navbar-nav ml-auto">
                         <li>
 
-                            <div onMouseUp={<p>ceci est un test</p>} className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto}</div>
+                            <div className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto.price}</div>
                         </li>
                         {(!isAuthenticated &&
                             (<>

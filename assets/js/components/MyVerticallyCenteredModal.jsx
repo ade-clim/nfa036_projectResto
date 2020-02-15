@@ -42,13 +42,9 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                         <h6>{extra.description} :</h6>
                         <ul className={"list-group"}>
                             <li className="list-group-item list-group-item-action border-0">
-                                Cras justo odio
-                                <input type="checkbox" aria-label="Radio button for following text input" className={"ml-3"}/>
-                                </li>
-                            <li className="list-group-item list-group-item-action border-0">
-                                Dapibus ac facilisis in
                                 <input type="checkbox" aria-label="Radio button for following text input" className={"ml-3"}/>
                             </li>
+
                         </ul>
                     </div>
                 )}
@@ -65,7 +61,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(tarif)}>Total {tarif} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product)}>Total {tarif} €</Button>
             </Modal.Footer>
         </Modal>
     )

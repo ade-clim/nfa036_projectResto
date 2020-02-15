@@ -12,14 +12,15 @@ const CategorysCarte = ({productList, tarifCart}) => {
 
     // recupere le produit actuel pour recuperer ces extras
     const [products, setProducts] = useState([]);
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState({});
     const { totalCart, updateTotalCart } = useContext(CartContext);
 
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
-    const handleChangeTarif = (tarif) => {
-        updateTotalCart(totalCart + tarif);
+    const handleChangeTarif = (product) => {
+        const productCart = [...totalCart, product];
+        updateTotalCart(productCart);
     };
 
 
@@ -47,17 +48,42 @@ const CategorysCarte = ({productList, tarifCart}) => {
                 <div className={"col-9 homecontainer"} >
                     <div className={""}>
                         <div className={""}>
-                            <div>
-                                <h1>Burgers</h1>
-                            </div>
-                            <div className={"container cart_move"}>
+                            <h1>Burgers</h1>
+                        </div>
+
+                        <div className={"offset-9"}>
+                            <div className={"cart_move"}>
                                 <div className={"row"}>
-                                    <div className={" col-12 text-right"}>
-                                        <p>{totalCart}</p>
+                                    <div className={""}>
+                                        <div className="card" style={{width: "22rem"}}>
+                                            <button className="btn card-header">Mon panier</button>
+
+                                            <div className="card-body">
+                                                <p className="card-text">
+                                                    {totalCart.length > 0
+                                                    &&
+                                                    (totalCart.map(cart =>
+                                                            <div key={cart.id}>
+                                                                <p>
+                                                                    {cart.title} {cart.price}
+                                                                </p>
+                                                            </div>
+                                                        ))
+                                                        ||
+                                                    <p>Panier vide</p>
+                                                    }
+
+
+
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
+                        </div>
+
+
 
                             <div className="">
                                 <div className={"gallery"}>
@@ -77,7 +103,7 @@ const CategorysCarte = ({productList, tarifCart}) => {
                                 //tarifCart={tarifCart}
                                 handleChangeTarif={handleChangeTarif}
                             />
-                        </div>
+
                     </div>
 
                 </div>
