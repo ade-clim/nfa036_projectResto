@@ -33,10 +33,13 @@ const App = () => {
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const [totalCart, updateTotalCart] = useState([]);
+    const [totalPrice, updateTotalPrice] = useState(0);
 
     const contextValue = {
         totalCart: totalCart,
-        updateTotalCart: updateTotalCart
+        updateTotalCart: updateTotalCart,
+        totalPrice : totalPrice,
+        updateTotalPrice: updateTotalPrice
     };
 
 

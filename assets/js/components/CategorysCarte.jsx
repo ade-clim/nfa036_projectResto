@@ -4,6 +4,7 @@ import img from '../../img/h01.jpg'
 import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 import NavBarVertical from "../components/NavBarVertical";
 import CartContext from "../contexts/CartContext";
+import Button from "react-bootstrap/Button";
 
 const CategorysCarte = ({productList, tarifCart}) => {
 
@@ -12,14 +13,23 @@ const CategorysCarte = ({productList, tarifCart}) => {
 
     // recupere le produit actuel pour recuperer ces extras
     const [products, setProducts] = useState([]);
-    const [product, setProduct] = useState({});
-    const { totalCart, updateTotalCart } = useContext(CartContext);
+    const [product, setProduct] = useState({
+        id:"",
+        title:"",
+        price: "",
+        quantity: ""
+
+    });
+    const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
 
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
+    const [amount, setAmount] = useState(1);
 
     const handleChangeTarif = (product) => {
+
         const productCart = [...totalCart, product];
+        updateTotalPrice(totalPrice + product.price);
         updateTotalCart(productCart);
     };
 
@@ -38,8 +48,32 @@ const CategorysCarte = ({productList, tarifCart}) => {
 
     };
 
+    const handleQuantityMore = (product)=>{
+        const totalCartSave = [...totalCart];
+        for (let i = 0; i < totalCartSave.length; i++){
+            if(totalCartSave[i] === product){
+                totalCartSave[i].quantity += 1;
+                updateTotalPrice(totalPrice + product.price)
 
+            }
+        }
 
+        updateTotalCart(totalCartSave);
+    };
+
+    const handleQuantityLess = (product)=>{
+        const totalCartSave = [...totalCart];
+        for (let i = 0; i < totalCartSave.length; i++){
+            if(totalCartSave[i] === product){
+                totalCartSave[i].quantity -= 1;
+                updateTotalPrice(totalPrice - product.price)
+            }
+        }
+
+        updateTotalCart(totalCartSave);
+    };
+
+// <button  className={"btn btn-link btn-sm"} disabled={amount === 0} variant={"link"} onClick={() => ((ProductIncart.quantity - 1 ), setTarif(tarif - product.price))}>-</button>
     return (<>
         <div className={"container-fluid"}>
             <div className={"row"}>
@@ -56,21 +90,30 @@ const CategorysCarte = ({productList, tarifCart}) => {
                                 <div className={"row"}>
                                     <div className={""}>
                                         <div className="card" style={{width: "22rem"}}>
-                                            <button className="btn card-header">Mon panier</button>
+                                            <button className="btn card-header">{totalCart.length > 0 && <span>Valider mon panier</span> || <span>Mon panier</span>}</button>
 
                                             <div className="card-body">
                                                 <p className="card-text">
                                                     {totalCart.length > 0
                                                     &&
-                                                    (totalCart.map(cart =>
-                                                            <div key={cart.id}>
-                                                                <p>
-                                                                    {cart.title} {cart.price}
-                                                                </p>
+                                                    <>
+                                                        {totalCart.map(ProductInCart =>
+                                                            <div>
+                                                                <span className={"text-left"} key={ProductInCart.id}>
+                                                                    <button  className={"btn btn-link btn-sm"} disabled={ProductInCart.quantity === 0} onClick={() => handleQuantityLess(ProductInCart)}>-</button>
+                                                                    {ProductInCart.quantity}
+                                                                    <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(ProductInCart)}>+</button>
+                                                                </span>
+                                                                {ProductInCart.title} {(ProductInCart.price * ProductInCart.quantity)}
                                                             </div>
-                                                        ))
-                                                        ||
-                                                    <p>Panier vide</p>
+                                                        )}
+                                                        <div>
+                                                            <p>Total : {totalPrice}</p>
+                                                        </div>
+                                                    </>
+
+                                                    ||
+                                                    <span>Panier vide</span>
                                                     }
 
 
@@ -83,13 +126,11 @@ const CategorysCarte = ({productList, tarifCart}) => {
                             </div>
                         </div>
 
-
-
                             <div className="">
                                 <div className={"gallery"}>
                                     {products.map(product =>
                                         <div key={product.id}>
-                                            <a onClick={() => (setModalShow(true), setProduct(product), (verifExtraByProduct(product)) )}><img src={h01} className="mt-5 img"/></a>
+                                            <a onClick={() => (setModalShow(true), setProduct({id: product.id, title: product.title, price: product.price, quantity: 1}), (verifExtraByProduct(product)) )}><img src={h01} className="mt-5 img"/></a>
                                             <p>{product.title}</p>
                                         </div>
                                     )}
