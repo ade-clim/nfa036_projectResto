@@ -62,6 +62,7 @@ const CategorysCarte = ({productList}) => {
 
     };
 
+    // On ajoute un produit en plus et on modifie le prix du produit
     const handleQuantityMore = (product)=>{
         const totalCartSave = [...totalCart];
         for (let i = 0; i < totalCartSave.length; i++){
@@ -70,18 +71,29 @@ const CategorysCarte = ({productList}) => {
                 updateTotalPrice(totalPrice + product.price)
             }
         }
-        updateTotalCart(totalCartSave);
     };
 
+    // on supprime un produit en quantité et si 0 on le supprime du panier
     const handleQuantityLess = (product)=>{
         const totalCartSave = [...totalCart];
         for (let i = 0; i < totalCartSave.length; i++){
             if(totalCartSave[i] === product){
-                totalCartSave[i].quantity -= 1;
-                updateTotalPrice(totalPrice - product.price)
+                if(totalCartSave[i].quantity !== 1){
+                    totalCartSave[i].quantity -= 1;
+                    updateTotalPrice(totalPrice - product.price);
+                }else{
+                    if(totalCartSave.length === 1){
+                        updateTotalPrice(0);
+                    }
+
+                    const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
+                    updateTotalCart(totalCartDeleteProduct);
+                    updateTotalPrice(totalPrice - product.price);
+
+
+               }
             }
         }
-        updateTotalCart(totalCartSave);
     };
 
 
