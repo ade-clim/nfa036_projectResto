@@ -61,7 +61,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product)}>Total {tarif} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount)}>Total {tarif} €</Button>
             </Modal.Footer>
         </Modal>
     )

@@ -1,12 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react'
-import h01 from '../../img/h01.jpg'
-import img from '../../img/h01.jpg'
 import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 import NavBarVertical from "../components/NavBarVertical";
 import CartContext from "../contexts/CartContext";
-import Button from "react-bootstrap/Button";
+import CartMove from "./CartMove";
+import GalleryProduct from "./GalleryProduct";
 
-const CategorysCarte = ({productList, tarifCart}) => {
+const CategorysCarte = ({productList}) => {
 
 
 
@@ -21,16 +20,31 @@ const CategorysCarte = ({productList, tarifCart}) => {
 
     });
     const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
-
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
-    const [amount, setAmount] = useState(1);
 
-    const handleChangeTarif = (product) => {
+    const handleChangeTarif = (product, amount) => {
+        // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
+        const recupCartContext = [...totalCart];
+        let verif = false;
 
-        const productCart = [...totalCart, product];
-        updateTotalPrice(totalPrice + product.price);
-        updateTotalCart(productCart);
+        if(recupCartContext.length > 0) {
+            for (let i = 0; i < recupCartContext.length; i++){
+                if(recupCartContext[i].id === product.id){
+                    recupCartContext[i].quantity += amount;
+                    verif = true
+                }
+            }
+        }
+        if(verif === false){
+            // recuperation et ajout du produit puis envoie dans panier
+            const productModify = {...product, quantity: amount};
+            const productCart = [...totalCart, productModify];
+            updateTotalCart(productCart);
+        }
+
+        //mise à jour du prix total du panier
+        updateTotalPrice(totalPrice + product.price * amount);
     };
 
 
@@ -54,10 +68,8 @@ const CategorysCarte = ({productList, tarifCart}) => {
             if(totalCartSave[i] === product){
                 totalCartSave[i].quantity += 1;
                 updateTotalPrice(totalPrice + product.price)
-
             }
         }
-
         updateTotalCart(totalCartSave);
     };
 
@@ -69,11 +81,10 @@ const CategorysCarte = ({productList, tarifCart}) => {
                 updateTotalPrice(totalPrice - product.price)
             }
         }
-
         updateTotalCart(totalCartSave);
     };
 
-// <button  className={"btn btn-link btn-sm"} disabled={amount === 0} variant={"link"} onClick={() => ((ProductIncart.quantity - 1 ), setTarif(tarif - product.price))}>-</button>
+
     return (<>
         <div className={"container-fluid"}>
             <div className={"row"}>
@@ -85,63 +96,17 @@ const CategorysCarte = ({productList, tarifCart}) => {
                             <h1>Burgers</h1>
                         </div>
 
+
                         <div className={"offset-9"}>
-                            <div className={"cart_move"}>
-                                <div className={"row"}>
-                                    <div className={""}>
-                                        <div className="card" style={{width: "22rem"}}>
-                                            <button className="btn card-header">{totalCart.length > 0 && <span>Valider mon panier</span> || <span>Mon panier</span>}</button>
-
-                                            <div className="card-body">
-                                                <p className="card-text">
-                                                    {totalCart.length > 0
-                                                    &&
-                                                    <>
-                                                        {totalCart.map(ProductInCart =>
-                                                            <div>
-                                                                <span className={"text-left"} key={ProductInCart.id}>
-                                                                    <button  className={"btn btn-link btn-sm"} disabled={ProductInCart.quantity === 0} onClick={() => handleQuantityLess(ProductInCart)}>-</button>
-                                                                    {ProductInCart.quantity}
-                                                                    <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(ProductInCart)}>+</button>
-                                                                </span>
-                                                                {ProductInCart.title} {(ProductInCart.price * ProductInCart.quantity)}
-                                                            </div>
-                                                        )}
-                                                        <div>
-                                                            <p>Total : {totalPrice}</p>
-                                                        </div>
-                                                    </>
-
-                                                    ||
-                                                    <span>Panier vide</span>
-                                                    }
-
-
-
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <CartMove totalCart={totalCart} totalPrice={totalPrice} handleQuantityLess={handleQuantityLess} handleQuantityMore={handleQuantityMore}/>
                         </div>
+                            <GalleryProduct products={products} setModalShow={setModalShow} setProduct={setProduct} verifExtraByProduct={verifExtraByProduct}/>
 
-                            <div className="">
-                                <div className={"gallery"}>
-                                    {products.map(product =>
-                                        <div key={product.id}>
-                                            <a onClick={() => (setModalShow(true), setProduct({id: product.id, title: product.title, price: product.price, quantity: 1}), (verifExtraByProduct(product)) )}><img src={h01} className="mt-5 img"/></a>
-                                            <p>{product.title}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
                             <MyVerticalCenteredModal
                                 show={modalShow}
                                 onHide={() => setModalShow(false)}
                                 product={product}
                                 extras={extras}
-                                //tarifCart={tarifCart}
                                 handleChangeTarif={handleChangeTarif}
                             />
 

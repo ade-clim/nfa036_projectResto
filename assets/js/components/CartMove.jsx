@@ -2,14 +2,46 @@ import React from 'react';
 
 
 
-const CartMove = ({toto}) => {
+const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore}) => {
     return(
-            <ul className={"list-inline"}>
-                <li>Burger 01</li>
-                <li>Burger 01</li>
-                <li>{toto}</li>
+        <div className={"cart_move"}>
+            <div className={"row"}>
+                <div className={""}>
+                    <div className="card" style={{width: "22rem"}}>
+                        <button className="btn card-header">{totalCart.length > 0 && <span>Valider mon panier</span> || <span>Mon panier</span>}</button>
 
-            </ul>
+                        <div className="card-body">
+                            <p className="card-text">
+                                {totalCart.length > 0
+                                &&
+                                <>
+                                    {totalCart.map(ProductInCart =>
+                                        <div>
+                                            <span className={"text-left"} key={ProductInCart.id}>
+                                                <button  className={"btn btn-link btn-sm"} disabled={ProductInCart.quantity === 0} onClick={() => handleQuantityLess(ProductInCart)}>-</button>
+                                                {ProductInCart.quantity}
+                                                <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(ProductInCart)}>+</button>
+                                            </span>
+                                            {ProductInCart.title} {(ProductInCart.price * ProductInCart.quantity)}
+                                        </div>
+                                    )}
+                                    <div>
+                                        <p>Total : {totalPrice} euros</p>
+                                    </div>
+                                </>
+
+                                ||
+                                <span>Panier vide</span>
+                                }
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 };
 
