@@ -14,8 +14,8 @@ const ProductsPage = (props) => {
     // Permet de recuperer les extras
     const fetchExtras = async () => {
         try {
-            const data = await extraProductApi.findAll();
-            setExtras(data);
+            //const data = await extraProductApi.findAll();
+            //setExtras(data);
         }catch (error) {
             console.log(error.response)
         }
@@ -26,6 +26,7 @@ const ProductsPage = (props) => {
     const fetchProducts = async () => {
         try {
             const data = await productApi.findAll();
+            console.log(data)
             setProducts(data);
 
             // on recupere la liste des extraproducts pour afficher leur nombres par produit

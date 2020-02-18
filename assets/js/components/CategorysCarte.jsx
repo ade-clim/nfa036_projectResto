@@ -5,9 +5,8 @@ import CartContext from "../contexts/CartContext";
 import CartMove from "./CartMove";
 import GalleryProduct from "./GalleryProduct";
 
+
 const CategorysCarte = ({productList}) => {
-
-
 
 
     // recupere le produit actuel pour recuperer ces extras
@@ -17,8 +16,8 @@ const CategorysCarte = ({productList}) => {
         title:"",
         price: "",
         quantity: ""
-
     });
+
     const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
@@ -56,10 +55,11 @@ const CategorysCarte = ({productList}) => {
 
     // Methode qui va recuperer les extras qui appartiennent au produit actuel
     const verifExtraByProduct = (product) => {
-        const productExtrasList = product.productExtras;
-        const extrasByProductList = productExtrasList.map(r => r.extra);
-        setExtras(extrasByProductList);
 
+        const productExtrasList = product.productExtra;
+        const extrasByProductList = productExtrasList.map(r => r);
+        console.log(extrasByProductList)
+        setExtras(extrasByProductList);
     };
 
     // On ajoute un produit en plus et on modifie le prix du produit
@@ -96,7 +96,7 @@ const CategorysCarte = ({productList}) => {
         }
     };
 
-
+//<GalleryProduct products={products} setModalShow={setModalShow} setProduct={setProduct} verifExtraByProduct={verifExtraByProduct}/>
     return (<>
         <div className={"container-fluid"}>
             <div className={"row"}>

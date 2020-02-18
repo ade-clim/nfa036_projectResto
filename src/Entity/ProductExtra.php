@@ -22,7 +22,7 @@ class ProductExtra
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Extra", inversedBy="productExtras")
-     * @Groups({"productExtra_read","products_read", "category_read"})
+     * @Groups({"productExtra_read", "category_read"})
      */
     private $extra;
 

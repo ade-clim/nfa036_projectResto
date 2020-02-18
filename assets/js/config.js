@@ -4,6 +4,7 @@ export const LOGIN_API = API_URL + "login_check";
 export const USERS_API = API_URL + "users";
 export const ADDRESS_API = API_URL + "addresses";
 export const PRODUCT_API = API_URL + "products";
+export const SUPPLEMENT_API = API_URL + "supplements";
 export const EXTRA_API = API_URL + "extras";
 export const EXTRAPRODUCT_API = API_URL + "product_extras";
 export const CATEGORY_API = API_URL + "categories";

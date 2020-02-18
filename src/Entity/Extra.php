@@ -36,13 +36,25 @@ class Extra
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
-     * @Groups({"extras_read","productExtra_read", "products_read"})
+     * @Groups({"extras_read"})
      */
     private $productExtras;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExtraSupplement", mappedBy="extra")
+     */
+    private $supplement;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExtraSupplement", mappedBy="extra")
+     */
+    private $extraSupplements;
 
     public function __construct()
     {
         $this->productExtras = new ArrayCollection();
+        $this->supplement = new ArrayCollection();
+        $this->extraSupplements = new ArrayCollection();
     }
 
 
@@ -100,6 +112,68 @@ class Extra
             // set the owning side to null (unless already changed)
             if ($productExtra->getExtra() === $this) {
                 $productExtra->setExtra(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExtraSupplement[]
+     */
+    public function getSupplement(): Collection
+    {
+        return $this->supplement;
+    }
+
+    public function addSupplement(ExtraSupplement $supplement): self
+    {
+        if (!$this->supplement->contains($supplement)) {
+            $this->supplement[] = $supplement;
+            $supplement->setExtra($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupplement(ExtraSupplement $supplement): self
+    {
+        if ($this->supplement->contains($supplement)) {
+            $this->supplement->removeElement($supplement);
+            // set the owning side to null (unless already changed)
+            if ($supplement->getExtra() === $this) {
+                $supplement->setExtra(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExtraSupplement[]
+     */
+    public function getExtraSupplements(): Collection
+    {
+        return $this->extraSupplements;
+    }
+
+    public function addExtraSupplement(ExtraSupplement $extraSupplement): self
+    {
+        if (!$this->extraSupplements->contains($extraSupplement)) {
+            $this->extraSupplements[] = $extraSupplement;
+            $extraSupplement->setExtra($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExtraSupplement(ExtraSupplement $extraSupplement): self
+    {
+        if ($this->extraSupplements->contains($extraSupplement)) {
+            $this->extraSupplements->removeElement($extraSupplement);
+            // set the owning side to null (unless already changed)
+            if ($extraSupplement->getExtra() === $this) {
+                $extraSupplement->setExtra(null);
             }
         }
 

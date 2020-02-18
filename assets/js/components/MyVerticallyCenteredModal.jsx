@@ -8,7 +8,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
 
     const [tarif, setTarif] = useState();
     const [amount, setAmount] = useState(1);
-    const [extrasProduct, setExtrasProduct] = useState([]);
+    const [extrasSelectProduct, setExtrasSelectProduct] = useState([]);
 
 
     useEffect(() => {
@@ -18,7 +18,11 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
        }
     },[show]);
 
-    // {product.productExtras.map(productExtra => extras.map(extras => extras.title))}
+    const selectExtraProduct = (extra) => {
+        console.log(extra)
+    };
+
+
     return (
         <Modal
             {...{onHide, show}}
@@ -42,9 +46,8 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                         <h6>{extra.description} :</h6>
                         <ul className={"list-group"}>
                             <li className="list-group-item list-group-item-action border-0">
-                                <input type="checkbox" aria-label="Radio button for following text input" className={"ml-3"}/>
+                                <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
                             </li>
-
                         </ul>
                     </div>
                 )}
