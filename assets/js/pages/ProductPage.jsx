@@ -140,7 +140,6 @@ const ProductPage = ({history, match}) => {
     const lastProductCreate= async (id) => {
         const extraTab = [...extras];
 
-
         // Recup les value des case du checkbox cocher
         const el = document.getElementById('myCheck');
         const productsExtras = el.getElementsByTagName('input');
@@ -153,17 +152,6 @@ const ProductPage = ({history, match}) => {
             }
         }
 
-        /*
-        // on parcours nos options check pour recup les objets extras qui correspondents et on les creer en base de données
-        for (let i = 0; i < optionsChecked.length; i++){
-            for (let p = 0; p < extraTab.length; p++){
-                if (optionsChecked[i] === extraTab[p].title){
-                    const ExtraProduct = {extra: extraTab[p].id, product: idLastProduct.id+1};
-                    await extraProductApi.create(ExtraProduct);
-                }
-            }
-        };
-        */
     };
 
     //
@@ -214,6 +202,7 @@ const ProductPage = ({history, match}) => {
                     description: "",
                     category: ""
                 });
+
                 history.replace("/products/new");
             }
 
@@ -280,6 +269,7 @@ const ProductPage = ({history, match}) => {
                        value={product.price}
                        error={errors.price}
                 />
+
                 <Select
                     name={"category"}
                     label={"Category"}
@@ -306,11 +296,9 @@ const ProductPage = ({history, match}) => {
                         <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
                     </div>)}
 
-                    {optionsChecked.map(oc => <p>{oc}</p>)}
 
                 </div>) || (<div className="form-group">
 
-                    {extrasByProduct.map(test => <span key={test.id}>{test.extra.id}</span>)}
 
 
                     {/*  MODE EDITION DE PRODUIT  */}
@@ -352,7 +340,7 @@ const ProductPage = ({history, match}) => {
 
 
                 </div>)}
-                {optionsChecked.map(oc => <p>{oc}</p>)}
+
                 <div className={"form-group"}>
                     <button className={"btn btn-success"} type={"submit"}>Enregistrer</button>
                     <Link to={"/products"} className={"btn btn-link"}>Retour à la liste</Link>

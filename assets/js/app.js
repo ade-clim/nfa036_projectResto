@@ -25,6 +25,7 @@ import CategorysCarte from "./components/CategorysCarte";
 import CartContext from "./contexts/CartContext";
 import extraProductApi from "./services/extraProductApi";
 import SupplementsPage from "./pages/SupplementsPage";
+import SupplementPage from "./pages/SupplementPage";
 
 require('../css/app.css');
 
@@ -148,6 +149,7 @@ const App = () => {
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
 
 
+                            <PrivateRoute path={"/supplements/:id"} component={SupplementPage}/>
                             <PrivateRoute path={"/supplements"} component={SupplementsPage}/>
                             <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>
                             <PrivateRoute path={"/extras"} component={ExtrasPage}/>

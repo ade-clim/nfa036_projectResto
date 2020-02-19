@@ -19,11 +19,11 @@ function find(id){
 
 
 function update(id, supplement){
-    return axios.put(SUPPLEMENT_API + "/" + id, {...supplement});
+    return axios.put(SUPPLEMENT_API + "/" + id, supplement);
 }
 
 function create(supplement){
-    return axios.post(SUPPLEMENT_API, {...supplement});
+    return axios.post(SUPPLEMENT_API, supplement);
 }
 
 export default {

@@ -60,7 +60,7 @@ const SupplementsPage = () => {
         <div className={"container homecontainer"}>
             <div className={"mb-5 d-flex justify-content-between align-items-center"}>
                 <h1>Liste des suppléments</h1>
-                <Link to={"/extras/new"} className={"btn btn-primary"} >Créer un supplément</Link>
+                <Link to={"/supplements/new"} className={"btn btn-primary"} >Créer un supplément</Link>
             </div>
             <div className={"form-group"}>
                 <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
@@ -71,15 +71,15 @@ const SupplementsPage = () => {
                     <th>Id.</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th className={"text-center"}>Options</th>
+                    <th className={"text-center"}>Prix</th>
                 </tr>
                 </thead>
                 <tbody>
-                {paginatedSupplements.map(supplement => <tr key={extra.id}>
+                {paginatedSupplements.map(supplement => <tr key={supplement.id}>
                     <td>{supplement.id}</td>
                     <td>{supplement.title}</td>
                     <td>{supplement.description}</td>
-                    <td className={"text-center"}></td>
+                    <td className={"text-center"}>{supplement.price}</td>
 
                     <td>
                         <Link  to={"/extras/" + supplement.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>

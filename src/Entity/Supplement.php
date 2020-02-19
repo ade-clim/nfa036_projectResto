@@ -79,7 +79,7 @@ class Supplement
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice($price): self
     {
         $this->price = $price;
 
