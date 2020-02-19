@@ -9,7 +9,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(normalizationContext={"groups"={"extras_read"}})
+ * @ApiResource(
+ *     attributes={
+ *     "order"= {"id"}},
+ *     normalizationContext={"groups"={"extras_read"}})
  * @ORM\Entity(repositoryClass="App\Repository\ExtraRepository")
  */
 class Extra
@@ -18,7 +21,7 @@ class Extra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"extras_read","productExtra_read", "products_read", "extraSupplement_read"})
+     * @Groups({"extras_read","productExtra_read", "products_read", "extraSupplement_read", "category_read"})
      */
     private $id;
 
@@ -42,11 +45,13 @@ class Extra
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ExtraSupplement", mappedBy="extra")
+     * @Groups({"extras_read", "category_read", "products_read", "productExtra_read"})
      */
     private $supplement;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ExtraSupplement", mappedBy="extra")
+     * @Groups({"extras_read", "products_read", "productExtra_read"})
      */
     private $extraSupplements;
 

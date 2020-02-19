@@ -6,6 +6,7 @@ api_platform:
     swagger:
         versions: [3]
     collection:
+        order: 'ASC'
         pagination:
             enabled: false
 

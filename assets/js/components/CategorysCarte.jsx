@@ -56,10 +56,11 @@ const CategorysCarte = ({productList}) => {
     // Methode qui va recuperer les extras qui appartiennent au produit actuel
     const verifExtraByProduct = (product) => {
 
-        const productExtrasList = product.productExtra;
-        const extrasByProductList = productExtrasList.map(r => r);
-        console.log(extrasByProductList)
-        setExtras(extrasByProductList);
+        const productExtrasList = product.productExtras;
+        const extras = productExtrasList.map(t => t.extra);
+        // on trie le tableau
+        extras.sort((a, b) => a.id - b.id);
+        setExtras(extras);
     };
 
     // On ajoute un produit en plus et on modifie le prix du produit

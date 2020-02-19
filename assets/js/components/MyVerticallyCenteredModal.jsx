@@ -44,11 +44,17 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                 {extras.map(extra =>
                     <div key={extra.id} className={"mb-4"}>
                         <h6>{extra.description} :</h6>
-                        <ul className={"list-group"}>
-                            <li className="list-group-item list-group-item-action border-0">
-                                <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
-                            </li>
-                        </ul>
+
+                        {extra.supplement.map(supplement =>
+
+                            <ul className={"list-group"}>
+                                <li className="list-group-item list-group-item-action border-0">
+                                    <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
+                                    <label>{supplement.supplement.title}</label>
+                                </li>
+                            </ul>
+
+                        )}
                     </div>
                 )}
                 <div className={"mt-4"}>

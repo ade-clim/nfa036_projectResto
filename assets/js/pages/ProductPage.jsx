@@ -87,7 +87,6 @@ const ProductPage = ({history, match}) => {
     const fetchExtrasByProduct = async (idProduit) => {
         try {
             const data = await extraProductApi.findAll();
-            console.log(data)
             // On stock les extras qui appartiennent au produit en cours d'editions
             const value = data.filter(l => l.product.id == idProduit);
             setExtrasByProduct(value);

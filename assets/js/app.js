@@ -55,61 +55,36 @@ const App = () => {
     const [menuKids, setMenuKids] = useState([]);
     const [others, setOthers] = useState([]);
 
-    const [products, setProducts] = useState({
-        id: "",
-        categoryId: "",
-        title: "",
-        price: "",
-        description: ""
-    });
-
     // On va récuperer tous nos produits et les stockers en fonction de leur catégorie
     const handleProduct = async  () => {
         try {
-            const data = await productApi.findAll();
-
-            //setProducts({id: id, categoryId: categoryId, title: title, price: price, description: description});
-
+            const data = await categoryApi.findAll();
             const productExtra = await extraProductApi.findAll();
-            const tabBurgers = [];
-            const tabSnacks = [];
-            const tabDrinks = [];
-            const tabDesserts = [];
-            const tabMenuKids = [];
-            const tabOthers = [];
 
             // Boucle qui va recuperer les produits en fonction de leur catégorie ET recuperer leur extras en fonction de l'id produit
             for (let i = 0 ; i < data.length; i++){
-                if(data[i].category.id === 1){
-                    let extraByProduct = [];
-                    for(let j = 0; j < productExtra.length; j++){
-                        if(data[i].id === productExtra[j].product.id){
-                            extraByProduct.push({id: productExtra[j].id, extra: productExtra[j].extra, product: productExtra[j].product});
-                        }
-                    }
-                    const product = {id: data[i].id, title: data[i].title, categoryId: data[i].category.id, description: data[i].description, price: data[i].price, productExtra: extraByProduct};
-                    tabBurgers.push(product);
-                    setBurgers(tabBurgers);
+                if(data[i].id === 1){
+                    setBurgers(data[i].products)
                 }
                 if(data[i].category.id === 2){
-                    tabSnacks.push(data[i]);
-                    setSnacks(tabSnacks);
+
+                    setSnacks();
                 }
                 if(data[i].category.id === 3){
-                    tabDrinks.push(data[i]);
-                    setDrinks(tabDrinks);
+
+                    setDrinks();
                 }
                 if(data[i].category.id === 4){
-                    tabDesserts.push(data[i]);
-                    setDesserts(tabDesserts);
+
+                    setDesserts();
                 }
                 if(data[i].category.id === 5){
-                    tabMenuKids.push(data[i]);
-                    setMenuKids(tabMenuKids);
+
+                    setMenuKids();
                 }
                 if(data[i].category.id === 6){
-                    tabOthers.push(data[i]);
-                    setOthers(tabOthers);
+
+                    setOthers();
                 }
 
             }
