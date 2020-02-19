@@ -42,20 +42,21 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                 <h5 className={"text-center text-dark mb-5"}>{product.description}</h5>
                 {/*Boucle qui affiche les extras disponible pour le produit actuel */}
                 {extras.map(extra =>
-                    <div key={extra.id} className={"mb-4"}>
-                        <h6>{extra.description} :</h6>
+                extra.supplement.length > 0 &&
+                <div key={extra.id} className={"mb-4"}>
+                    <h6>{extra.description} :</h6>
 
-                        {extra.supplement.map(supplement =>
+                    {extra.supplement.map(supplement =>
+                        <ul className={"list-group"}>
+                            <li className="list-group-item list-group-item-action border-0">
+                                <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
+                                <label>{supplement.supplement.title}</label>
+                            </li>
+                        </ul>
+                    )}
+                </div>
 
-                            <ul className={"list-group"}>
-                                <li className="list-group-item list-group-item-action border-0">
-                                    <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
-                                    <label>{supplement.supplement.title}</label>
-                                </li>
-                            </ul>
 
-                        )}
-                    </div>
                 )}
                 <div className={"mt-4"}>
 
