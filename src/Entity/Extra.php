@@ -18,13 +18,13 @@ class Extra
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"extras_read","productExtra_read", "products_read"})
+     * @Groups({"extras_read","productExtra_read", "products_read", "extraSupplement_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *@Groups({"extras_read","productExtra_read", "products_read","category_read"})
+     *@Groups({"extras_read","productExtra_read", "products_read","category_read", "extraSupplement_read"})
      */
     private $title;
 

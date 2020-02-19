@@ -87,7 +87,7 @@ const ProductPage = ({history, match}) => {
     const fetchExtrasByProduct = async (idProduit) => {
         try {
             const data = await extraProductApi.findAll();
-
+            console.log(data)
             // On stock les extras qui appartiennent au produit en cours d'editions
             const value = data.filter(l => l.product.id == idProduit);
             setExtrasByProduct(value);
@@ -184,11 +184,6 @@ const ProductPage = ({history, match}) => {
                     await extraProductApi.create(ExtraProduct);
                 }
 
-                const value = extras.filter(f => f.title === productsExtras[i].value);
-                const ExtraProduct = {extra: value[0].id, product: id};
-                //await extraProductApi.create(ExtraProduct);
-
-
             }else{
                 if(productsExtras[i].type === 'checkbox'){
 
@@ -202,48 +197,7 @@ const ProductPage = ({history, match}) => {
             }
 
         }
-
-
-
-
-        // on va delete en bdd les produits qui ont été décocher grace a option checked qui stock les nonChecked
-        for(let l = 0; l < productsExtrasAll.length; l++){
-            for(let u = 0; u < extrasByProduct.length; u++){
-                if(productsExtras[l].id == extrasByProduct[u].id){
-                    console.log("ok on delete")
-                }
-            }
-        }
-
     };
-
-
-    /*
-    const lastProductEditing = async () => {
-        const extraTab = [...extras];
-        for (let i = 0; i < extrasByProduct.length; i++){
-            for (let o = 0; o < extraTab.length; o++){
-                console.log(extraTab[o].id)
-                if (extrasByProduct[i].extra.id == extraTab[o].id){
-                    console.log("testtesttest")
-                }
-            }
-        };
-
-        // on parcours nos options check pour recup les objets extras qui correspondents et on creer en base de données
-        for (let i = 0; i < optionsChecked.length; i++){
-            for (let p = 0; p < extraTab.length; p++){
-                if (optionsChecked[i] === extraTab[p].title){
-                    //const ExtraProduct = {extra: extraTab[p].id, product: idLastProduct.id};
-                    //await extraProductApi.create(ExtraProduct);
-                }
-            }
-        };
-
-
-
-    */
-
 
 
     // Gestion de la soumission du formulaire
@@ -289,23 +243,6 @@ const ProductPage = ({history, match}) => {
         }
     };
 
-
-    // Va nous permettre de récup les extras qui sont cocher
-    const handleChecked = (event)=> {
-        console.log("test")
-        let checkedArray = [...optionsChecked];
-        let selectedValue = event.target.value;
-
-        if (event.target.checked === false) {
-            checkedArray.push(selectedValue);
-            setOptionChecked(checkedArray);
-        }else{
-            let valueIndex = checkedArray.indexOf(selectedValue);
-            checkedArray.splice(valueIndex, 1);
-
-            setOptionChecked(checkedArray)
-        }
-    };
 
     return(
         <>
@@ -367,6 +304,7 @@ const ProductPage = ({history, match}) => {
 
                     {/*  MODE EDITION DE PRODUIT  */}
                     {/*  Boucle qui nous permet de verifier si un extra appartient au produit si oui on coche la case directement    */}
+                    <label>Selectionner vos extras</label>
                     {extras.map(extra => {
                         let check = false;
 
@@ -380,7 +318,6 @@ const ProductPage = ({history, match}) => {
                             return(
                                 <div key={extra.id} className="custom-control custom-checkbox">
                                     <input type="checkbox" className="custom-control-input"
-                                           onChange={handleChecked}
                                            value={extra.title}
                                            id={extra.id}
                                            defaultChecked={true}
@@ -392,7 +329,6 @@ const ProductPage = ({history, match}) => {
                             return (
                                 <div key={extra.id} className="custom-control custom-checkbox">
                                     <input type="checkbox" className="custom-control-input"
-                                           onChange={handleChecked}
                                            value={extra.title}
                                            id={extra.id}
                                     />
