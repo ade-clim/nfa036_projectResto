@@ -10,12 +10,13 @@ import extraProductApi from "../services/extraProductApi";
 const ProductPage = ({history, match}) => {
 
     const {id = "new"} = match.params;
-    const tab = [];
     const [idLastProduct, setIdLastProduct] = useState();
     const [extras, setExtras] = useState([]);
     const [optionsChecked, setOptionChecked] = useState([]);
 
     const [extrasByProduct, setExtrasByProduct] = useState([]);
+
+    const [productsExtrasAll, setProductsExtrasAll] = useState([]);
     const [productExtra, setProductExtra] = useState({
         extra: "",
         product: ""
@@ -43,7 +44,6 @@ const ProductPage = ({history, match}) => {
 
     //Recuperation des extras disponible
     const fetchExtras = async () => {
-        console.log("je suis dans fetchExtras");
         try {
             const data = await extraApi.findAll();
             setExtras(data);
@@ -88,7 +88,7 @@ const ProductPage = ({history, match}) => {
         try {
             const data = await extraProductApi.findAll();
 
-            // On stock les extras qui appartiennent au produit en cour d'editions
+            // On stock les extras qui appartiennent au produit en cours d'editions
             const value = data.filter(l => l.product.id == idProduit);
             setExtrasByProduct(value);
 
@@ -99,12 +99,19 @@ const ProductPage = ({history, match}) => {
         }
     };
 
+    // on recupere les productExtra du produit en base de donnée
+    const fetchProductsExtras = async() => {
+      const data = await extraProductApi.findAll();
+      const dataFilter = data.filter(t => t.product.id == id);
+      setProductsExtrasAll(dataFilter);
+    };
 
     // Recuperation de la liste des categorys à chaque chargement de composant
     useEffect(() => {
         fetchProducts();
         fetchCategorys();
         fetchExtras();
+        fetchProductsExtras();
     }, []);
 
 
@@ -138,13 +145,12 @@ const ProductPage = ({history, match}) => {
     };
 
     const lastProductCreate= async (id) => {
-        const extraTab = [...extras];
 
         // Recup les value des case du checkbox cocher
         const el = document.getElementById('myCheck');
         const productsExtras = el.getElementsByTagName('input');
 
-        for (let i = 0; i < productsExtras .length; i++) {
+        for (let i = 0; i < productsExtras.length; i++) {
             if (productsExtras[i].type === 'checkbox' && productsExtras[i].checked === true) {
                 const value = extras.filter(f => f.title === productsExtras[i].value);
                 const ExtraProduct = {extra: value[0].id, product: id};
@@ -156,9 +162,66 @@ const ProductPage = ({history, match}) => {
 
     //
     const lastProductEditing = async () => {
+        const tabDelete = [...extrasByProduct];
+
+        // Recup les value des case du checkbox cocher
+        const el = document.getElementById('myCheck');
+        const productsExtras = el.getElementsByTagName('input');
+
+        for (let i = 0; i < productsExtras.length; i++) {
+            let verifExtraBdd = false;
+            if (productsExtras[i].type === 'checkbox' && productsExtras[i].checked === true) {
+                for(let p = 0; p < extrasByProduct.length; p++){
+                    // on verifie si le produit en base de donnée == au produit cocher
+                    if(productsExtras[i].id == extrasByProduct[p].extra.id){
+                        verifExtraBdd = true;
+                    }
+                }
+                // si le produit n'est pas en bdd on creer l'extra product
+                if(!verifExtraBdd){
+                    const value = extras.filter(f => f.title === productsExtras[i].value);
+                    const ExtraProduct = {extra: value[0].id, product: id};
+                    await extraProductApi.create(ExtraProduct);
+                }
+
+                const value = extras.filter(f => f.title === productsExtras[i].value);
+                const ExtraProduct = {extra: value[0].id, product: id};
+                //await extraProductApi.create(ExtraProduct);
+
+
+            }else{
+                if(productsExtras[i].type === 'checkbox'){
+
+                    for(let p = 0 ; p < tabDelete.length; p++){
+                        if(tabDelete[p].extra.id == productsExtras[i].id){
+                            await extraProductApi.deleteProductExtra(tabDelete[p].id)
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+
+
+        // on va delete en bdd les produits qui ont été décocher grace a option checked qui stock les nonChecked
+        for(let l = 0; l < productsExtrasAll.length; l++){
+            for(let u = 0; u < extrasByProduct.length; u++){
+                if(productsExtras[l].id == extrasByProduct[u].id){
+                    console.log("ok on delete")
+                }
+            }
+        }
+
+    };
+
+
+    /*
+    const lastProductEditing = async () => {
         const extraTab = [...extras];
         for (let i = 0; i < extrasByProduct.length; i++){
-            console.log(extrasByProduct[i].extra.id);
             for (let o = 0; o < extraTab.length; o++){
                 console.log(extraTab[o].id)
                 if (extrasByProduct[i].extra.id == extraTab[o].id){
@@ -176,7 +239,11 @@ const ProductPage = ({history, match}) => {
                 }
             }
         };
-    };
+
+
+
+    */
+
 
 
     // Gestion de la soumission du formulaire
@@ -225,17 +292,14 @@ const ProductPage = ({history, match}) => {
 
     // Va nous permettre de récup les extras qui sont cocher
     const handleChecked = (event)=> {
-
+        console.log("test")
         let checkedArray = [...optionsChecked];
         let selectedValue = event.target.value;
 
-        if (event.target.checked === true) {
-
+        if (event.target.checked === false) {
             checkedArray.push(selectedValue);
             setOptionChecked(checkedArray);
-
-        } else {
-
+        }else{
             let valueIndex = checkedArray.indexOf(selectedValue);
             checkedArray.splice(valueIndex, 1);
 
@@ -306,10 +370,10 @@ const ProductPage = ({history, match}) => {
                     {extras.map(extra => {
                         let check = false;
 
+
                         for (let i = 0; i < extrasByProduct.length; i++){
                             if(extrasByProduct[i].extra.id === extra.id){
                                 check = true;
-                                tab.push(extra.title);
                             }
                         }
                         if (check){
@@ -319,7 +383,7 @@ const ProductPage = ({history, match}) => {
                                            onChange={handleChecked}
                                            value={extra.title}
                                            id={extra.id}
-                                           defaultChecked
+                                           defaultChecked={true}
                                     />
                                     <label className="custom-control-label" htmlFor={extra.id}>{extra.title}</label>
                                 </div>

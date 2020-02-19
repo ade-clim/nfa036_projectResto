@@ -26,7 +26,6 @@ const ProductsPage = (props) => {
     const fetchProducts = async () => {
         try {
             const data = await productApi.findAll();
-            console.log(data)
             setProducts(data);
 
             // on recupere la liste des extraproducts pour afficher leur nombres par produit
