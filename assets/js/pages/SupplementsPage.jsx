@@ -82,7 +82,7 @@ const SupplementsPage = () => {
                     <td className={"text-center"}>{supplement.price}</td>
 
                     <td>
-                        <Link  to={"/extras/" + supplement.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
+                        <Link  to={"/supplements/" + supplement.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>
                         <button className={"btn btn-sm btn-danger"} onClick={() => handleDelete(supplement.id)}>supprimer</button>
                     </td>
                 </tr>)}

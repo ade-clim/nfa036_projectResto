@@ -21,7 +21,7 @@ class Supplement
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"supplement_read", "category_read"})
+     * @Groups({"supplement_read", "category_read", "extraSupplement_read"})
      */
     private $id;
 

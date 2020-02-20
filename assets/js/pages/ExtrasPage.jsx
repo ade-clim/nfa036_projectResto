@@ -78,7 +78,7 @@ const ExtrasPage = (props) => {
                     <th>Id.</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th className={"text-center"}>Options</th>
+                    <th className={"text-center"}>Supplements</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,7 @@ const ExtrasPage = (props) => {
                     <td>{extra.id}</td>
                     <td>{extra.title}</td>
                     <td>{extra.description}</td>
-                    <td className={"text-center"}></td>
+                    <td className={"text-center "}><span className={"badge badge-pill badge-info"}>{extra.supplement.length}</span></td>
 
                     <td>
                         <Link  to={"/extras/" + extra.id} className={"btn btn-sm btn-primary mr-1"}>Editer</Link>

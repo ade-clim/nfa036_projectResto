@@ -54,7 +54,6 @@ const ExtraPage = ({match, history}) => {
             const data = await extraSupplementApi.findAll();
             // On stock les extras qui appartiennent au produit en cours d'editions
             const value = data.filter(l => l.extra.id == idExtra);
-            console.log(value)
             setSupplementsByExtra(value);
 
 
@@ -160,6 +159,7 @@ const ExtraPage = ({match, history}) => {
                 await extraApi.update(id,extra);
                 lastProductEditing();
                 // TODO : Flash notification de succés
+                history.replace("/extras");
             }else{
                 const data = await extraApi.create(extra);
 

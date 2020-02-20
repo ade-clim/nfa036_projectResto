@@ -112,7 +112,7 @@ const SupplementPage = ({match, history}) => {
                   <button type={"submit"} className={"btn btn-success"}>
                       Enregister
                   </button>
-                  <Link to={"/suppelments"} className={"btn btn-link"}>
+                  <Link to={"/supplements"} className={"btn btn-link"}>
                       Retour à la liste
                   </Link>
               </div>

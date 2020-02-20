@@ -3,12 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
+import {forEach} from "react-bootstrap/cjs/ElementChildren";
 
-const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, handleChangeTarif}) => {
+const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif}) => {
 
     const [tarif, setTarif] = useState();
     const [amount, setAmount] = useState(1);
-    const [extrasSelectProduct, setExtrasSelectProduct] = useState([]);
+    const [listSupplementsSelect, setListSupplementSelect] = useState([]);
+    const [priceSupp, setPriceSupp] = useState(0);
 
 
     useEffect(() => {
@@ -18,8 +20,29 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
        }
     },[show]);
 
-    const selectExtraProduct = (extra) => {
-        console.log(extra)
+    const selectSupplementProduct = (supplement) => {
+        let verif = false;
+
+        if(listSupplementsSelect.length > 0){
+            for(let i = 0; i < listSupplementsSelect.length; i++){
+                if(listSupplementsSelect[i].id === supplement.id){
+                    const tab = listSupplementsSelect.filter(t => t.id !== supplement.id );
+                    setListSupplementSelect(tab);
+                    setPriceSupp(priceSupp - supplement.price);
+                    verif = true;
+                }
+            }
+            if(verif === false){
+                setListSupplementSelect([...listSupplementsSelect, supplement]);
+                setPriceSupp(priceSupp + supplement.price);
+            }
+        }else{
+            setListSupplementSelect([...listSupplementsSelect, supplement]);
+            setPriceSupp(priceSupp + supplement.price);
+        }
+
+
+
     };
 
 
@@ -49,8 +72,8 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                     {extra.supplement.map(supplement =>
                         <ul className={"list-group"}>
                             <li className="list-group-item list-group-item-action border-0">
-                                <input type="checkbox" className={"ml-3"} onClick={() => {selectExtraProduct(extra)}}/>
-                                <label>{supplement.supplement.title}</label>
+                                <input type="checkbox" className={"ml-3"} onClick={() => {selectSupplementProduct(supplement.supplement)}}/>
+                                <label className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price}</label>
                             </li>
                         </ul>
                     )}
@@ -64,14 +87,14 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, tarifCart, hand
                 <div className={"text-center"}>
                     <Button disabled={amount === 1} variant={"link"} onClick={() => (setAmount(amount - 1 ), setTarif(tarif - product.price))}>-</Button>
                     {amount}
-                    <Button variant={"link"} onClick={() => (setAmount(amount + 1 ), setTarif(tarif + product.price))}>+</Button>
+                    <Button variant={"link"} onClick={() => (setAmount(amount + 1 ), setTarif(tarif  + product.price ))}>+</Button>
                 </div>
 
             </Modal.Body>
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount)}>Total {tarif} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount)}>Total {tarif + priceSupp * amount} €</Button>
             </Modal.Footer>
         </Modal>
     )

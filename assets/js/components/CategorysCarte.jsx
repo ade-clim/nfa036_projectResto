@@ -97,7 +97,6 @@ const CategorysCarte = ({productList}) => {
         }
     };
 
-//<GalleryProduct products={products} setModalShow={setModalShow} setProduct={setProduct} verifExtraByProduct={verifExtraByProduct}/>
     return (<>
         <div className={"container-fluid"}>
             <div className={"row"}>
