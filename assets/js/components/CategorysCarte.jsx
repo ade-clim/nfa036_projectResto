@@ -36,7 +36,10 @@ const CategorysCarte = ({productList}) => {
                 // verifie si le produit dans le panier est égale au produit qu'on ajoute
                 if (recupCartContext[i].id === productModify.id) {
                     // verifie si la longueur des supplements est égale
-                    if (recupCartContext[i].supplements.length === productModify.supplements.length && recupCartContext[i].supplements.length !== 0) {
+                    console.log(recupCartContext[i].supplements.length)
+                    console.log(productModify.supplements.length)
+                    if (recupCartContext[i].supplements.length === productModify.supplements.length) {
+                        console.log("test")
                         // parcours les supplements du produit et de ceux dans le panier
                         for (let o = 0; o < recupCartContext[i].supplements.length; o++) {
                             for (let p = 0; p < productModify.supplements.length; p++) {
@@ -44,16 +47,20 @@ const CategorysCarte = ({productList}) => {
                                 if (productModify.supplements[p].id === recupCartContext[i].supplements[o].id) {
                                     cpt += 1;
                                 }
+                                if(cpt === productModify.supplements.length){
+                                    recupCartContext[i].quantity += amount;
+                                    verif = true;
+                                    cpt = 0;
+                                }
                             }
                         }
                     }
                 }
-
-                if(cpt === productModify.supplements.length){
+                if(recupCartContext[i].supplements.length === 0 && productModify.supplements.length === 0){
                     recupCartContext[i].quantity += amount;
                     verif = true;
-                    cpt = 0;
                 }
+
             }
 
         }
@@ -100,23 +107,21 @@ const CategorysCarte = ({productList}) => {
     const handleQuantityLess = (product)=>{
         const totalCartSave = [...totalCart];
         for (let i = 0; i < totalCartSave.length; i++){
-            if(totalCartSave[i].id === product.id) {
-                if(totalCartSave[i].supplements.length === product.supplements.length){
-                    if (totalCartSave[i].quantity !== 1) {
-                        totalCartSave[i].quantity -= 1;
-                        updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
-                    } else {
-                        if (totalCartSave.length === 1) {
-                            updateTotalPrice(0);
-                        }
-
-                        const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
-                        updateTotalCart(totalCartDeleteProduct);
-                        updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
+            if(totalCartSave[i] === product) {
+                if (totalCartSave[i].quantity !== 1) {
+                    totalCartSave[i].quantity -= 1;
+                    updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
+                } else {
+                    if (totalCartSave.length === 1) {
+                        updateTotalPrice(0);
+                    }
+                    const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
+                    updateTotalCart(totalCartDeleteProduct);
+                    updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
 
 
                     }
-                }
+
 
             }
         }
