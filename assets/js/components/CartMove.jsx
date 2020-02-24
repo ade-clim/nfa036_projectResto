@@ -11,12 +11,12 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                         <button className="btn card-header">{totalCart.length > 0 && <span>Valider mon panier</span> || <span>Mon panier</span>}</button>
 
                         <div className="card-body">
-                            <p className="card-text">
+                            <div className="card-text">
                                 {totalCart.length > 0
                                 &&
                                 <>
                                     {totalCart.map(ProductInCart =>
-                                        <div>
+                                        <div key={ProductInCart.id}>
                                             <span className={"text-left"} key={ProductInCart.id}>
                                                 <button  className={"btn btn-link btn-sm"} disabled={ProductInCart.quantity === 0} onClick={() => handleQuantityLess(ProductInCart)}>-</button>
                                                 {ProductInCart.quantity}
@@ -34,9 +34,7 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                 <span>Panier vide</span>
                                 }
 
-
-
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

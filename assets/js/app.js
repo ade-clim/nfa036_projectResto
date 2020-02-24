@@ -66,25 +66,25 @@ const App = () => {
                 if(data[i].id === 1){
                     setBurgers(data[i].products)
                 }
-                if(data[i].category.id === 2){
+                if(data[i].id === 2){
 
-                    setSnacks();
+                    setSnacks(data[i].products);
                 }
-                if(data[i].category.id === 3){
+                if(data[i].id === 3){
 
-                    setDrinks();
+                    setDrinks(data[i].products);
                 }
-                if(data[i].category.id === 4){
+                if(data[i].id === 4){
 
-                    setDesserts();
+                    setDesserts(data[i].products);
                 }
-                if(data[i].category.id === 5){
+                if(data[i].id === 5){
 
-                    setMenuKids();
+                    setMenuKids(data[i].products);
                 }
-                if(data[i].category.id === 6){
+                if(data[i].id === 6){
 
-                    setOthers();
+                    setOthers(data[i].products);
                 }
 
             }

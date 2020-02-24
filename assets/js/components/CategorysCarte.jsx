@@ -5,7 +5,6 @@ import CartContext from "../contexts/CartContext";
 import CartMove from "./CartMove";
 import GalleryProduct from "./GalleryProduct";
 
-
 const CategorysCarte = ({productList}) => {
 
 
@@ -22,7 +21,8 @@ const CategorysCarte = ({productList}) => {
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
-    const handleChangeTarif = (product, amount) => {
+    const handleChangeTarif = (product, amount, listSupplements) => {
+        console.log(listSupplements)
         // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
         const recupCartContext = [...totalCart];
         let verif = false;

@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
-import {forEach} from "react-bootstrap/cjs/ElementChildren";
 
 const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif}) => {
 
@@ -65,25 +64,23 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                 <h5 className={"text-center text-dark mb-5"}>{product.description}</h5>
                 {/*Boucle qui affiche les extras disponible pour le produit actuel */}
                 {extras.map(extra =>
-                extra.supplement.length > 0 &&
-                <div key={extra.id} className={"mb-4"}>
-                    <h6>{extra.description} :</h6>
-
-                    {extra.supplement.map(supplement =>
-                        <ul className={"list-group"}>
-                            <li className="list-group-item list-group-item-action border-0">
-                                <input type="checkbox" className={"ml-3"} onClick={() => {selectSupplementProduct(supplement.supplement)}}/>
-                                <label className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price}</label>
-                            </li>
-                        </ul>
-                    )}
-                </div>
-
-
+                    <div key={extra.id}>
+                        {extra.supplement.length > 0 &&
+                        <div className={"mb-4"}>
+                            <h6>{extra.description} :</h6>
+                            {extra.supplement.map(supplement =>
+                                <ul key={supplement.supplement.id} className={"list-group"}>
+                                    <li className="list-group-item list-group-item-action border-0">
+                                        <input type="checkbox" className={"ml-3"} onClick={() => {
+                                            selectSupplementProduct(supplement.supplement)}}/><label className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price}</label>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+                        }
+                    </div>
                 )}
-                <div className={"mt-4"}>
 
-                </div>
                 <div className={"text-center"}>
                     <Button disabled={amount === 1} variant={"link"} onClick={() => (setAmount(amount - 1 ), setTarif(tarif - product.price))}>-</Button>
                     {amount}
@@ -94,7 +91,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount)}>Total {tarif + priceSupp * amount} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount, listSupplementsSelect)}>Total {tarif + priceSupp * amount} €</Button>
             </Modal.Footer>
         </Modal>
     )
