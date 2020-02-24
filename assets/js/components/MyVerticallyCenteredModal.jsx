@@ -11,7 +11,6 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
     const [listSupplementsSelect, setListSupplementSelect] = useState([]);
     const [priceSupp, setPriceSupp] = useState(0);
 
-
     useEffect(() => {
        setTarif(product.price);
        if(amount !== 1){
@@ -91,7 +90,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
 
             <Modal.Footer>
                 <Button onClick={onHide} variant={"outline-info"} className={"col-3"}>Annuler</Button>
-                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount, listSupplementsSelect)}>Total {tarif + priceSupp * amount} €</Button>
+                <Button variant={"info"} className={"col-8 ml-4"} onClick={() => handleChangeTarif(product, amount, listSupplementsSelect, priceSupp)}>Total {tarif + priceSupp * amount} €</Button>
             </Modal.Footer>
         </Modal>
     )

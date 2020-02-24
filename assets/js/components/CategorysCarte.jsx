@@ -14,36 +14,58 @@ const CategorysCarte = ({productList}) => {
         id:"",
         title:"",
         price: "",
-        quantity: ""
+        quantity: "",
+        supplements: []
     });
+
 
     const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
-    const handleChangeTarif = (product, amount, listSupplements) => {
-        console.log(listSupplements)
+    const handleChangeTarif = (product, amount, listSupplements, priceSupp) => {
         // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
         const recupCartContext = [...totalCart];
+        const productModify = {...product, quantity: amount, supplements: listSupplements, priceSuppTotal: priceSupp};
         let verif = false;
+        let cpt = 0;
 
-        if(recupCartContext.length > 0) {
-            for (let i = 0; i < recupCartContext.length; i++){
-                if(recupCartContext[i].id === product.id){
+        if (recupCartContext.length > 0) {
+            //parcours les produits dans le panier
+            for (let i = 0; i < recupCartContext.length; i++) {
+                // verifie si le produit dans le panier est égale au produit qu'on ajoute
+                if (recupCartContext[i].id === productModify.id) {
+                    // verifie si la longueur des supplements est égale
+                    if (recupCartContext[i].supplements.length === productModify.supplements.length && recupCartContext[i].supplements.length !== 0) {
+                        // parcours les supplements du produit et de ceux dans le panier
+                        for (let o = 0; o < recupCartContext[i].supplements.length; o++) {
+                            for (let p = 0; p < productModify.supplements.length; p++) {
+                                // si le supplement correspond on incremente
+                                if (productModify.supplements[p].id === recupCartContext[i].supplements[o].id) {
+                                    cpt += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(cpt === productModify.supplements.length){
                     recupCartContext[i].quantity += amount;
-                    verif = true
+                    verif = true;
+                    cpt = 0;
                 }
             }
+
         }
-        if(verif === false){
+        if (verif === false) {
             // recuperation et ajout du produit puis envoie dans panier
-            const productModify = {...product, quantity: amount};
+            //const productModify = {...product, quantity: amount, supplements:listSupplements};
             const productCart = [...totalCart, productModify];
             updateTotalCart(productCart);
         }
 
         //mise à jour du prix total du panier
-        updateTotalPrice(totalPrice + product.price * amount);
+        updateTotalPrice(totalPrice + ((product.price + priceSupp) * amount));
     };
 
 
@@ -69,7 +91,7 @@ const CategorysCarte = ({productList}) => {
         for (let i = 0; i < totalCartSave.length; i++){
             if(totalCartSave[i] === product){
                 totalCartSave[i].quantity += 1;
-                updateTotalPrice(totalPrice + product.price)
+                updateTotalPrice(totalPrice + product.price + product.priceSuppTotal);
             }
         }
     };
@@ -78,21 +100,24 @@ const CategorysCarte = ({productList}) => {
     const handleQuantityLess = (product)=>{
         const totalCartSave = [...totalCart];
         for (let i = 0; i < totalCartSave.length; i++){
-            if(totalCartSave[i] === product){
-                if(totalCartSave[i].quantity !== 1){
-                    totalCartSave[i].quantity -= 1;
-                    updateTotalPrice(totalPrice - product.price);
-                }else{
-                    if(totalCartSave.length === 1){
-                        updateTotalPrice(0);
+            if(totalCartSave[i].id === product.id) {
+                if(totalCartSave[i].supplements.length === product.supplements.length){
+                    if (totalCartSave[i].quantity !== 1) {
+                        totalCartSave[i].quantity -= 1;
+                        updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
+                    } else {
+                        if (totalCartSave.length === 1) {
+                            updateTotalPrice(0);
+                        }
+
+                        const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
+                        updateTotalCart(totalCartDeleteProduct);
+                        updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
+
+
                     }
+                }
 
-                    const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
-                    updateTotalCart(totalCartDeleteProduct);
-                    updateTotalPrice(totalPrice - product.price);
-
-
-               }
             }
         }
     };
@@ -107,7 +132,6 @@ const CategorysCarte = ({productList}) => {
                         <div className={""}>
                             <h1>Burgers</h1>
                         </div>
-
 
                         <div className={"offset-9"}>
                             <CartMove totalCart={totalCart} totalPrice={totalPrice} handleQuantityLess={handleQuantityLess} handleQuantityMore={handleQuantityMore}/>
@@ -127,8 +151,6 @@ const CategorysCarte = ({productList}) => {
                 </div>
             </div>
         </div>
-
-
 
     </>)
 };

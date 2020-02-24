@@ -15,18 +15,19 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                 {totalCart.length > 0
                                 &&
                                 <>
-                                    {totalCart.map(ProductInCart =>
-                                        <div key={ProductInCart.id}>
-                                            <span className={"text-left"} key={ProductInCart.id}>
-                                                <button  className={"btn btn-link btn-sm"} disabled={ProductInCart.quantity === 0} onClick={() => handleQuantityLess(ProductInCart)}>-</button>
-                                                {ProductInCart.quantity}
-                                                <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(ProductInCart)}>+</button>
-                                            </span>
-                                            {ProductInCart.title} {(ProductInCart.price * ProductInCart.quantity)}
+                                    {totalCart.map(productInCart =>
+                                        <div key={productInCart.id}>
+                                            <div className={"text-left"}>
+                                                <button className={"btn btn-link btn-sm"} disabled={productInCart.quantity === 0} onClick={() => handleQuantityLess(productInCart)}>-</button>
+                                                {productInCart.quantity}
+                                                <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(productInCart)}>+</button>
+                                                <span>{productInCart.title} {((productInCart.price + productInCart.priceSuppTotal) * productInCart.quantity)}</span>
+                                                {productInCart.supplements.map(supplement => <p>{supplement.title}</p>)}
+                                            </div>
                                         </div>
                                     )}
                                     <div>
-                                        <p>Total : {totalPrice} euros</p>
+                                        <div>Total : {totalPrice} euros</div>
                                     </div>
                                 </>
 
