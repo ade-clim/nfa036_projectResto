@@ -16,16 +16,17 @@ import ProductPage from "./pages/ProductPage";
 import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import Card from "./pages/Card";
-import Burgers from "./pages/Burgers";
+
 import ExtrasPage from "./pages/ExtrasPage";
 import ExtraPage from "./pages/ExtraPage";
 import categoryApi from "./services/categoryApi";
-import productApi from "./services/productApi";
+
 import CategorysCarte from "./components/CategorysCarte";
 import CartContext from "./contexts/CartContext";
 import extraProductApi from "./services/extraProductApi";
 import SupplementsPage from "./pages/SupplementsPage";
 import SupplementPage from "./pages/SupplementPage";
+import ValidationPanier from "./pages/ValidationPanier";
 
 require('../css/app.css');
 
@@ -37,7 +38,6 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const [totalCart, updateTotalCart] = useState([]);
     const [totalPrice, updateTotalPrice] = useState(0);
-    const [cartStorage, setCartStorage] = useState([]);
 
 
     const contextValue = {
@@ -61,10 +61,16 @@ const App = () => {
         // 1. Voir si on a un panier de stocker
         const cartLocal = window.localStorage.getItem("cartStorage");
 
-        if(cartLocal){
-            const totalCartStorage = cartLocal && JSON.parse(cartLocal);
-            updateTotalCart(totalCartStorage[0]);
-            updateTotalPrice(totalCartStorage[1]);
+        try {
+            if(cartLocal){
+                const totalCartStorage = cartLocal && JSON.parse(cartLocal);
+                updateTotalCart(totalCartStorage[0]);
+                updateTotalPrice(totalCartStorage[1]);
+            }
+        }catch (error) {
+            console.log(error);
+            //on supprile le panier en localStorage si la quantité est égale à 0
+            localStorage.removeItem('cartStorage');
         }
     };
 
@@ -128,7 +134,7 @@ const App = () => {
                             <Route path={"/register"} component={RegisterPage}/>
 
 
-
+                            <Route path={"/card/validation"} component={ValidationPanier}/>
                             <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} snacks={snacks} drinks={drinks} />} />
                             <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} />} />
                             <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} />} />

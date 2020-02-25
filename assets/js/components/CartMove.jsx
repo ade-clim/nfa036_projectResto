@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {Link} from "react-router-dom";
 
 
 
@@ -27,7 +28,7 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                 <div className={""}>
                     <div className="card" style={{width: "22rem"}}>
                         {totalCart.length > 0 &&
-                        <button className="btn card-header bg-primary text-white"> <span>Valider mon panier</span></button>
+                        <button className="btn card-header bg-primary text-white"> <Link to={"/card/validation"}>Valider mon panier</Link></button>
                         ||
                         <button className="btn card-header" disabled><span>Mon panier</span></button>
                         }

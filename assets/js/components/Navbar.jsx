@@ -6,6 +6,7 @@ import jwtDecode from "jwt-decode";
 import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
+import CartContext from "../contexts/CartContext";
 
 
 const Navbar = ({history, toto}) => {
@@ -17,7 +18,7 @@ const Navbar = ({history, toto}) => {
     });
 
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
-
+    const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
 
 
     const handleFetchUser = () => {
@@ -78,8 +79,12 @@ const Navbar = ({history, toto}) => {
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li>
-
-                            <div className="navbar-brand mycard"><FontAwesomeIcon color={"black"} icon={faCartArrowDown} />{toto.price}</div>
+                            <div className="navbar-brand mycard">
+                                <Link to={"/card/burgers"}>
+                                    <FontAwesomeIcon color={"black"} icon={faCartArrowDown}/>
+                                    <span className={"text-primary"} style={{fontSize:"0.8em"}}> {totalPrice} €</span>
+                                </Link>
+                            </div>
                         </li>
                         {(!isAuthenticated &&
                             (<>

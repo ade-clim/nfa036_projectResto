@@ -71,7 +71,8 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                                     <ul key={supplement.supplement.id} className={"list-group"}>
                                         <li className="list-group-item list-group-item-action border-0">
                                             <input type="checkbox" className={"ml-3"} onClick={() => {
-                                                selectSupplementProduct(supplement.supplement)}}/><label className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price}</label>
+                                                selectSupplementProduct(supplement.supplement)}}/>
+                                                <span className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price > 0 && <span>+{supplement.supplement.price} €</span> }</span>
                                         </li>
                                     </ul>
                                 )}

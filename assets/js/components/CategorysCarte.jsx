@@ -123,6 +123,8 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                 } else {
                     if (totalCartSave.length === 1) {
                         updateTotalPrice(0);
+                        //on supprile le panier en localStorage si la quantité est égale à 0
+                        localStorage.removeItem('cartStorage');
                     }
                     const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
                     updateTotalCart(totalCartDeleteProduct);
