@@ -8,7 +8,11 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
             <div className={"row"}>
                 <div className={""}>
                     <div className="card" style={{width: "22rem"}}>
-                        <button className="btn card-header">{totalCart.length > 0 && <span>Valider mon panier</span> || <span>Mon panier</span>}</button>
+                        {totalCart.length > 0 &&
+                        <button className="btn card-header bg-primary text-white"> <span>Valider mon panier</span></button>
+                        ||
+                        <button className="btn card-header" disabled><span>Mon panier</span></button>
+                        }
 
                         <div className="card-body">
                             <div className="card-text">
@@ -17,17 +21,19 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                 <>
                                     {totalCart.map(productInCart =>
                                         <div key={productInCart.id}>
-                                            <div className={"text-left"}>
+                                            <div>
                                                 <button className={"btn btn-link btn-sm"} disabled={productInCart.quantity === 0} onClick={() => handleQuantityLess(productInCart)}>-</button>
                                                 {productInCart.quantity}
                                                 <button className={"btn btn-link btn-sm"} onClick={() => handleQuantityMore(productInCart)}>+</button>
-                                                <span>{productInCart.title} {((productInCart.price + productInCart.priceSuppTotal) * productInCart.quantity)}</span>
-                                                {productInCart.supplements.map(supplement => <p>{supplement.title}</p>)}
+                                                <span className={"cart_move_title"}>{productInCart.title}</span>
+                                                <span className={"cart_move_price"}>{((productInCart.price + productInCart.priceSuppTotal) * productInCart.quantity)} </span>
+                                                <div className={"cart_move_supp"}>  {productInCart.supplements.map(supplement => <span className={"text-lowercase mr-1"}>{supplement.title}</span>)}</div>
+                                                <hr width={"60%"}/>
                                             </div>
                                         </div>
                                     )}
                                     <div>
-                                        <div>Total : {totalPrice} euros</div>
+                                        <div className={"text-center mt-4"}>Total : {totalPrice} euros</div>
                                     </div>
                                 </>
 

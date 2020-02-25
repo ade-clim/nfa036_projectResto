@@ -3,10 +3,22 @@ html {
     min-height: 100%;
 }
 
+.modal_size{
+    height:80vh;
+}
 
 .cart_move{
     position: fixed;
+}
+.cart_move_price{
 
+}
+.cart_move_title{
+    font-size: 1em;
+    font-weight: bold;
+}
+.cart_move_supp{
+    font-size: 0.9em;
 }
 
 
@@ -58,10 +70,9 @@ html {
 .footer {
     position: absolute;
     bottom: 0;
-    min-width: 100vw;
+    width: 100vw;
     /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    height: 50px;
     background-color: black;
 }
 

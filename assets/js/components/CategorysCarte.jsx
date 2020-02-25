@@ -36,10 +36,8 @@ const CategorysCarte = ({productList}) => {
                 // verifie si le produit dans le panier est égale au produit qu'on ajoute
                 if (recupCartContext[i].id === productModify.id) {
                     // verifie si la longueur des supplements est égale
-                    console.log(recupCartContext[i].supplements.length)
-                    console.log(productModify.supplements.length)
                     if (recupCartContext[i].supplements.length === productModify.supplements.length) {
-                        console.log("test")
+
                         // parcours les supplements du produit et de ceux dans le panier
                         for (let o = 0; o < recupCartContext[i].supplements.length; o++) {
                             for (let p = 0; p < productModify.supplements.length; p++) {
@@ -55,11 +53,12 @@ const CategorysCarte = ({productList}) => {
                             }
                         }
                     }
+                    if(recupCartContext[i].supplements.length === 0 && productModify.supplements.length === 0){
+                        recupCartContext[i].quantity += amount;
+                        verif = true;
+                    }
                 }
-                if(recupCartContext[i].supplements.length === 0 && productModify.supplements.length === 0){
-                    recupCartContext[i].quantity += amount;
-                    verif = true;
-                }
+
 
             }
 
