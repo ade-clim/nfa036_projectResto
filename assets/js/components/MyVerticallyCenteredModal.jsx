@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
 
-const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif}) => {
+const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif, drinks}) => {
 
     const [tarif, setTarif] = useState();
     const [amount, setAmount] = useState(1);
@@ -38,11 +38,11 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
             setListSupplementSelect([...listSupplementsSelect, supplement]);
             setPriceSupp(priceSupp + supplement.price);
         }
-
-
-
     };
 
+    const selectProductAdd = (productAdd) => {
+        console.log(productAdd)
+    };
 
     return (
         <Modal
@@ -66,7 +66,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                         <div key={extra.id}>
                             {extra.supplement.length > 0 &&
                             <div className={"mb-4"}>
-                                <h6>{extra.description} :</h6>
+                                <h6 className={"font-weight-bold"}>{extra.description} :</h6>
                                 {extra.supplement.map(supplement =>
                                     <ul key={supplement.supplement.id} className={"list-group"}>
                                         <li className="list-group-item list-group-item-action border-0">
@@ -79,6 +79,25 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                             }
                         </div>
                     )}
+
+                        {drinks.length > 0 &&
+                        <div className={"mb-4"}>
+                            <h6 className={"font-weight-bold"}>Votre boissons :</h6>
+                            {drinks.map(drinkProduct =>
+                                <ul key={drinkProduct.id} className={"list-group"}>
+                                    <li className="list-group-item list-group-item-action border-0">
+                                        <input type="checkbox" className={"ml-3"} onClick={() => {
+                                            selectProductAdd(drinkProduct)}}/>
+                                        <label className={"ml-1"}>{drinkProduct.title} {drinkProduct.price}</label>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+
+
+                        }
+
+
 
                     <div className={"text-center"}>
                         <Button disabled={amount === 1} variant={"link"} onClick={() => (setAmount(amount - 1 ), setTarif(tarif - product.price))}>-</Button>

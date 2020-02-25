@@ -37,6 +37,8 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const [totalCart, updateTotalCart] = useState([]);
     const [totalPrice, updateTotalPrice] = useState(0);
+    const [cartStorage, setCartStorage] = useState([]);
+
 
     const contextValue = {
         totalCart: totalCart,
@@ -54,6 +56,17 @@ const App = () => {
     const [desserts, setDesserts] = useState([]);
     const [menuKids, setMenuKids] = useState([]);
     const [others, setOthers] = useState([]);
+
+    const cartStorageVerif = ()=> {
+        // 1. Voir si on a un panier de stocker
+        const cartLocal = window.localStorage.getItem("cartStorage");
+
+        if(cartLocal){
+            const totalCartStorage = cartLocal && JSON.parse(cartLocal);
+            updateTotalCart(totalCartStorage[0]);
+            updateTotalPrice(totalCartStorage[1]);
+        }
+    };
 
     // On va récuperer tous nos produits et les stockers en fonction de leur catégorie
     const handleProduct = async  () => {
@@ -96,6 +109,7 @@ const App = () => {
 
     useEffect(() => {
         handleProduct();
+        cartStorageVerif();
     },[]);
 
 
@@ -115,7 +129,7 @@ const App = () => {
 
 
 
-                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} />} />
+                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} snacks={snacks} drinks={drinks} />} />
                             <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} />} />
                             <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} />} />
                             <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} />} />

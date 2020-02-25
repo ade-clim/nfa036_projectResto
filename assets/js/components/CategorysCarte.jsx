@@ -5,10 +5,11 @@ import CartContext from "../contexts/CartContext";
 import CartMove from "./CartMove";
 import GalleryProduct from "./GalleryProduct";
 
-const CategorysCarte = ({productList}) => {
+const CategorysCarte = ({productList, drinks, snacks}) => {
 
 
     // recupere le produit actuel pour recuperer ces extras
+    const [drinksProducts, setDrinksProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({
         id:"",
@@ -24,6 +25,7 @@ const CategorysCarte = ({productList}) => {
     const [extras, setExtras] = useState([]);
 
     const handleChangeTarif = (product, amount, listSupplements, priceSupp) => {
+
         // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
         const recupCartContext = [...totalCart];
         const productModify = {...product, quantity: amount, supplements: listSupplements, priceSuppTotal: priceSupp};
@@ -72,12 +74,20 @@ const CategorysCarte = ({productList}) => {
 
         //mise à jour du prix total du panier
         updateTotalPrice(totalPrice + ((product.price + priceSupp) * amount));
+
+
     };
+
+
+
 
 
     // Recuperation de la bonne facture dans l'identifiant de l'url change
     useEffect(() => {
         setProducts(productList);
+        if(drinks){
+            setDrinksProducts(drinks);
+        }
     }, []);
 
 
@@ -117,8 +127,6 @@ const CategorysCarte = ({productList}) => {
                     const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
                     updateTotalCart(totalCartDeleteProduct);
                     updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
-
-
                     }
 
 
@@ -147,6 +155,7 @@ const CategorysCarte = ({productList}) => {
                                 onHide={() => setModalShow(false)}
                                 product={product}
                                 extras={extras}
+                                drinks={drinksProducts}
                                 handleChangeTarif={handleChangeTarif}
                             />
 

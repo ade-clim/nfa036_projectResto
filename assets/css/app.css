@@ -4,11 +4,15 @@ html {
 }
 
 .modal_size{
-    height:80vh;
+    max-height:80vh;
 }
 
 .cart_move{
     position: fixed;
+}
+.cart_move_size{
+    max-height: 50vh;
+    overflow: auto;
 }
 .cart_move_price{
 
