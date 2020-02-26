@@ -19,8 +19,7 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
         supplements: []
     });
 
-
-    const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
+    const { totalCart, updateTotalCart, totalPrice, updateTotalPrice } = useContext(CartContext);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
@@ -51,6 +50,7 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                                     recupCartContext[i].quantity += amount;
                                     verif = true;
                                     cpt = 0;
+                                    updateTotalCart(recupCartContext)
                                 }
                             }
                         }
@@ -58,28 +58,18 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                     if(recupCartContext[i].supplements.length === 0 && productModify.supplements.length === 0){
                         recupCartContext[i].quantity += amount;
                         verif = true;
+                        updateTotalCart(recupCartContext)
                     }
                 }
-
-
             }
-
         }
         if (verif === false) {
             // recuperation et ajout du produit puis envoie dans panier
-            //const productModify = {...product, quantity: amount, supplements:listSupplements};
             const productCart = [...totalCart, productModify];
             updateTotalCart(productCart);
         }
 
-        //mise à jour du prix total du panier
-        updateTotalPrice(totalPrice + ((product.price + priceSupp) * amount));
-
-
     };
-
-
-
 
 
     // Recuperation de la bonne facture dans l'identifiant de l'url change
@@ -93,7 +83,6 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
 
     // Methode qui va recuperer les extras qui appartiennent au produit actuel
     const verifExtraByProduct = (product) => {
-
         const productExtrasList = product.productExtras;
         const extras = productExtrasList.map(t => t.extra);
         // on trie le tableau
@@ -107,9 +96,9 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
         for (let i = 0; i < totalCartSave.length; i++){
             if(totalCartSave[i] === product){
                 totalCartSave[i].quantity += 1;
-                updateTotalPrice(totalPrice + product.price + product.priceSuppTotal);
             }
         }
+        updateTotalCart(totalCartSave)
     };
 
     // on supprime un produit en quantité et si 0 on le supprime du panier
@@ -119,21 +108,18 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
             if(totalCartSave[i] === product) {
                 if (totalCartSave[i].quantity !== 1) {
                     totalCartSave[i].quantity -= 1;
-                    updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
+                    updateTotalCart(totalCartSave)
                 } else {
                     if (totalCartSave.length === 1) {
-                        updateTotalPrice(0);
-                        //on supprile le panier en localStorage si la quantité est égale à 0
+                        //on supprime le panier en localStorage si la quantité est égale à 0
                         localStorage.removeItem('cartStorage');
                     }
                     const totalCartDeleteProduct = totalCartSave.filter(item => item !== totalCartSave[i]);
                     updateTotalCart(totalCartDeleteProduct);
-                    updateTotalPrice(totalPrice - product.price - product.priceSuppTotal);
                     }
-
-
             }
         }
+
     };
 
     return (<>
@@ -148,7 +134,7 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                         </div>
 
                         <div className={"offset-9"}>
-                            <CartMove totalCart={totalCart} totalPrice={totalPrice} handleQuantityLess={handleQuantityLess} handleQuantityMore={handleQuantityMore}/>
+                            <CartMove totalCart={totalCart} handleQuantityLess={handleQuantityLess} handleQuantityMore={handleQuantityMore}/>
                         </div>
                             <GalleryProduct products={products} setModalShow={setModalShow} setProduct={setProduct} verifExtraByProduct={verifExtraByProduct}/>
 

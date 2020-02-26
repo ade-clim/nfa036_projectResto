@@ -1,24 +1,33 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 
+const CartMove = ({totalCart, handleQuantityLess, handleQuantityMore}) => {
 
-
-const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore}) => {
-
-
-
+    let cpt = 1;
+    let totalPanier = 0;
     useEffect(() => {
         if(totalCart.length > 0){
             verifCartStorage();
         }
-
     },[]);
 
     const verifCartStorage = () => {
 
+        let cartStorage = [];
+        for(let i = 0; i < totalCart.length; i++){
+            const supp = [];
+
+            for(let p = 0; p < totalCart[i].supplements.length; p++){
+                const suppCart = {id: totalCart[i].supplements[p].id};
+                supp.push(suppCart)
+            }
+            const productCart = {id:totalCart[i].id, quantity: totalCart[i].quantity, supplements:supp};
+            cartStorage.push(productCart);
+        }
+
         // Je stock mon panier dans mon localStorage
-        const cartStorage = [totalCart, totalPrice];
         window.localStorage.setItem("cartStorage", JSON.stringify(cartStorage));
+
     };
 
 
@@ -40,7 +49,7 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                     &&
                                     <>
                                         {totalCart.map(productInCart =>
-                                            <div key={productInCart.id}>
+                                            <div key={cpt}>
                                                 <div>
                                                     <button className={"btn btn-link btn-sm"} disabled={productInCart.quantity === 0} onClick={() => handleQuantityLess(productInCart)}>-</button>
                                                     {productInCart.quantity}
@@ -50,6 +59,7 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                                     <div className={"cart_move_supp"}>  {productInCart.supplements.map(supplement => <span className={"text-lowercase mr-1"}>{supplement.title}</span>)}</div>
                                                     <hr width={"60%"}/>
                                                 </div>
+                                                <span hidden>{cpt++}</span>
                                             </div>
                                         )}
                                     </>
@@ -59,9 +69,10 @@ const CartMove = ({totalCart, totalPrice, handleQuantityLess, handleQuantityMore
                                     }
                                 </div>
                             </div>
+                            {totalCart.map(p => { totalPanier = totalPanier + (p.price + p.priceSuppTotal) * p.quantity})}
                             {totalCart.length > 0 &&
                                 <div>
-                                    <div className={"text-center mt-4"}>Total : {totalPrice} euros</div>
+                                    <div className={"text-center mt-4"}>Total : {totalPanier} euros</div>
                                 </div>
                             }
                         </div>

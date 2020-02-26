@@ -82,7 +82,7 @@ const Navbar = ({history, toto}) => {
                             <div className="navbar-brand mycard">
                                 <Link to={"/card/burgers"}>
                                     <FontAwesomeIcon color={"black"} icon={faCartArrowDown}/>
-                                    <span className={"text-primary"} style={{fontSize:"0.8em"}}> {totalPrice} €</span>
+                                    {totalPrice > 0 && <span className={"text-primary"} style={{fontSize:"0.8em"}}> {totalPrice} €</span>}
                                 </Link>
                             </div>
                         </li>

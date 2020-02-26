@@ -27,6 +27,8 @@ import extraProductApi from "./services/extraProductApi";
 import SupplementsPage from "./pages/SupplementsPage";
 import SupplementPage from "./pages/SupplementPage";
 import ValidationPanier from "./pages/ValidationPanier";
+import productApi from "./services/productApi";
+import supplementApi from "./services/supplementApi";
 
 require('../css/app.css');
 
@@ -57,15 +59,47 @@ const App = () => {
     const [menuKids, setMenuKids] = useState([]);
     const [others, setOthers] = useState([]);
 
-    const cartStorageVerif = ()=> {
+
+    // On va verifier si localStorage, si oui on recuperer les id produit et supplement et on recupere produit api
+    const cartStorageVerif = async ()=> {
         // 1. Voir si on a un panier de stocker
         const cartLocal = window.localStorage.getItem("cartStorage");
+        const dataProduct = await productApi.findAll();
+        const dataSupplement = await supplementApi.findAll();
 
         try {
             if(cartLocal){
+
                 const totalCartStorage = cartLocal && JSON.parse(cartLocal);
-                updateTotalCart(totalCartStorage[0]);
-                updateTotalPrice(totalCartStorage[1]);
+
+                let cartStorage = [];
+
+                for(let i = 0; i < totalCartStorage.length; i++){
+                    const supp = [];
+                    let priceSupp = 0;
+                    // on verifie les id supplements du localStorage et des supplements dans l'api
+                    for(let p = 0; p < totalCartStorage[i].supplements.length; p++){
+                        for(let s = 0; s < dataSupplement.length; s++){
+                            if(totalCartStorage[i].supplements[p].id === dataSupplement[s].id){
+                                const suppCart = dataSupplement[s];
+                                priceSupp = priceSupp + dataSupplement[s].price;
+                                supp.push(suppCart)
+                            }
+                        }
+
+                    }
+                    for (let m = 0; m < dataProduct.length; m++){
+                        if (totalCartStorage[i].id === dataProduct[m].id){
+                            const product = dataProduct[m];
+                            const productCart = {id:product.id, title: product.title, quantity: totalCartStorage[i].quantity, price: product.price, supplements: supp, priceSuppTotal:priceSupp };
+                            cartStorage.push(productCart);
+                        }
+                    }
+                    priceSupp = 0;
+                }
+
+                updateTotalCart(cartStorage);
+                //updateTotalPrice(totalCartStorage[1]);
             }
         }catch (error) {
             console.log(error);
@@ -78,7 +112,6 @@ const App = () => {
     const handleProduct = async  () => {
         try {
             const data = await categoryApi.findAll();
-            const productExtra = await extraProductApi.findAll();
 
             // Boucle qui va recuperer les produits en fonction de leur catégorie ET recuperer leur extras en fonction de l'id produit
             for (let i = 0 ; i < data.length; i++){

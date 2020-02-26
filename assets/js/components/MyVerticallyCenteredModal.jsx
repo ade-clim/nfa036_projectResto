@@ -20,7 +20,6 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
 
     const selectSupplementProduct = (supplement) => {
         let verif = false;
-
         if(listSupplementsSelect.length > 0){
             for(let i = 0; i < listSupplementsSelect.length; i++){
                 if(listSupplementsSelect[i].id === supplement.id){
@@ -40,10 +39,9 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
         }
     };
 
-    const selectProductAdd = (productAdd) => {
-        console.log(productAdd)
-    };
-
+    const selectProductAdd = (product)=>{
+        console.log(product)
+    }
     return (
         <Modal
             {...{onHide, show}}
