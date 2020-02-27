@@ -50,6 +50,11 @@ class Orders
      */
     private $orderDetails;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\AddressDelivery", inversedBy="orders")
+     */
+    private $addressDelivery;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -123,6 +128,18 @@ class Orders
                 $orderDetail->setOrders(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddressDelivery(): ?AddressDelivery
+    {
+        return $this->addressDelivery;
+    }
+
+    public function setAddressDelivery(?AddressDelivery $addressDelivery): self
+    {
+        $this->addressDelivery = $addressDelivery;
 
         return $this;
     }

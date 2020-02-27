@@ -16,14 +16,11 @@ import ProductPage from "./pages/ProductPage";
 import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import Card from "./pages/Card";
-
 import ExtrasPage from "./pages/ExtrasPage";
 import ExtraPage from "./pages/ExtraPage";
 import categoryApi from "./services/categoryApi";
-
 import CategorysCarte from "./components/CategorysCarte";
 import CartContext from "./contexts/CartContext";
-import extraProductApi from "./services/extraProductApi";
 import SupplementsPage from "./pages/SupplementsPage";
 import SupplementPage from "./pages/SupplementPage";
 import ValidationPanier from "./pages/ValidationPanier";
@@ -39,14 +36,11 @@ const App = () => {
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
     const [isAuthenticated, setIsAuthenticated] = useState(authApi.isAuthenticated());
     const [totalCart, updateTotalCart] = useState([]);
-    const [totalPrice, updateTotalPrice] = useState(0);
 
 
     const contextValue = {
         totalCart: totalCart,
         updateTotalCart: updateTotalCart,
-        totalPrice : totalPrice,
-        updateTotalPrice: updateTotalPrice
     };
 
 
@@ -60,7 +54,7 @@ const App = () => {
     const [others, setOthers] = useState([]);
 
 
-    // On va verifier si localStorage, si oui on recuperer les id produit et supplement et on recupere produit api
+    // On va verifier si localStorage, si oui on recupere les id produit et supplement et on recupere produit api
     const cartStorageVerif = async ()=> {
         // 1. Voir si on a un panier de stocker
         const cartLocal = window.localStorage.getItem("cartStorage");
@@ -69,9 +63,7 @@ const App = () => {
 
         try {
             if(cartLocal){
-
                 const totalCartStorage = cartLocal && JSON.parse(cartLocal);
-
                 let cartStorage = [];
 
                 for(let i = 0; i < totalCartStorage.length; i++){
@@ -86,7 +78,6 @@ const App = () => {
                                 supp.push(suppCart)
                             }
                         }
-
                     }
                     for (let m = 0; m < dataProduct.length; m++){
                         if (totalCartStorage[i].id === dataProduct[m].id){
@@ -97,13 +88,11 @@ const App = () => {
                     }
                     priceSupp = 0;
                 }
-
                 updateTotalCart(cartStorage);
-                //updateTotalPrice(totalCartStorage[1]);
             }
         }catch (error) {
             console.log(error);
-            //on supprile le panier en localStorage si la quantité est égale à 0
+            //on supprime le panier en localStorage si la quantité est égale à 0
             localStorage.removeItem('cartStorage');
         }
     };
@@ -119,28 +108,21 @@ const App = () => {
                     setBurgers(data[i].products)
                 }
                 if(data[i].id === 2){
-
                     setSnacks(data[i].products);
                 }
                 if(data[i].id === 3){
-
                     setDrinks(data[i].products);
                 }
                 if(data[i].id === 4){
-
                     setDesserts(data[i].products);
                 }
                 if(data[i].id === 5){
-
                     setMenuKids(data[i].products);
                 }
                 if(data[i].id === 6){
-
                     setOthers(data[i].products);
                 }
-
             }
-
         }catch (error) {
             console.log(error.response);
         }
@@ -150,8 +132,6 @@ const App = () => {
         handleProduct();
         cartStorageVerif();
     },[]);
-
-
 
 
 

@@ -22,6 +22,7 @@ const UserPage = ({history, match}) => {
         city: "",
         postalCode: ""
     });
+
     const [errors, setErrors] = useState({
         firstName: "",
         lastName: "",

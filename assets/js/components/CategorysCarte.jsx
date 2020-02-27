@@ -19,7 +19,7 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
         supplements: []
     });
 
-    const { totalCart, updateTotalCart, totalPrice, updateTotalPrice } = useContext(CartContext);
+    const { totalCart, updateTotalCart} = useContext(CartContext);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
