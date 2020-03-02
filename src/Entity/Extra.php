@@ -38,7 +38,7 @@ class Extra
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductExtra", mappedBy="extra", cascade={"remove"})
      * @Groups({"extras_read"})
      */
     private $productExtras;

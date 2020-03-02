@@ -31,6 +31,7 @@ const ExtrasPage = (props) => {
 
     // Supprimer un extra en fonction de l'id
     const handleDelete = async (id)=>{
+        console.log(id)
         const originalExtras = [...extras];
         setExtras(extras.filter(extra => extra.id !== id));
 

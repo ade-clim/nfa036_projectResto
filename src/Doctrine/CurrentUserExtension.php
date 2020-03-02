@@ -5,6 +5,7 @@ namespace App\Doctrine;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use App\Entity\AddressDelivery;
 use App\Entity\User;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -34,19 +35,15 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
         $user = $this->security->getUser();
 
         //si on demande des users alors on agis sur la requete pour qu'elle tienne compte de l'utilisateur connecté
-        if(($resourceClass === User::class)
-            &&
-            !$this->auth->isGranted('ROLE_ADMIN')
-            &&
-            !$this->auth->isGranted('ROLE_MANAGER')
+        if(($resourceClass === AddressDelivery::class)
             &&
             $user instanceof User)
         {
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
 
-            if($resourceClass === User::class){
-                $queryBuilder->andHaving("$rootAlias.id = :user");
+            if($resourceClass === AddressDelivery::class){
+                $queryBuilder->andHaving("$rootAlias.user = :user");
             }
 
             $queryBuilder->setParameter("user", $user);

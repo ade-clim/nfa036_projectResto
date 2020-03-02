@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Address;
+use App\Entity\AddressDelivery;
 use App\Entity\Category;
 use App\Entity\Extra;
 use App\Entity\Product;
@@ -36,6 +37,7 @@ class AppFixtures extends Fixture
                 $produit->setTitle($faker->text($maxNbChars = 20))
                     ->setPrice(mt_rand(2, 12))
                     ->setDescription($faker->text($maxNbChars = 50))
+                    ->setPicture("https://via.placeholder.com/500")
                     ->setCategory($category); // ajoute le produit à la categorie
 
                 $manager->persist($produit);
@@ -45,6 +47,8 @@ class AppFixtures extends Fixture
             for ($i = 0; $i < 30; $i++) { // boucle de creation d'utilisateur
 
                 $adresse = new Address();
+                $adresseDelivery = new AddressDelivery();
+
                 $adresse->setStreet($faker->streetName)
                     ->setNumber($faker->buildingNumber)
                     ->setPostalCode($faker->postcode)
@@ -63,6 +67,14 @@ class AppFixtures extends Fixture
                     ->setAddress($adresse);
 
                 $manager->persist($client);
+
+                $adresseDelivery->setUser($client)
+                    ->setStreet($adresse->getStreet())
+                    ->setNumber($adresse->getNumber())
+                    ->setPostalCode($adresse->getPostalCode())
+                    ->setCity($adresse->getCity());
+
+                $manager->persist($adresseDelivery);
             }
 
         }

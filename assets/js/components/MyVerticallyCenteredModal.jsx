@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
 
-const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif, drinks}) => {
+const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif}) => {
 
     const [tarif, setTarif] = useState();
     const [amount, setAmount] = useState(1);
@@ -39,9 +39,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
         }
     };
 
-    const selectProductAdd = (product)=>{
-        console.log(product)
-    }
+
     return (
         <Modal
             {...{onHide, show}}
@@ -68,9 +66,16 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                                 {extra.supplement.map(supplement =>
                                     <ul key={supplement.supplement.id} className={"list-group"}>
                                         <li className="list-group-item list-group-item-action border-0">
-                                            <input type="checkbox" className={"ml-3"} onClick={() => {
-                                                selectSupplementProduct(supplement.supplement)}}/>
-                                                <span className={"ml-1"}>{supplement.supplement.title} {supplement.supplement.price > 0 && <span>+{supplement.supplement.price} €</span> }</span>
+                                            <input type="checkbox" className={"ml-3"}
+                                                   onClick={() => {
+                                                       selectSupplementProduct(supplement.supplement)}}/>
+                                                       <span className={"ml-1"}>
+                                                           {supplement.supplement.title}
+                                                           {supplement.supplement.price > 0 &&
+                                                           <span>
+                                                               +{supplement.supplement.price} €
+                                                           </span>}
+                                                       </span>
                                         </li>
                                     </ul>
                                 )}
@@ -78,25 +83,6 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                             }
                         </div>
                     )}
-
-                        {drinks.length > 0 &&
-                        <div className={"mb-4"}>
-                            <h6 className={"font-weight-bold"}>Votre boissons :</h6>
-                            {drinks.map(drinkProduct =>
-                                <ul key={drinkProduct.id} className={"list-group"}>
-                                    <li className="list-group-item list-group-item-action border-0">
-                                        <input type="checkbox" className={"ml-3"} onClick={() => {
-                                            selectProductAdd(drinkProduct)}}/>
-                                        <label className={"ml-1"}>{drinkProduct.title} {drinkProduct.price}</label>
-                                    </li>
-                                </ul>
-                            )}
-                        </div>
-
-
-                        }
-
-
 
                     <div className={"text-center"}>
                         <Button disabled={amount === 1} variant={"link"} onClick={() => (setAmount(amount - 1 ), setTarif(tarif - product.price))}>-</Button>

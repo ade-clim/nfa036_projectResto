@@ -104,19 +104,19 @@ const App = () => {
 
             // Boucle qui va recuperer les produits en fonction de leur catégorie ET recuperer leur extras en fonction de l'id produit
             for (let i = 0 ; i < data.length; i++){
-                if(data[i].id === 1){
+                if(data[i].title === "burgers"){
                     setBurgers(data[i].products)
                 }
-                if(data[i].id === 2){
+                if(data[i].title === "snacks"){
                     setSnacks(data[i].products);
                 }
-                if(data[i].id === 3){
+                if(data[i].title === "drinks"){
                     setDrinks(data[i].products);
                 }
-                if(data[i].id === 4){
+                if(data[i].title === "desserts"){
                     setDesserts(data[i].products);
                 }
-                if(data[i].id === 5){
+                if(data[i].title === "menuKids"){
                     setMenuKids(data[i].products);
                 }
                 if(data[i].id === 6){
@@ -148,7 +148,7 @@ const App = () => {
 
 
                             <Route path={"/card/validation"} component={ValidationPanier}/>
-                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} snacks={snacks} drinks={drinks} />} />
+                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} />} />
                             <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} />} />
                             <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} />} />
                             <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} />} />

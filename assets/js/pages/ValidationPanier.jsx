@@ -1,19 +1,45 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import CartContext from "../contexts/CartContext";
 import AuthContext from "../contexts/AuthContext";
 import LoginApp from "../components/LoginApp";
 import AddressApp from "../components/AddressApp";
+import CalculPriceCart from "../components/CalculPriceCart";
+import OrderApi from "../services/OrderApi";
+import addressDeliveryApi from "../services/addressDeliveryApi";
 
 
 
 const ValidationPanier = () => {
 
-    const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
+    const { totalCart, updateTotalCart } = useContext(CartContext);
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+    const [addressSelect, setAddressSelect] = useState({
+        id: "",
+        street: "",
+        number: "",
+        city: "",
+        postalCode: ""
+    });
 
     useEffect(() => {
 
     },[]);
+
+    const calculPanier = () => {
+        let totalPanier = 0;
+        totalCart.map(p =>  totalPanier = totalPanier + (p.price + p.priceSuppTotal) * p.quantity);
+        return totalPanier;
+    };
+
+
+    const handleSubmit = async () => {
+        const order = {price: calculPanier(), addressDelivery: addressSelect.id};
+        await OrderApi.create(order);
+
+        for (let i =0; i < totalCart.length; i++){
+            const productCart = {id:totalCart.id};
+        }
+    };
 
 
     return(
@@ -28,8 +54,8 @@ const ValidationPanier = () => {
                     ||
                     <>
                         <h3>adresse de livraison</h3>
-                        <AddressApp />
-                        <button className={"btn btn-primary"} >Valider votre commande</button>
+                        <AddressApp setAddressSelect={setAddressSelect}/>
+                        <button className={"btn btn-primary mt-4"} onClick={handleSubmit}>Valider votre commande</button>
                     </>
                     }
                 </div>
@@ -48,7 +74,7 @@ const ValidationPanier = () => {
                                 </tr>
                             </>
                         )}
-                        <tr><td>Total : {totalPrice} €</td></tr>
+                        <tr><td>Total : <CalculPriceCart/> €</td></tr>
                         </tbody>
                     </table>
                 </div>

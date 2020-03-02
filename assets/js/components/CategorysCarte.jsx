@@ -5,25 +5,24 @@ import CartContext from "../contexts/CartContext";
 import CartMove from "./CartMove";
 import GalleryProduct from "./GalleryProduct";
 
-const CategorysCarte = ({productList, drinks, snacks}) => {
+const CategorysCarte = ({productList}) => {
 
 
     // recupere le produit actuel pour recuperer ces extras
-    const [drinksProducts, setDrinksProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({
         id:"",
         title:"",
         price: "",
         quantity: "",
-        supplements: []
+        supplements: [],
     });
 
     const { totalCart, updateTotalCart} = useContext(CartContext);
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
-    const handleChangeTarif = (product, amount, listSupplements, priceSupp) => {
+    const handleChangeTarif = (product, amount, listSupplements, priceSupp, listDrinks) => {
 
         // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
         const recupCartContext = [...totalCart];
@@ -38,7 +37,6 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                 if (recupCartContext[i].id === productModify.id) {
                     // verifie si la longueur des supplements est égale
                     if (recupCartContext[i].supplements.length === productModify.supplements.length) {
-
                         // parcours les supplements du produit et de ceux dans le panier
                         for (let o = 0; o < recupCartContext[i].supplements.length; o++) {
                             for (let p = 0; p < productModify.supplements.length; p++) {
@@ -75,9 +73,6 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
     // Recuperation de la bonne facture dans l'identifiant de l'url change
     useEffect(() => {
         setProducts(productList);
-        if(drinks){
-            setDrinksProducts(drinks);
-        }
     }, []);
 
 
@@ -143,7 +138,6 @@ const CategorysCarte = ({productList, drinks, snacks}) => {
                                 onHide={() => setModalShow(false)}
                                 product={product}
                                 extras={extras}
-                                drinks={drinksProducts}
                                 handleChangeTarif={handleChangeTarif}
                             />
 

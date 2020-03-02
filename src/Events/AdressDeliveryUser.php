@@ -3,13 +3,14 @@
 namespace App\Events;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\AddressDelivery;
 use App\Entity\Orders;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
-class OrderUserSubscriber implements EventSubscriberInterface{
+class AdressDeliveryUser implements EventSubscriberInterface{
 
     /**
      * @var Security
@@ -26,22 +27,22 @@ class OrderUserSubscriber implements EventSubscriberInterface{
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['setUserForOrder', EventPriorities::PRE_VALIDATE]
+            KernelEvents::VIEW => ['setUserForAdressDelivery', EventPriorities::PRE_VALIDATE]
         ];
     }
 
-    public function setUserForOrder(ViewEvent $event){
-        $order = $event->getControllerResult();
+    public function setUserForAdressDelivery(ViewEvent $event){
+        $adressDelivery = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
 
-        if ($order instanceof Orders && $method === "POST"){
+        if ($adressDelivery instanceof AddressDelivery && $method === "POST"){
 
             // recup l'utilisateur actuellement connecté
             $user = $this->security->getUser();
 
             // assigner l'utilisateur à la commande qu'on est en train de créer
-            $order->setUser($user);
+            $adressDelivery->setUser($user);
         }
 
 

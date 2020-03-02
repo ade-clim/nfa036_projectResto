@@ -88,9 +88,15 @@ class User implements UserInterface
      */
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AddressDelivery", mappedBy="user")
+     */
+    private $addressDelivery;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->addressDelivery = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,6 +250,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AddressDelivery[]
+     */
+    public function getAddressDelivery(): Collection
+    {
+        return $this->addressDelivery;
+    }
+
+    public function addAddressDelivery(AddressDelivery $addressDelivery): self
+    {
+        if (!$this->addressDelivery->contains($addressDelivery)) {
+            $this->addressDelivery[] = $addressDelivery;
+            $addressDelivery->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddressDelivery(AddressDelivery $addressDelivery): self
+    {
+        if ($this->addressDelivery->contains($addressDelivery)) {
+            $this->addressDelivery->removeElement($addressDelivery);
+            // set the owning side to null (unless already changed)
+            if ($addressDelivery->getUser() === $this) {
+                $addressDelivery->setUser(null);
             }
         }
 

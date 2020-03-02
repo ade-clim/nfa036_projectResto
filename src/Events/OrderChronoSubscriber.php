@@ -49,11 +49,6 @@ class OrderChronoSubscriber implements EventSubscriberInterface{
             $nextChrono = $this->repository->findNextChrono();
             $order->setOrderNumber($nextChrono);
 
-            //ajout de la date dans la commande
-            //if(empty($order->getSentAt())){
-               // $order->setSentAt(new \DateTime());
-            //}
-
         }
     }
 }

@@ -23,7 +23,7 @@ function update(id, order){
 }
 
 function create(order){
-    return axios.post(ORDER_API, order);
+    return axios.post(ORDER_API, {...order, addressDelivery: `/api/address_deliveries/${order.addressDelivery}`});
 }
 
 export default {

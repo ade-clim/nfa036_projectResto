@@ -149,7 +149,6 @@ const ExtraPage = ({match, history}) => {
     };
 
 
-
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -206,7 +205,7 @@ const ExtraPage = ({match, history}) => {
                     />
                     <Field name={"description"}
                            label={"Description extra"}
-                           placeholder={"Description de votre extra"}
+                           placeholder={"Choissisez votre 'extra'"}
                            value={extra.description}
                            onChange={handleChange}
                            error={errors.description}

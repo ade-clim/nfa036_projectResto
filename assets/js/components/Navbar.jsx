@@ -7,6 +7,7 @@ import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
 import CartContext from "../contexts/CartContext";
+import CalculPriceCart from "./CalculPriceCart";
 
 
 const Navbar = ({history, toto}) => {
@@ -82,7 +83,7 @@ const Navbar = ({history, toto}) => {
                             <div className="navbar-brand mycard">
                                 <Link to={"/card/burgers"}>
                                     <FontAwesomeIcon color={"black"} icon={faCartArrowDown}/>
-                                    {totalPrice > 0 && <span className={"text-primary"} style={{fontSize:"0.8em"}}> {totalPrice} €</span>}
+                                    <span className={"text-primary"} style={{fontSize:"0.8em"}}> <CalculPriceCart/> €</span>
                                 </Link>
                             </div>
                         </li>

@@ -52,8 +52,10 @@ const SupplementPage = ({match, history}) => {
 
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
+        console.log(supplement.price)
         event.preventDefault();
-        const supp = {title: supplement.title, description: supplement.description, price: parseInt(supplement.price, 10)};
+        const supp = {title: supplement.title, description: supplement.description, price: parseFloat(supplement.price)};
+        console.log(supp)
         try {
             if(editing){
                 await supplementApi.update(id,supp);
@@ -102,6 +104,7 @@ const SupplementPage = ({match, history}) => {
                      error={errors.description}
               />
               <Field name={"price"}
+                     type={"number"}
                      label={"Prix du supplément"}
                      placeholder={"Prix du supplément"}
                      value={supplement.price}

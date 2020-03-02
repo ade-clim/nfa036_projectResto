@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
+import CalculPriceCart from "./CalculPriceCart";
 
 const CartMove = ({totalCart, handleQuantityLess, handleQuantityMore}) => {
 
     let cpt = 1;
-    let totalPanier = 0;
     useEffect(() => {
         if(totalCart.length > 0){
             verifCartStorage();
@@ -69,10 +69,10 @@ const CartMove = ({totalCart, handleQuantityLess, handleQuantityMore}) => {
                                     }
                                 </div>
                             </div>
-                            {totalCart.map(p => { totalPanier = totalPanier + (p.price + p.priceSuppTotal) * p.quantity})}
+
                             {totalCart.length > 0 &&
                                 <div>
-                                    <div className={"text-center mt-4"}>Total : {totalPanier} euros</div>
+                                    <div className={"text-center mt-4"}>Total : <CalculPriceCart/> euros</div>
                                 </div>
                             }
                         </div>

@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Field from "./forms/Fields";
-import {Link} from "react-router-dom";
 import userApi from "../services/userApi";
-import addressApi from "../services/addressApi";
 import jwtDecode from "jwt-decode";
+import addressDeliveryApi from "../services/addressDeliveryApi";
 
 
-const AddressApp = () => {
+const AddressApp = ({setAddressSelect, history}) => {
 
     const [user, setUser] = useState({
         id: "",
@@ -26,7 +25,6 @@ const AddressApp = () => {
     const [newAddress, setNewAddress] = useState(false);
     const [listAddress, setListAddress] = useState([]);
     const [addressDelivery, setAddressDelivery]= useState({
-        id: "",
         street: "",
         number: "",
         city: "",
@@ -35,7 +33,6 @@ const AddressApp = () => {
         comment: ""
     });
     const [errors, setErrors] = useState({
-        id: "",
         street: "",
         number: "",
         city: "",
@@ -49,19 +46,9 @@ const AddressApp = () => {
         if(token){
             const {firstName, lastName, id} = jwtDecode(token);
             //on recup l'utilisateur
-            const {phone, address} = await userApi.find(id);
-            setUser({firstName: firstName, lastName: lastName, id: id, phone: phone});
-            let phoneAddress = "";
-            if(phone.length > 0){
-                phoneAddress = phone
-            }
+            const data = await addressDeliveryApi.findAll();
+            setListAddress(data)
 
-            const addressUser = {id: address.id, street: address.street, number: address.number, city: address.city, postalCode: address.postalCode, phone:phoneAddress, comment: address.comment};
-            setAddressUser(addressUser);
-            setListAddress([...listAddress, addressUser] )
-            //on recup les adresses de livraison enregistré de l'utilisateur
-
-            //const listAddressDeliveryUser = await
         }
     };
 
@@ -73,18 +60,19 @@ const AddressApp = () => {
     // Gestion des changements des inputs dans le formulaire
     const handleChangeAddress = ({currentTarget}) => {
         const {name, value} = currentTarget;
-        setAddress({...address, [name]: value});
+        setAddressDelivery({...addressDelivery, [name]: value});
     };
 
     // Gestion de la soumission du formulaire
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         try {
-            await userApi.update(id,user);
-            await addressApi.update(address.id, address);
+            await addressDeliveryApi.create(addressDelivery);
             // TODO : Flash notification de succéss
 
             setErrors({});
+
 
         }catch ({response}) {
             const {violations} = response.data;
@@ -99,17 +87,28 @@ const AddressApp = () => {
             }
         }
     };
+    const handleChangeAdress = () => {
+        const valeur = document.querySelector('input[name=adress]:checked').value;
+        const adressSelect = listAddress.filter(p => p.id == valeur);
+        setAddressSelect({id:adressSelect[0].id, street:adressSelect[0].street, number: adressSelect[0].number, city:adressSelect[0].city, postalCode: adressSelect[0].postalCode});
+    };
+
 
     return (<>
             <div>
                 {!newAddress && <>
-                    <button className={"link text-success font-weight-bold btn btn-link"}>nouvelle adresse</button>
+                    <button className={"link text-success font-weight-bold btn btn-link"} onClick={() => {setNewAddress(true)}}>nouvelle adresse</button>
                     {listAddress.map(address =>
-                        <ul key={address.id} className={"border pt-2 pb-2"}>
-                            <li>{address.number} {address.street}</li>
-                            <li>{address.postalCode} {address.city}</li>
-                            <li></li>
-                        </ul>
+                        <div className="form-check mb-3">
+                            <input className="form-check-input" type="radio" name="adress" id="adress01"
+                                   value={address.id} onChange={handleChangeAdress}/>
+                                   <ul key={address.id} className={"pt-2 pb-2 col-10 list-group border"}>
+                                       <li className={"list-group-item border-0"}>{address.number} {address.street}</li>
+                                       <li className={"list-group-item border-0 "}>{address.postalCode} {address.city}</li>
+                                       <li className={"list-group-item border-0"}>{address.comment}</li>
+                                       <li className={"list-group-item border-0"}>{address.phone}</li>
+                                   </ul>
+                        </div>
                     )}</>
                     ||
                     <>
@@ -151,13 +150,12 @@ const AddressApp = () => {
                                    onChange={handleChangeAddress}
                             />
                             <div className={"form-group"}>
-                                <button type={"submit"} className={"btn btn-success"}>
-                                    Enregister
-                                </button>
-                                <Link to={"/users"} className={"btn btn-link"}>
+                                <button className={"btn btn-success"}>Creer</button>
+                                <button onClick={() => {setNewAddress(false)}} className={"btn btn-link"}>
                                     Retour à la liste
-                                </Link>
+                                </button>
                             </div>
+
                         </form>
                     </>}
             </div>

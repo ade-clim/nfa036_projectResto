@@ -27,7 +27,7 @@ function create(extra){
 
 export default {
     find,
-    deleteExtra,
+    delete: deleteExtra,
     findAll,
     update,
     create
