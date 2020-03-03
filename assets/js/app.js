@@ -28,6 +28,7 @@ import productApi from "./services/productApi";
 import supplementApi from "./services/supplementApi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import OrdersPage from "./pages/OrdersPage";
 
 
 require('../css/app.css');
@@ -160,6 +161,7 @@ const App = () => {
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
 
 
+                            <PrivateRoute path={"/orders"} component={OrdersPage}/>
                             <PrivateRoute path={"/supplements/:id"} component={SupplementPage}/>
                             <PrivateRoute path={"/supplements"} component={SupplementsPage}/>
                             <PrivateRoute path={"/extras/:id"} component={ExtraPage}/>

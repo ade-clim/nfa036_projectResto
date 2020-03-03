@@ -55,6 +55,12 @@ class Orders
      */
     private $addressDelivery;
 
+    /**
+     * @ORM\Column(type="date")
+     * @Groups({"order_read"})
+     */
+    private $dateOrder;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -140,6 +146,18 @@ class Orders
     public function setAddressDelivery(?AddressDelivery $addressDelivery): self
     {
         $this->addressDelivery = $addressDelivery;
+
+        return $this;
+    }
+
+    public function getDateOrder(): ?\DateTimeInterface
+    {
+        return $this->dateOrder;
+    }
+
+    public function setDateOrder(\DateTimeInterface $dateOrder): self
+    {
+        $this->dateOrder = $dateOrder;
 
         return $this;
     }

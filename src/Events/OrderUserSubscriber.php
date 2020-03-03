@@ -41,7 +41,8 @@ class OrderUserSubscriber implements EventSubscriberInterface{
             $user = $this->security->getUser();
 
             // assigner l'utilisateur à la commande qu'on est en train de créer
-            $order->setUser($user);
+            $order->setUser($user)
+                ->setDateOrder(new \DateTime());
         }
 
 

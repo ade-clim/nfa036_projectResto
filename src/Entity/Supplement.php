@@ -29,13 +29,13 @@ class Supplement
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"supplement_read", "category_read", "extraSupplement_read"})
+     * @Groups({"supplement_read", "category_read", "extraSupplement_read", "order_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"supplement_read", "category_read"})
+     * @Groups({"supplement_read", "category_read", "order_read"})
      */
     private $title;
 
@@ -48,7 +48,7 @@ class Supplement
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"supplement_read", "category_read"})
+     * @Groups({"supplement_read", "category_read", "order_read"})
      */
     private $price;
 

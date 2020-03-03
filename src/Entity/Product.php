@@ -35,22 +35,22 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"products_read", "category_read", "productExtra_read","extras_read"})
+     * @Groups({"products_read", "category_read", "productExtra_read","extras_read", "order_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"products_read", "category_read"})
+     * @Groups({"products_read", "category_read", "order_read"})
      * @Assert\NotBlank(message="la dscription du produit doit etre renseigné")
      */
     private $title;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"products_read", "category_read"})
+     * @Groups({"products_read", "category_read", "order_read"})
      * @Assert\NotBlank(message="montant obligatoire")
-     * @Assert\Type(type="numeric", message="le montant du produit doit être numérique")
+     * @Assert\Type(type="numeric", message="le montant du produit doit être numérique" )
      */
     private $price;
 

@@ -80,7 +80,6 @@ const ProductsPage = ({history}) => {
     // Pagination des données
     const paginatedProducts = Pagination.getData(filteredProducts, currentPage, itemsPerPage);
 
-    // "/products/new"
 
     return(
         <>

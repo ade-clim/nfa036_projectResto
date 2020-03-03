@@ -37,11 +37,13 @@ class OrderDetail
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"orderDetails_read","order_read"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"orderDetails_read","order_read"})
      */
     private $supplements;
 

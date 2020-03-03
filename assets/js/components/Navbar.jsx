@@ -58,6 +58,9 @@ const Navbar = ({history, toto}) => {
                         <li className="nav-item">
                             <NavLink className="nav-link text-dark" to={"/card"}>Carte</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link text-dark" to={"/orders"}>Commandes</NavLink>
+                        </li>
                         {user.roles != "ROLE_USER" &&
                             <>
                                 {isAuthenticated && (<>

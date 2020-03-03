@@ -41,7 +41,7 @@ class AdressDeliveryUser implements EventSubscriberInterface{
             // recup l'utilisateur actuellement connecté
             $user = $this->security->getUser();
 
-            // assigner l'utilisateur à la commande qu'on est en train de créer
+            // assigner l'utilisateur à l'adresse de livraison qu'on est en train de créer
             $adressDelivery->setUser($user);
         }
 
