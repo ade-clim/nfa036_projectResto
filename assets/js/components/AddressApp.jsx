@@ -55,7 +55,7 @@ const AddressApp = ({setAddressSelect, history}) => {
     // Chargement du customer si besoin au chargement du composant ou au changement de l'id
     useEffect(() => {
         handleFetchUser();
-    }, []);
+    }, [newAddress]);
 
     // Gestion des changements des inputs dans le formulaire
     const handleChangeAddress = ({currentTarget}) => {
@@ -69,6 +69,8 @@ const AddressApp = ({setAddressSelect, history}) => {
 
         try {
             await addressDeliveryApi.create(addressDelivery);
+            setAddressDelivery({street:"",number:"", city:"", postalCode: "", phone: "", comment:""} );
+            setNewAddress(false);
             // TODO : Flash notification de succéss
 
             setErrors({});

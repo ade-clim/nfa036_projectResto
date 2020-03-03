@@ -73,8 +73,8 @@ const RegisterPage = ({history}) => {
     };
 
     return(
-            <div className={"container homecontainer"}>
-        <h1>Formulaire d'inscription</h1>
+        <>
+            <h1>Formulaire d'inscription</h1>
             <form onSubmit={handleSubmit}>
                 <Field name={"firstName"}
                        label={"Prénom"}
@@ -118,7 +118,9 @@ const RegisterPage = ({history}) => {
                     <Link to={"/login"} className={"btn btn-link"}>J'ai déjà un compte</Link>
                 </div>
             </form>
-            </div>
+
+        </>
+
     )
 };
 

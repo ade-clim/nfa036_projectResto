@@ -2,10 +2,11 @@ import React, {useContext, useState} from 'react';
 import Field from "./forms/Fields";
 import AuthContext from "../contexts/AuthContext";
 import authApi from "../services/authApi";
+import RegisterApp from "./RegisterApp";
 
 const LoginApp = ({history}) => {
     const {setIsAuthenticated} = useContext(AuthContext);
-
+    const [register, setRegister] = useState(false);
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
@@ -34,27 +35,36 @@ const LoginApp = ({history}) => {
 
     return(
         <>
-            <h1>Connexion a l'application</h1>
-            <form onSubmit={handleSubmit}>
-                <Field type={"email"}
-                   error={error}
-                   name={"username"}
-                   label={"Adresse email"}
-                   placeholder={"Adresse email de connexion"}
-                   value={credentials.username}
-                   onChange={handleChange}
-                />
-                <Field type={"password"}
-                   name={"password"}
-                   label={"Mot de passe"}
-                   placeholder={"Mot de passe"}
-                   value={credentials.password}
-                   onChange={handleChange}
-                />
-                <div className={"form-group"}>
-                    <button className={"btn btn-success"}>Je me connecte</button>
-                </div>
-            </form>
+            {register &&
+            <RegisterApp/>
+            ||
+            <>
+                <h1>Connexion a l'application</h1>
+                <form onSubmit={handleSubmit}>
+                    <Field type={"email"}
+                           error={error}
+                           name={"username"}
+                           label={"Adresse email"}
+                           placeholder={"Adresse email de connexion"}
+                           value={credentials.username}
+                           onChange={handleChange}
+                    />
+                    <Field type={"password"}
+                           name={"password"}
+                           label={"Mot de passe"}
+                           placeholder={"Mot de passe"}
+                           value={credentials.password}
+                           onChange={handleChange}
+                    />
+                    <div className={"form-group"}>
+                        <button className={"btn btn-success"}>Je me connecte</button>
+                        <button className={"btn btn-link"} onClick={() => {setRegister(true)}}>Je n'ai pas encore de compte</button>
+                    </div>
+                </form>
+            </>
+
+            }
+
         </>
     )
 };

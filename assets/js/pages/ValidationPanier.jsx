@@ -55,7 +55,12 @@ const ValidationPanier = () => {
                     <>
                         <h3>adresse de livraison</h3>
                         <AddressApp setAddressSelect={setAddressSelect}/>
+                        {addressSelect.id > 0 &&
                         <button className={"btn btn-primary mt-4"} onClick={handleSubmit}>Valider votre commande</button>
+                        ||
+                        <button className={"btn btn-primary mt-4"} disabled onClick={handleSubmit}>Valider votre commande</button>
+                        }
+
                     </>
                     }
                 </div>
