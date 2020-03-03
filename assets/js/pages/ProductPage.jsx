@@ -6,6 +6,7 @@ import productApi from "../services/productApi";
 import Select from "../components/forms/Select";
 import extraApi from "../services/extraApi";
 import extraProductApi from "../services/extraProductApi";
+import verif from "../verifRoles";
 
 const ProductPage = ({history, match}) => {
 
@@ -107,6 +108,9 @@ const ProductPage = ({history, match}) => {
 
     // Recuperation de la liste des categorys à chaque chargement de composant
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchProducts();
         fetchCategorys();
         fetchExtras();

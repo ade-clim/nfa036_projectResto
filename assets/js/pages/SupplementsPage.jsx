@@ -3,10 +3,11 @@ import supplementApi from "../services/supplementApi";
 import {Link} from "react-router-dom";
 import Pagination from "../components/Pagination";
 import extraApi from "../services/extraApi";
+import verif from "../verifRoles";
 
 
 
-const SupplementsPage = () => {
+const SupplementsPage = ({history}) => {
 
     const [supplements, setSupplements] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +21,9 @@ const SupplementsPage = () => {
 
 
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchSupplement();
     },[]);
 

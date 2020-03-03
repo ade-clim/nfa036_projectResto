@@ -3,8 +3,9 @@ import categoryApi from "../services/categoryApi";
 import Pagination from "../components/Pagination";
 import extraApi from "../services/extraApi";
 import {Link} from "react-router-dom";
+import verif from "../verifRoles";
 
-const ExtrasPage = (props) => {
+const ExtrasPage = ({history}) => {
 
     const [extras, setExtras] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +26,9 @@ const ExtrasPage = (props) => {
 
     // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchExtras();
     },[]);
 

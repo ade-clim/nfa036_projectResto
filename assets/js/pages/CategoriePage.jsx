@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import categoryApi from "../services/categoryApi";
 import Field from "../components/forms/Fields";
+import verif from "../verifRoles";
 
 const CategoriePage = ({match, history}) => {
 
@@ -35,10 +36,14 @@ const CategoriePage = ({match, history}) => {
 
     // Chargement du customer si besoin au chargement du composant ou au changement de l'id
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         if(id !== "new"){
             setEditing(true);
             fetchCategory(id);
         };
+
     }, [id]);
 
 

@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import Pagination from "../components/Pagination";
 import categoryApi from "../services/categoryApi";
 import {Link} from "react-router-dom";
+import verif from "../verifRoles";
 
-const CategoriesPage = (props) => {
+const CategoriesPage = ({history}) => {
 
     const [categorys, setCategorys] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +25,9 @@ const CategoriesPage = (props) => {
 
     // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchCategorys();
     },[]);
 

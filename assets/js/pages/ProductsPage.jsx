@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import productApi from "../services/productApi";
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
-import extraProductApi from "../services/extraProductApi";
+import verif from "../verifRoles";
 
-const ProductsPage = (props) => {
+
+const ProductsPage = ({history}) => {
     const [products, setProducts] = useState([]);
     const [extras, setExtras] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -38,6 +39,9 @@ const ProductsPage = (props) => {
 
     //useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchProducts();
         fetchExtras();
     },[]);

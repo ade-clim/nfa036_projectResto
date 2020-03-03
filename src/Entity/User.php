@@ -16,6 +16,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     attributes={
  *     "order"= {"id":"desc"}},
 
+ *     collectionOperations={
+        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"}
+ *     },
  *     itemOperations={
  *         "get",
  *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},

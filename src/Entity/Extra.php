@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(
  *     attributes={
  *     "order"= {"id"}},
+ *     collectionOperations={
+        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *     },
  *     normalizationContext={"groups"={"extras_read"}})
  * @ORM\Entity(repositoryClass="App\Repository\ExtraRepository")
  */

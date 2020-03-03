@@ -4,9 +4,10 @@ import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import verif from "../verifRoles";
 
 
-const UsersPage = (props) => {
+const UsersPage = ({history}) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +27,9 @@ const UsersPage = (props) => {
 
     // useEffect indique à React que notre composant doit être exécuter apres chaque affichage
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchUsers();
     },[]);
 

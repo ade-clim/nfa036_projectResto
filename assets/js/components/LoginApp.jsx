@@ -3,6 +3,8 @@ import Field from "./forms/Fields";
 import AuthContext from "../contexts/AuthContext";
 import authApi from "../services/authApi";
 import RegisterApp from "./RegisterApp";
+import {toast} from "react-toastify";
+
 
 const LoginApp = ({history}) => {
     const {setIsAuthenticated} = useContext(AuthContext);
@@ -27,9 +29,9 @@ const LoginApp = ({history}) => {
             await authApi.authenticate(credentials);
             setError("");
             setIsAuthenticated(true);
-            //history.push("/");
+            toast.success("🍔 Vous êtes connecté !");
         }catch (error) {
-            setError("Aucun compte ne possède cette adresse ou alors les informations ne correspondent pas !")
+            setError("Aucun compte ne possède cette adresse ou alors les informations ne correspondent pas !");
         }
     };
 

@@ -8,14 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
 import CartContext from "../contexts/CartContext";
 import CalculPriceCart from "./CalculPriceCart";
-
+import {toast} from "react-toastify";
 
 const Navbar = ({history, toto}) => {
 
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
-        id:""
+        id:"",
+        roles: ""
     });
 
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
@@ -24,15 +25,17 @@ const Navbar = ({history, toto}) => {
 
     const handleFetchUser = () => {
         const token = window.localStorage.getItem("authToken");
+
         if(token){
-            const {firstName, lastName, id} = jwtDecode(token);
-            setUser({firstName: firstName, lastName: lastName, id: id})
+            const {firstName, lastName, id, roles} = jwtDecode(token);
+            setUser({firstName: firstName, lastName: lastName, id: id, roles: roles[0]})
         }
     };
 
     const handleLogout = () => {
         authApi.logout();
         setIsAuthenticated(false);
+        toast.success("🍔 Vous êtes déconnecté !");
         history.push("/login")
     };
 
@@ -50,28 +53,34 @@ const Navbar = ({history, toto}) => {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarColor01">
+
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
                             <NavLink className="nav-link text-dark" to={"/card"}>Carte</NavLink>
                         </li>
-                        {isAuthenticated && (<>
-                            <li className="nav-item ">
-                                <NavLink className="nav-link" to={"/users"}>Clients</NavLink>
-                            </li>
-                            <li className="nav-item">
-                            <NavLink className="nav-link" to={"/products"}>Produits</NavLink>
-                            </li>
-                            <li className="nav-item">
-                            <NavLink className="nav-link" to={"/categorys"}>Catégories</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to={"/extras"}>Extras</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to={"/supplements"}>Suppléments</NavLink>
-                            </li>
-                        </>)}
+                        {user.roles != "ROLE_USER" &&
+                            <>
+                                {isAuthenticated && (<>
+                                    <li className="nav-item ">
+                                        <NavLink className="nav-link" to={"/users"}>Clients</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to={"/products"}>Produits</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to={"/categorys"}>Catégories</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to={"/extras"}>Extras</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to={"/supplements"}>Suppléments</NavLink>
+                                    </li>
+                                </>)}
+                            </>
+                        }
                     </ul>
+
 
                     <ul className={"navbar-nav ml-auto pt-5"}>
                         <li>

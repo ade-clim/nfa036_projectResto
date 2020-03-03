@@ -6,6 +6,7 @@ import extraApi from "../services/extraApi";
 import supplementApi from "../services/supplementApi";
 import extraProductApi from "../services/extraProductApi";
 import extraSupplementApi from "../services/extraSupplementApi";
+import verif from "../verifRoles";
 
 
 
@@ -82,6 +83,9 @@ const ExtraPage = ({match, history}) => {
 
 
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         fetchSupplements();
     }, []);
 

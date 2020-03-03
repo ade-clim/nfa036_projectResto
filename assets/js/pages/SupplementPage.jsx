@@ -3,6 +3,7 @@ import Field from "../components/forms/Fields";
 import {Link} from "react-router-dom";
 import extraApi from "../services/extraApi";
 import supplementApi from "../services/supplementApi";
+import verif from "../verifRoles";
 
 
 
@@ -36,6 +37,9 @@ const SupplementPage = ({match, history}) => {
     };
 
     useEffect(() => {
+        if(verif !== "ROLE_ADMIN" && verif !== "ROLE_MANAGER"){
+            history.replace("/");
+        }
         if(id !== "new"){
             setEditing(true);
             fetchSupplement(id);

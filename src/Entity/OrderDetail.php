@@ -36,6 +36,16 @@ class OrderDetail
     private $orders;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $supplements;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -71,6 +81,30 @@ class OrderDetail
     public function setOrders(?Orders $orders): self
     {
         $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getSupplements(): ?string
+    {
+        return $this->supplements;
+    }
+
+    public function setSupplements(?string $supplements): self
+    {
+        $this->supplements = $supplements;
 
         return $this;
     }

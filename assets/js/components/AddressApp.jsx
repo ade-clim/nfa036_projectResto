@@ -3,7 +3,7 @@ import Field from "./forms/Fields";
 import userApi from "../services/userApi";
 import jwtDecode from "jwt-decode";
 import addressDeliveryApi from "../services/addressDeliveryApi";
-
+import {toast} from "react-toastify";
 
 const AddressApp = ({setAddressSelect, history}) => {
 
@@ -71,7 +71,7 @@ const AddressApp = ({setAddressSelect, history}) => {
             await addressDeliveryApi.create(addressDelivery);
             setAddressDelivery({street:"",number:"", city:"", postalCode: "", phone: "", comment:""} );
             setNewAddress(false);
-            // TODO : Flash notification de succéss
+            toast.success("🍔 Adresse de livraison créer !");
 
             setErrors({});
 
@@ -85,7 +85,7 @@ const AddressApp = ({setAddressSelect, history}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
-                // TODO : Flash notification de d'erreurs
+                toast.warning("🍔 Une erreur c'est produite !");
             }
         }
     };

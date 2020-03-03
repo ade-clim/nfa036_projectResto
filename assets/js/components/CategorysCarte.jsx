@@ -4,6 +4,8 @@ import NavBarVertical from "../components/NavBarVertical";
 import CartContext from "../contexts/CartContext";
 import CartMove from "./CartMove";
 import GalleryProduct from "./GalleryProduct";
+import {toast} from "react-toastify";
+
 
 const CategorysCarte = ({productList}) => {
 
@@ -66,7 +68,7 @@ const CategorysCarte = ({productList}) => {
             const productCart = [...totalCart, productModify];
             updateTotalCart(productCart);
         }
-
+        toast.success("🍔 Produit ajouter au panier!");
     };
 
 

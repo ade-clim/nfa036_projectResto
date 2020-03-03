@@ -26,6 +26,9 @@ import SupplementPage from "./pages/SupplementPage";
 import ValidationPanier from "./pages/ValidationPanier";
 import productApi from "./services/productApi";
 import supplementApi from "./services/supplementApi";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 require('../css/app.css');
 
@@ -175,6 +178,11 @@ const App = () => {
                     </main>
                 </HashRouter>
             </CartContext.Provider>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={4000}
+
+            />
         </AuthContext.Provider>
    </> )
 };
