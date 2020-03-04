@@ -57,9 +57,15 @@ class Supplement
      */
     private $extraSupplements;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderdetailsSupplements", mappedBy="supplement")
+     */
+    private $orderdetailsSupplements;
+
     public function __construct()
     {
         $this->extraSupplements = new ArrayCollection();
+        $this->orderdetailsSupplements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +134,37 @@ class Supplement
             // set the owning side to null (unless already changed)
             if ($extraSupplement->getSupplement() === $this) {
                 $extraSupplement->setSupplement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderdetailsSupplements[]
+     */
+    public function getOrderdetailsSupplements(): Collection
+    {
+        return $this->orderdetailsSupplements;
+    }
+
+    public function addOrderdetailsSupplement(OrderdetailsSupplements $orderdetailsSupplement): self
+    {
+        if (!$this->orderdetailsSupplements->contains($orderdetailsSupplement)) {
+            $this->orderdetailsSupplements[] = $orderdetailsSupplement;
+            $orderdetailsSupplement->setSupplement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderdetailsSupplement(OrderdetailsSupplements $orderdetailsSupplement): self
+    {
+        if ($this->orderdetailsSupplements->contains($orderdetailsSupplement)) {
+            $this->orderdetailsSupplements->removeElement($orderdetailsSupplement);
+            // set the owning side to null (unless already changed)
+            if ($orderdetailsSupplement->getSupplement() === $this) {
+                $orderdetailsSupplement->setSupplement(null);
             }
         }
 

@@ -12,4 +12,4 @@ export const EXTRAPRODUCT_API = API_URL + "product_extras";
 export const CATEGORY_API = API_URL + "categories";
 export const ORDER_API = API_URL + "orders";
 export const ORDERDETAILS_API = API_URL + "order_details";
-
+export const ORDERDETAILSSUPPLEMENTS_API = API_URL + "orderdetails_supplements";

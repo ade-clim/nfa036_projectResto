@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -42,10 +44,15 @@ class OrderDetail
     private $quantity;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups({"orderDetails_read","order_read"})
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderdetailsSupplements", mappedBy="orderDetail")
      */
-    private $supplements;
+    private $orderdetailsSupplements;
+
+    public function __construct()
+    {
+        $this->orderdetailsSupplements = new ArrayCollection();
+    }
+
 
     /**
      * @return mixed
@@ -99,15 +106,35 @@ class OrderDetail
         return $this;
     }
 
-    public function getSupplements(): ?string
+    /**
+     * @return Collection|OrderdetailsSupplements[]
+     */
+    public function getOrderdetailsSupplements(): Collection
     {
-        return $this->supplements;
+        return $this->orderdetailsSupplements;
     }
 
-    public function setSupplements(?string $supplements): self
+    public function addOrderdetailsSupplement(OrderdetailsSupplements $orderdetailsSupplement): self
     {
-        $this->supplements = $supplements;
+        if (!$this->orderdetailsSupplements->contains($orderdetailsSupplement)) {
+            $this->orderdetailsSupplements[] = $orderdetailsSupplement;
+            $orderdetailsSupplement->setOrderDetail($this);
+        }
 
         return $this;
     }
+
+    public function removeOrderdetailsSupplement(OrderdetailsSupplements $orderdetailsSupplement): self
+    {
+        if ($this->orderdetailsSupplements->contains($orderdetailsSupplement)) {
+            $this->orderdetailsSupplements->removeElement($orderdetailsSupplement);
+            // set the owning side to null (unless already changed)
+            if ($orderdetailsSupplement->getOrderDetail() === $this) {
+                $orderdetailsSupplement->setOrderDetail(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

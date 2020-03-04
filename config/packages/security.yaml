@@ -35,7 +35,7 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
         main:
-            anonymous: lazy
+            anonymous: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
