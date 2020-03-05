@@ -1,5 +1,10 @@
 import jwtDecode from "jwt-decode";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : VERIFIE LE ROLE DE L'USER EN SESSIONS                                                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function verif (){
     const token = window.localStorage.getItem("authToken");
 

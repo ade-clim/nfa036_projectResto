@@ -30,11 +30,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OrdersPage from "./pages/OrdersPage";
 
-
 require('../css/app.css');
-
 authApi.setup();
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : CLASSE PRINCIPALE, S'OCCUPE DES REDIRECTIONS                                                             *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const App = () => {
 
     // TODO: Il faudrait par défaut qu'on demande à notre authApi si on est connecté ou non
