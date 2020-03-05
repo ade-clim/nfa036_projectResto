@@ -21,7 +21,7 @@ class OrderDetail
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"orderDetails_read","order_read"})
+     * @Groups({"orderDetails_read","order_read","orderDetailsSupplements_read"})
      */
     private $id;
 
@@ -45,6 +45,7 @@ class OrderDetail
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\OrderdetailsSupplements", mappedBy="orderDetail")
+     * @Groups({"orderDetails_read","order_read"})
      */
     private $orderdetailsSupplements;
 

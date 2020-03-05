@@ -24,7 +24,7 @@ const CategorysCarte = ({productList}) => {
     const [modalShow, setModalShow] = useState(false);
     const [extras, setExtras] = useState([]);
 
-    const handleChangeTarif = (product, amount, listSupplements, priceSupp, listDrinks) => {
+    const handleChangeTarif = (product, amount, listSupplements, priceSupp) => {
 
         // verifier si le produit existe deja dans le panier si oui on modifie la quantité à +1
         const recupCartContext = [...totalCart];

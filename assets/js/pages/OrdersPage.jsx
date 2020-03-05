@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Pagination from "../components/Pagination";
 import OrderApi from "../services/OrderApi";
-import MyVerticalCenteredModal from "../components/MyVerticallyCenteredModal";
 import ModalOrders from "../components/ModalOrders";
+import CartContext from "../contexts/CartContext";
 
 
 
@@ -12,6 +12,7 @@ const OrdersPage = ({history}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
     const [order, setOrder] = useState({
+        id: "",
         orderNumber: "",
         dateOrder: "",
         price: "",
@@ -20,15 +21,37 @@ const OrdersPage = ({history}) => {
     const itemsPerPage = 6;
     const [modalShow, setModalShow] = useState(false);
 
+    const { totalCart, updateTotalCart} = useContext(CartContext);
 
-    // Permet de recuperer les produits
+
+    // Permet de recuperer les commandes et supplements
     const fetchOrders = async () => {
         try {
             const data = await OrderApi.findAll();
             setOrders(data);
+
         }catch (error) {
             console.log(error.response)
         }
+    };
+
+    const verifCartStorage = () => {
+        let cartStorage = [];
+        for(let i = 0; i < totalCart.length; i++){
+            const supp = [];
+
+            for(let p = 0; p < totalCart[i].supplements.length; p++){
+                const suppCart = {id: totalCart[i].supplements[p].id};
+                supp.push(suppCart)
+            }
+            const productCart = {id:totalCart[i].id, quantity: totalCart[i].quantity, supplements:supp};
+            cartStorage.push(productCart);
+        }
+
+        // Je stock mon panier dans mon localStorage
+        window.localStorage.setItem("cartStorage", JSON.stringify(cartStorage));
+        history.replace("/card/validation");
+
     };
 
     //useEffect indique à React que notre composant doit être exécuter apres chaque affichage
@@ -79,7 +102,7 @@ const OrdersPage = ({history}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {paginatedOrders.map(order =>
+                {orders.map(order =>
                     <tr key={order.id}>
                         <td>{order.orderNumber}</td>
                         <td>{order.dateOrder}</td>
@@ -94,6 +117,7 @@ const OrdersPage = ({history}) => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 order={order}
+                verifCartStorage={verifCartStorage}
             />
             <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredOrders.length} onPageChanged={handlePageChange}/>
         </div>

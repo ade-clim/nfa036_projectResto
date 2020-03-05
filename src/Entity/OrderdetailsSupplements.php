@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext={"groups"={"orderDetailsSupplements_read"}})
  * @ORM\Entity(repositoryClass="App\Repository\OrderdetailsSupplementsRepository")
  */
 class OrderdetailsSupplements
@@ -15,6 +16,7 @@ class OrderdetailsSupplements
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"orderDetails_read","order_read","orderDetailsSupplements_read"})
      */
     private $id;
 
@@ -25,6 +27,7 @@ class OrderdetailsSupplements
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Supplement", inversedBy="orderdetailsSupplements")
+     * @Groups({"orderDetails_read","order_read","orderDetailsSupplements_read"})
      */
     private $supplement;
 

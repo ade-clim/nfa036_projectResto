@@ -5,7 +5,6 @@ import LoginApp from "../components/LoginApp";
 import AddressApp from "../components/AddressApp";
 import CalculPriceCart from "../components/CalculPriceCart";
 import OrderApi from "../services/OrderApi";
-import addressDeliveryApi from "../services/addressDeliveryApi";
 import OrderDetailApi from "../services/OrderDetailApi";
 import {toast} from "react-toastify";
 import orderDetailsSupplementsApi from "../services/orderDetailsSupplementsApi";
