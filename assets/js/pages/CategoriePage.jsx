@@ -4,6 +4,12 @@ import categoryApi from "../services/categoryApi";
 import Field from "../components/forms/Fields";
 import verif from "../verifRoles";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION D'UNE CATEGORIE PAR ID                                                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const CategoriePage = ({match, history}) => {
 
     const {id = "new"} = match.params;

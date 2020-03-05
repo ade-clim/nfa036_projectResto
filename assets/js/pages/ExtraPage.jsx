@@ -1,15 +1,18 @@
 import React,{useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
-import categoryApi from "../services/categoryApi";
 import Field from "../components/forms/Fields";
 import extraApi from "../services/extraApi";
 import supplementApi from "../services/supplementApi";
-import extraProductApi from "../services/extraProductApi";
 import extraSupplementApi from "../services/extraSupplementApi";
 import verif from "../verifRoles";
 
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION D'UN EXTRA PAR ID                                                         *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const ExtraPage = ({match, history}) => {
     const {id = "new"} = match.params;

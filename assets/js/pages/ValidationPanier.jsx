@@ -10,6 +10,11 @@ import {toast} from "react-toastify";
 import orderDetailsSupplementsApi from "../services/orderDetailsSupplementsApi";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATIONS DE LA COMMANDE EN COURS AINSI QUE SA VALIDATION                          *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const ValidationPanier = ({history}) => {
 

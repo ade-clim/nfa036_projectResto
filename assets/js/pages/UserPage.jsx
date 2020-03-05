@@ -5,6 +5,12 @@ import {Link} from "react-router-dom";
 import addressApi from "../services/addressApi";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION DE L'UTILISATEUR PAR ID                                                      *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const UserPage = ({history, match}) => {
 
     const {id} = match.params;

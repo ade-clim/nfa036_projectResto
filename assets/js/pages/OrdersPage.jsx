@@ -5,6 +5,11 @@ import ModalOrders from "../components/ModalOrders";
 import CartContext from "../contexts/CartContext";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES COMMANDES DE L'UTILISATEUR EN SESSION                                                 *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const OrdersPage = ({history}) => {
 

@@ -1,7 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect} from 'react'
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CartContext from "../contexts/CartContext";
+
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : AFFICHE LE RECAP DANS UN MODAL DE LA COMMANDE PRECEDEMMENT PASSER                                        *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const ModalOrders = ({order, onHide, show, verifCartStorage}) => {
 

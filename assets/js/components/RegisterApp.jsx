@@ -5,6 +5,11 @@ import Field from "./forms/Fields";
 import LoginApp from "./LoginApp";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT D'ENREGISTREMENT                                                                               *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const RegisterApp = () => {
     const [register, setRegister] = useState(false);

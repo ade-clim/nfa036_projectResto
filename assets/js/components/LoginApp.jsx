@@ -5,7 +5,11 @@ import authApi from "../services/authApi";
 import RegisterApp from "./RegisterApp";
 import {toast} from "react-toastify";
 
-
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : FORM DE RECUPERATION DES IDENTIFIANT ET VERIFICATION                                                     *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const LoginApp = ({history}) => {
     const {setIsAuthenticated} = useContext(AuthContext);
     const [register, setRegister] = useState(false);

@@ -4,6 +4,12 @@ import Image from "react-bootstrap/Image";
 import img from "../../img/h01.jpg";
 import Button from "react-bootstrap/Button";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : MODAL POUR AFFICHER LES INFORMATIONS DU PRODUIT SELECTIONNER(SUPPLEMENT, PRIX, TITLE, DESCRIPTION)       *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTarif}) => {
 
     const [tarif, setTarif] = useState();

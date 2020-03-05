@@ -4,6 +4,12 @@ import categoryApi from "../services/categoryApi";
 import {Link} from "react-router-dom";
 import verif from "../verifRoles";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES CATEGORIES                                                                            *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const CategoriesPage = ({history}) => {
 
     const [categorys, setCategorys] = useState([]);

@@ -8,6 +8,14 @@ import extraApi from "../services/extraApi";
 import extraProductApi from "../services/extraProductApi";
 import verif from "../verifRoles";
 
+
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION D'UNE PRODUIT PAR ID                                                      *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 const ProductPage = ({history, match}) => {
 
     const {id = "new"} = match.params;

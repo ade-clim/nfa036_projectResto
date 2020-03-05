@@ -12,12 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(
  *     attributes={
  *     "order"= {"id"}},
- *     collectionOperations={
-        "get"
- *     },
  *     itemOperations={
  *         "get",
  *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"},
  *         "put"={"security"="is_granted('ROLE_ADMIN')"},
  *     },
  *     normalizationContext={"groups"={"supplement_read"}})

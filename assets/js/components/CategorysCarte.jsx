@@ -7,6 +7,12 @@ import GalleryProduct from "./GalleryProduct";
 import {toast} from "react-toastify";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT POUR AFFICHER LES PRODUITS (VISUEL) AINSI QUE LE CARTMOVE                                      *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const CategorysCarte = ({productList}) => {
 
 

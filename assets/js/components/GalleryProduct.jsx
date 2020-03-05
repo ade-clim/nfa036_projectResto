@@ -1,7 +1,11 @@
 import React from 'react';
 import h01 from "../../img/h01.jpg";
 
-
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT POUR AFFICHER LES PRODUITS EN FONCTION DE LA CATEGORIE                                         *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const GalleryProduct = ({products, setModalShow, setProduct, verifExtraByProduct}) => {
     return(
         <div className="">

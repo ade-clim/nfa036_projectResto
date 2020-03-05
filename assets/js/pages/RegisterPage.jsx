@@ -1,8 +1,14 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import {Link} from "react-router-dom";
 import Field from "../components/forms/Fields";
 import registerApi from "../services/registerApi";
 import addressApi from "../services/addressApi";
+
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE D'ENREGISTREMENT                                                                                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const RegisterPage = ({history}) => {
 

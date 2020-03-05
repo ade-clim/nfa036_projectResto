@@ -1,7 +1,11 @@
 import React, {useContext, useState} from 'react';
 import CartContext from "../contexts/CartContext";
 
-
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : METHODE POUR CALCULER LA TARIF TOTAL DU PANIER EN FONCTION DES PRODUIT ET SUPPLEMENTS                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const CalculPriceCart = () => {
 
     const { totalCart, updateTotalCart} = useContext(CartContext);

@@ -2,6 +2,12 @@ import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import CalculPriceCart from "./CalculPriceCart";
 
+
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT POUR LE PANIER CONTENANT LE TRAITEMENT ET L'AFFICHAGE DES PRODUIT                              *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const CartMove = ({totalCart, handleQuantityLess, handleQuantityMore}) => {
 
     let cpt = 1;

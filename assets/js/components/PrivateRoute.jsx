@@ -1,9 +1,12 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import AuthContext from "../contexts/AuthContext";
 import {Redirect, Route} from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
-
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : VERIFIE SI L'UTILISATEUR EST AUTHENTIFIER SINON IL REDIRIGE                                              *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const PrivateRoute = ({path, component}) => {
 
     const {isAuthenticated} = useContext(AuthContext);

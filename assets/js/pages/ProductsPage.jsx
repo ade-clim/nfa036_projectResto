@@ -4,6 +4,11 @@ import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
 import verif from "../verifRoles";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION DES PRODUITS PAR ID                                                       *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const ProductsPage = ({history}) => {
     const [products, setProducts] = useState([]);

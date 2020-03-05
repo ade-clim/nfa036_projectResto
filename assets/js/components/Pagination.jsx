@@ -1,6 +1,10 @@
 import React from 'react';
 
-//<Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={customers.length} onPageChanged={handlePageChange()}/>
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT POUR AFFICHER LA BARRE DE PAGINATION                                                           *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Pagination = ({currentPage, itemsPerPage, length, onPageChanged}) => {
 
     const pagesCount = Math.ceil(length / itemsPerPage);

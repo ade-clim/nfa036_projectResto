@@ -2,11 +2,14 @@ import React, {useState, useEffect} from 'react';
 import supplementApi from "../services/supplementApi";
 import {Link} from "react-router-dom";
 import Pagination from "../components/Pagination";
-import extraApi from "../services/extraApi";
 import verif from "../verifRoles";
 
 
-
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION DES SUPPLEMENTS PAR ID                                                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const SupplementsPage = ({history}) => {
 
     const [supplements, setSupplements] = useState([]);

@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Field from "../components/forms/Fields";
 import {Link} from "react-router-dom";
-import extraApi from "../services/extraApi";
 import supplementApi from "../services/supplementApi";
 import verif from "../verifRoles";
 
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION D'UN SUPPLEMENT PAR ID                                                    *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const SupplementPage = ({match, history}) => {
     const {id = "new"} = match.params;

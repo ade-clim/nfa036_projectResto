@@ -1,6 +1,11 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
 
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : NAVBAR VERTICAL CONTENANT LES CATEGORIES DES PRODUITS SUR LE SITE                                        *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const NavBarVertical = ({toto}) => {
   return (
 

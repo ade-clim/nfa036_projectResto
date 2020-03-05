@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import categoryApi from "../services/categoryApi";
 import Pagination from "../components/Pagination";
 import extraApi from "../services/extraApi";
 import {Link} from "react-router-dom";
 import verif from "../verifRoles";
 
-const ExtrasPage = ({history}) => {
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : PAGE AFFICHANT LES INFORMATION D'EST EXTRAS                                                              *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const ExtrasPage = ({history}) => {
     const [extras, setExtras] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");

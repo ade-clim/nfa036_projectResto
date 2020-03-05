@@ -10,6 +10,13 @@ import CartContext from "../contexts/CartContext";
 import CalculPriceCart from "./CalculPriceCart";
 import {toast} from "react-toastify";
 
+
+/***********************************************************************************************************************
+*                                                                                                                      *
+* OBJECTIF : AFFICHE LES LIENS DE NAVIGATION                                                                           *
+*                                                                                                                      *
+*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const Navbar = ({history, toto}) => {
 
     const [user, setUser] = useState({
@@ -20,15 +27,14 @@ const Navbar = ({history, toto}) => {
     });
 
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
-    const { totalCart, totalPrice, updateTotalCart, updateTotalPrice } = useContext(CartContext);
-
 
     const handleFetchUser = () => {
         const token = window.localStorage.getItem("authToken");
 
         if(token){
             const {firstName, lastName, id, roles} = jwtDecode(token);
-            setUser({firstName: firstName, lastName: lastName, id: id, roles: roles[0]})
+            setUser({firstName: firstName, lastName: lastName, id: id, roles: roles[0]});
+            setIsAuthenticated(true);
         }
     };
 

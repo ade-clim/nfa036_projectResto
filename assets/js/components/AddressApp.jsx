@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Field from "./forms/Fields";
-import userApi from "../services/userApi";
 import jwtDecode from "jwt-decode";
 import addressDeliveryApi from "../services/addressDeliveryApi";
 import {toast} from "react-toastify";
+
+/***********************************************************************************************************************
+ *                                                                                                                     *
+ * OBJECTIF : COMPONENT POUR CREER ET MODIFIER UNE ADRESSE                                                             *
+ *                                                                                                                     *
+ *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const AddressApp = ({setAddressSelect, history}) => {
 
