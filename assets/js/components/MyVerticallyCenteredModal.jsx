@@ -62,7 +62,7 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                 <Modal.Body>
                     <div className={"modal_size"}>
                         <div className={"text-center"}>
-                            <Image src={product.picture} fluid width={"250px"}/>
+                            <Image src={product.picture} fluid width={"350px"}/>
                         </div>
 
                     <h5 className={"text-center text-dark mb-5"}>{product.description}</h5>
@@ -70,21 +70,20 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                     {extras.map(extra =>
                         <div key={extra.id}>
                             {extra.supplement.length > 0 &&
-                            <div className={"mb-4"}>
-                                <h6 className={"font-weight-bold"}>{extra.description} :</h6>
+                            <div className={"mb-4"} >
+                                <h6 className={"font-weight-bold mb-2"} style={{fontSize: "1em"}}>{extra.description} :</h6>
                                 {extra.supplement.map(supplement =>
-                                    <ul key={supplement.supplement.id} className={"list-group"}>
-                                        <li className="list-group-item list-group-item-action border-0">
-                                            <input type="checkbox" className={"ml-3"}
-                                                   onClick={() => {
-                                                       selectSupplementProduct(supplement.supplement)}}/>
-                                                       <span className={"ml-1"}>
-                                                           {supplement.supplement.title}
-                                                           {supplement.supplement.price > 0 &&
-                                                           <span>
-                                                               +{supplement.supplement.price} €
-                                                           </span>}
-                                                       </span>
+                                    <ul key={supplement.supplement.id} className={"list-group vertical_modal_check"}>
+                                        <li className="list-group-item list-group-item-action border rounded mb-2 ">
+                                            <input type="checkbox" className={"ml-3"} onClick={() => {selectSupplementProduct(supplement.supplement)}} width={"30px"} height={"30px"}/>
+                                            <label><span className={"ml-2"} style={{fontSize:"1em"}}>
+                                                <span>{supplement.supplement.title}</span>
+                                                {supplement.supplement.price > 0 &&
+                                                <span className={"float-right"}>
+                                                    +{supplement.supplement.price} €
+                                                </span>}
+                                            </span></label>
+
                                         </li>
                                     </ul>
                                 )}

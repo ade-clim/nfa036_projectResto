@@ -13,7 +13,7 @@ import {toast} from "react-toastify";
  *                                                                                                                     *
  *//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const CategorysCarte = ({productList}) => {
+const CategorysCarte = ({productList, title}) => {
 
 
     // recupere le produit actuel pour recuperer ces extras
@@ -122,13 +122,14 @@ const CategorysCarte = ({productList}) => {
 
     return (<>
         <div className={"container-fluid"}>
+
             <div className={"row"}>
                 <NavBarVertical/>
 
                 <div className={"col-9 homecontainer"} >
                     <div className={""}>
                         <div className={""}>
-                            <h1>Burgers</h1>
+                            <h1>{title}</h1>
                         </div>
 
                         <div className={"offset-9"}>

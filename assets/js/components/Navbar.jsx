@@ -5,7 +5,7 @@ import AuthContext from "../contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 import logo01 from'../../img/logo01.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons'
+import {faCartArrowDown, faUserAstronaut} from '@fortawesome/free-solid-svg-icons'
 import CartContext from "../contexts/CartContext";
 import CalculPriceCart from "./CalculPriceCart";
 import {toast} from "react-toastify";
@@ -93,7 +93,7 @@ const Navbar = ({history, toto}) => {
                     </ul>
 
 
-                    <ul className={"navbar-nav ml-auto pt-5"}>
+                    <ul className={"navbar-nav pt-5 "}>
                         <li>
                             <NavLink to={"/"} className="navbar-brand logo"><img src={logo01} width={"140px"}/></NavLink>
                         </li>
@@ -103,20 +103,15 @@ const Navbar = ({history, toto}) => {
                             <div className="navbar-brand mycard">
                                 <Link to={"/card/burgers"}>
                                     <FontAwesomeIcon color={"black"} icon={faCartArrowDown}/>
-                                    <span className={"text-primary"} style={{fontSize:"0.8em"}}> <CalculPriceCart/> €</span>
+                                    <span className={"text-primary"} style={{fontSize:"0.8em"}}> <CalculPriceCart/></span>
                                 </Link>
                             </div>
                         </li>
                         {(!isAuthenticated &&
                             (<>
                                     <li className="nav-item">
-                                        <NavLink to={"/register"} className="nav-link">
-                                            Inscription
-                                        </NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to={"/login"} className="btn btn-primary">
-                                            Connexion !
+                                        <NavLink to={"/login"} className="nav-link">
+                                            <FontAwesomeIcon color={"green"} size="lg" icon={faUserAstronaut}/>
                                         </NavLink>
                                     </li>
                                 </>

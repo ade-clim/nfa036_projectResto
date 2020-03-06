@@ -15,7 +15,8 @@ const CalculPriceCart = () => {
   return (
       <span>
         {totalCart.map(p => { totalPanier = totalPanier + (p.price + p.priceSuppTotal) * p.quantity})}
-          {totalPanier}
+          {totalPanier > 0 && <span>{totalPanier} €</span>}
+
       </span>
   )
 };

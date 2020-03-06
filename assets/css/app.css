@@ -2,6 +2,9 @@ html {
     position: relative;
     min-height: 100%;
 }
+.vertical_modal_check input:checked + label{
+    color: #397D13;
+}
 
 .modal_size{
     max-height:80vh;
@@ -97,7 +100,9 @@ html {
 
 .masthead{
     height: 100vh;
+    min-height: 50vh;
 }
+
 header.masthead{
     position:relative;
     overflow:hidden;
@@ -107,11 +112,12 @@ header.masthead{
     background-repeat:no-repeat;
     background-position:center center;
     background-attachment:scroll;
-    background-size:cover
+    background-size:cover;
 }
 header.masthead .masthead-content{
     z-index:1;
-    position:relative}
+    position:relative
+}
 header.masthead .masthead-content .masthead-heading{
     font-size:4rem
 }

@@ -155,12 +155,12 @@ const App = () => {
 
 
                             <Route path={"/card/validation"} component={ValidationPanier}/>
-                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} />} />
-                            <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} />} />
-                            <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} />} />
-                            <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} />} />
-                            <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} />} />
-                            <Route path="/card/salades" component={(props) => <CategorysCarte {...props} productList={salades} />} />
+                            <Route path="/card/burgers" component={(props) => <CategorysCarte {...props} productList={burgers} title={"Burgers"}/>} />
+                            <Route path="/card/snacks" component={(props) => <CategorysCarte {...props} productList={snacks} title={"Snacks"}/>} />
+                            <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} title={"Boissons"}/>} />
+                            <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} title={"Desserts"}/>} />
+                            <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} title={"Menu enfants"}/>} />
+                            <Route path="/card/salades" component={(props) => <CategorysCarte {...props} productList={salades} title={"Salades"}/>} />
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
 
 
