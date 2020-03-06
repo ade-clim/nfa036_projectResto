@@ -61,7 +61,10 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
             </Modal.Header>
                 <Modal.Body>
                     <div className={"modal_size"}>
-                    <Image src={img} fluid/>
+                        <div className={"text-center"}>
+                            <Image src={product.picture} fluid width={"250px"}/>
+                        </div>
+
                     <h5 className={"text-center text-dark mb-5"}>{product.description}</h5>
                     {/*Boucle qui affiche les extras disponible pour le produit actuel */}
                     {extras.map(extra =>

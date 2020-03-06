@@ -17,12 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
  *     "order"= {"id": "DESC"}},
  *     collectionOperations={
-        "get"
+        "get",
+ *     "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
        "get",
  *     "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},
  *     "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *     "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     normalizationContext={"groups"={"products_read"}},
  *     denormalizationContext={"disable_type_enforcement"= true},

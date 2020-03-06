@@ -3,6 +3,7 @@ import productApi from "../services/productApi";
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
 import verif from "../verifRoles";
+import {toast} from "react-toastify";
 
 /***********************************************************************************************************************
  *                                                                                                                     *
@@ -59,7 +60,9 @@ const ProductsPage = ({history}) => {
 
         try {
             await productApi.delete(id);
+            toast.success("🍔 Produit supprimer!");
         }catch (error) {
+            toast.success("🍔 erreur lors de la suppression!");
             setProducts(originalProducts);
         }
     };

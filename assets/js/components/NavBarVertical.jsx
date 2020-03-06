@@ -28,6 +28,11 @@ const NavBarVertical = ({toto}) => {
                       </Link>
                   </li>
                   <li className=" ">
+                      <Link to={"/card/salades"} className="nav-link text-white text-uppercase" >
+                          Salades
+                      </Link>
+                  </li>
+                  <li className=" ">
                       <Link to={"/card/boissons"} className="nav-link text-white text-uppercase" >
                           Boissons
                       </Link>
@@ -40,11 +45,6 @@ const NavBarVertical = ({toto}) => {
                   <li className=" ">
                       <Link to={"/card/menu-enfants"} className="nav-link text-white text-uppercase" >
                           Menu enfants
-                      </Link>
-                  </li>
-                  <li className=" ">
-                      <Link to={"/card/others"} className="nav-link text-white text-uppercase" >
-                          Others
                       </Link>
                   </li>
               </ul>

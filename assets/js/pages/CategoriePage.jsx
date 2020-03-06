@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import categoryApi from "../services/categoryApi";
 import Field from "../components/forms/Fields";
 import verif from "../verifRoles";
+import {toast} from "react-toastify";
 
 /***********************************************************************************************************************
  *                                                                                                                     *
@@ -68,11 +69,11 @@ const CategoriePage = ({match, history}) => {
             if(editing){
                 await categoryApi.update(id,category);
 
-                // TODO : Flash notification de succés
+                toast.success("🍔 Catégorie modifier!");
             }else{
                 await categoryApi.create(category);
 
-                // TODO : Flash notification de succés
+                toast.success("🍔 Catégorie créer!");
                 setErrors({});
                 history.replace("/categorys");
             }

@@ -7,7 +7,8 @@ import Select from "../components/forms/Select";
 import extraApi from "../services/extraApi";
 import extraProductApi from "../services/extraProductApi";
 import verif from "../verifRoles";
-
+import PictureSelect from "../components/PictureSelect";
+import {toast} from "react-toastify";
 
 /***********************************************************************************************************************
  *                                                                                                                     *
@@ -35,7 +36,8 @@ const ProductPage = ({history, match}) => {
         title: "",
         price: "",
         description: "",
-        category: ""
+        category: "",
+        picture: ""
     });
 
     const [categorys, setCategorys] = useState([]);
@@ -43,12 +45,11 @@ const ProductPage = ({history, match}) => {
         title: "",
         price: "",
         description: "",
-        category: ""
+        category: "",
+        picture: ""
     });
 
     const [editing, setEditing] = useState(false);
-
-
 
 
     //Recuperation des extras disponible
@@ -70,10 +71,9 @@ const ProductPage = ({history, match}) => {
         try {
             const data =  await categoryApi.findAll();
             setCategorys(data);
+            //if(!product.category) setProduct({...product, category: data[0].id})
 
-            if(!product.category) setProduct({...product, category: data[0].id})
         }catch (error) {
-            // TODO : Flash notification erreur
             history.replace("/products");
         }
     };
@@ -220,19 +220,20 @@ const ProductPage = ({history, match}) => {
                 await productApi.update(id, product);
                 lastProductEditing();
 
-                // TODO : Flash notification success
+                toast.success("🍔 Produit modifier!");
             }else{
                 const data = await productApi.create(product);
 
                 // on envoie l'id du produit qui viens d'etre créer
                 lastProductCreate(data.data.id);
 
-                // TODO : Flash notification success
+                toast.success("🍔 Produit créer!");
                 setProduct({
                     title: "",
                     price: "",
                     description: "",
-                    category: ""
+                    category: "",
+                    picture: ""
                 });
 
                 history.replace("/products/new");
@@ -295,6 +296,7 @@ const ProductPage = ({history, match}) => {
                         </option>
                     )}
                 </Select>
+                <PictureSelect product={product} errors={errors} handleChange={handleChange}/>
 
                 {/*  Verifie si on est en mode edition ou création de produit  */}
                 {/*  MODE CREATION DE PRODUIT  */}

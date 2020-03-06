@@ -24,6 +24,7 @@ const CategorysCarte = ({productList}) => {
         price: "",
         quantity: "",
         supplements: [],
+        picture: ""
     });
 
     const { totalCart, updateTotalCart} = useContext(CartContext);

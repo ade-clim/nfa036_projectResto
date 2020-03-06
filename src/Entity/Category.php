@@ -15,7 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
  *     "order"= {"id", "products.id": "DESC"}},
  *     collectionOperations={
-        "get"
+        "get",
+ *     "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
  *         "get",

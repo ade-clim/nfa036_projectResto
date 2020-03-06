@@ -58,7 +58,7 @@ const App = () => {
     const [snacks, setSnacks] = useState([]);
     const [desserts, setDesserts] = useState([]);
     const [menuKids, setMenuKids] = useState([]);
-    const [others, setOthers] = useState([]);
+    const [salades, setSalades] = useState([]);
 
 
     // On va verifier si localStorage, si oui on recupere les id produit et supplement et on recupere produit api
@@ -126,8 +126,8 @@ const App = () => {
                 if(data[i].title === "menuKids"){
                     setMenuKids(data[i].products);
                 }
-                if(data[i].id === 6){
-                    setOthers(data[i].products);
+                if(data[i].title === "salades"){
+                    setSalades(data[i].products);
                 }
             }
         }catch (error) {
@@ -160,7 +160,7 @@ const App = () => {
                             <Route path="/card/boissons" component={(props) => <CategorysCarte {...props} productList={drinks} />} />
                             <Route path="/card/desserts" component={(props) => <CategorysCarte {...props} productList={desserts} />} />
                             <Route path="/card/menu-enfants" component={(props) => <CategorysCarte {...props} productList={menuKids} />} />
-                            <Route path="/card/others" component={(props) => <CategorysCarte {...props} productList={others} />} />
+                            <Route path="/card/salades" component={(props) => <CategorysCarte {...props} productList={salades} />} />
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
 
 
