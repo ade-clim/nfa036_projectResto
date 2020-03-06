@@ -81,6 +81,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"products_read", "category_read", "order_read"})
      */
     private $picture;
 

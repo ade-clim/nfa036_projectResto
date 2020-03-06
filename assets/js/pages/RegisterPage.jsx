@@ -79,7 +79,7 @@ const RegisterPage = ({history}) => {
     };
 
     return(
-        <>
+        <div className={"container homecontainer"}>
             <h1>Formulaire d'inscription</h1>
             <form onSubmit={handleSubmit}>
                 <Field name={"firstName"}
@@ -125,7 +125,7 @@ const RegisterPage = ({history}) => {
                 </div>
             </form>
 
-        </>
+        </div>
 
     )
 };

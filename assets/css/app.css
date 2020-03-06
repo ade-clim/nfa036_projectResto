@@ -27,7 +27,7 @@ html {
 
 
 .navbar{
-    z-index: 1;
+    z-index: 3;
     position:fixed;
     width: 100vw;
     max-height: 100px;
@@ -71,22 +71,6 @@ html {
     }
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    /* Set the fixed height of the footer here */
-    height: 50px;
-    background-color: black;
-}
-
-.footer, a, h5{
-    color: white;
-}
-
-.footert{
-    background-color: black;
-}
 
 .pagination{
 
@@ -108,4 +92,39 @@ html {
 }
 .gallery>* {
     flex:  0 33.3333%;
+}
+
+.masthead{
+    height: 100vh;
+}
+header.masthead{
+    position:relative;
+    overflow:hidden;
+    padding-top:calc(7rem + 72px);
+    padding-bottom:7rem;
+    background:url("../../assets/img/Home/burger_home.jpg");
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:cover
+}
+header.masthead .masthead-content{
+    z-index:1;
+    position:relative}
+header.masthead .masthead-content .masthead-heading{
+    font-size:4rem
+}
+header.masthead .masthead-content .masthead-subheading{
+    font-size:2rem
+}
+@media (min-width:992px){
+    header.masthead{padding-top:calc(10rem + 55px);
+        padding-bottom:10rem
+    }header.masthead .masthead-content .masthead-heading{font-size:6rem}
+    header.masthead .masthead-content .masthead-subheading{font-size:4rem}
+}
+
+.home_title{
+    font-family:"Minion Pro";
+    font-weight:800!important
 }

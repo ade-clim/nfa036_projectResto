@@ -17,7 +17,7 @@ const CategorysCarte = ({productList}) => {
 
 
     // recupere le produit actuel pour recuperer ces extras
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(productList);
     const [product, setProduct] = useState({
         id:"",
         title:"",
@@ -76,12 +76,6 @@ const CategorysCarte = ({productList}) => {
         }
         toast.success("🍔 Produit ajouter au panier!");
     };
-
-
-    // Recuperation de la bonne facture dans l'identifiant de l'url change
-    useEffect(() => {
-        setProducts(productList);
-    }, []);
 
 
     // Methode qui va recuperer les extras qui appartiennent au produit actuel

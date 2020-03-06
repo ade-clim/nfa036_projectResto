@@ -43,7 +43,7 @@ const CartMove = ({totalCart, handleQuantityLess, handleQuantityMore}) => {
                 <div className={""}>
                     <div className="card" style={{width: "22rem"}}>
                         {totalCart.length > 0 &&
-                        <button className="btn card-header bg-primary text-white"> <Link to={"/card/validation"}>Valider mon panier</Link></button>
+                         <Link to={"/card/validation"}><button className="btn card-header bg-primary text-white col-12">Valider mon panier</button></Link>
                         ||
                         <button className="btn card-header" disabled><span>Mon panier</span></button>
                         }
