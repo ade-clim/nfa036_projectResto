@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(
  *     attributes={
  *     "order"= {"id"}},
+ *     collectionOperations={
+ *     "get",
+        "post"={"security"="is_granted('ROLE_ADMIN')"},
+ *     },
  *     itemOperations={
  *         "get",
  *         "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul les admins peuvent supprimer un client."},

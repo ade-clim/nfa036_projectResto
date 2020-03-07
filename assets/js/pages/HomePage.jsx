@@ -13,8 +13,8 @@ const HomePage = () => {
             <header className="masthead text-center text-white">
                 <div className="masthead-content">
                     <div className="container">
-                        <h1 className="masthead-heading mb-0 text-white home_title">One Page Wonder</h1>
-                        <h2 className="masthead-subheading mb-0 text-white home_title">Will Rock</h2>
+                        <h1 className="masthead-heading mb-0 text-white home_title">Burger chic</h1>
+                        <h2 className="masthead-subheading mb-0 text-white home_title">sur mesure</h2>
 
                     </div>
                 </div>
@@ -34,7 +34,7 @@ const HomePage = () => {
                         </div>
                         <div className="col-lg-6 order-lg-1">
                             <div className="p-5">
-                                <h2 className="display-4 home_title">For those about to rock...</h2>
+                                <h2 className="display-4 home_title">Produit frais</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio
                                     veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis
                                     recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
@@ -54,7 +54,7 @@ const HomePage = () => {
                         </div>
                         <div className="col-lg-6">
                             <div className="p-5">
-                                <h2 className="display-4 home_title">We salute you!</h2>
+                                <h2 className="display-4 home_title">Fait maison</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio
                                     veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis
                                     recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
@@ -74,7 +74,7 @@ const HomePage = () => {
                         </div>
                         <div className="col-lg-6 order-lg-1">
                             <div className="p-5">
-                                <h2 className="display-4 home_title">Let there be rock!</h2>
+                                <h2 className="display-4 home_title">Qualité prix</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio
                                     veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis
                                     recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>

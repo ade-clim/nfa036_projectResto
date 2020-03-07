@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     attributes={
  *     "order"= {"id"}},
  *     collectionOperations={
-        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"}
+        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"},
+ *     "post"={"security"="is_granted('ROLE_ADMIN')"},
  *     },
  *     itemOperations={
  *         "get",

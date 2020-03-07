@@ -90,41 +90,55 @@ const OrdersPage = ({history}) => {
 
     return (
         <div className={"container homecontainer"}>
-            <div className={"mb-5 d-flex justify-content-between align-items-center"}>
-                <h1>Liste des commandes</h1>
-            </div>
+            {orders.length > 0 &&
+            <>
+                <div className={"mb-5 d-flex justify-content-between align-items-center"}>
+                    <h1>Liste des commandes</h1>
+                </div>
 
-            <div className={"form-group"}>
-                <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
-            </div>
-            <table className={"table table-hover"}>
-                <thead>
-                <tr>
-                    <th>Num. commande</th>
-                    <th>Date</th>
-                    <th>Total commande</th>
-                    <th>Nb. articles</th>
-                </tr>
-                </thead>
-                <tbody>
-                {orders.map(order =>
-                    <tr key={order.id}>
-                        <td>{order.orderNumber}</td>
-                        <td>{order.dateOrder}</td>
-                        <td>{order.price.toLocaleString()} euros</td>
-                        <td>{order.orderDetails.length}</td>
-                        <td><button className={"btn btn-sm btn-info"} onClick={() => {setModalShow(true), setOrder(order)}}>voir</button></td>
+                <div className={"form-group"}>
+                    <input type={"text"} onChange={handleSearch} value={search} className={"form-control"} placeholder={"Rechercher ..."}/>
+                </div>
+                <table className={"table table-hover"}>
+                    <thead>
+                    <tr>
+                        <th>Num. commande</th>
+                        <th>Date</th>
+                        <th>Total commande</th>
+                        <th>Nb. articles</th>
                     </tr>
-                )}
-                </tbody>
-            </table>
-            <ModalOrders
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                order={order}
-                verifCartStorage={verifCartStorage}
-            />
-            <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredOrders.length} onPageChanged={handlePageChange}/>
+                    </thead>
+                    <tbody>
+                    {orders.map(order =>
+                        <tr key={order.id}>
+                            <td>{order.orderNumber}</td>
+                            <td>{order.dateOrder}</td>
+                            <td>{order.price.toLocaleString()} euros</td>
+                            <td>{order.orderDetails.length}</td>
+                            <td><button className={"btn btn-sm btn-info"} onClick={() => {setModalShow(true), setOrder(order)}}>voir</button></td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+                <ModalOrders
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    order={order}
+                    verifCartStorage={verifCartStorage}
+                />
+                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredOrders.length} onPageChanged={handlePageChange}/>
+            </>
+                ||
+                <>
+                    <div className={"text-center mt-5"}>
+                        <h1>Aucune commande pour l'instant</h1>
+                    </div>
+
+
+                </>
+
+            }
+
         </div>
     )
 };

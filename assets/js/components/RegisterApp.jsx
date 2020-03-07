@@ -3,7 +3,7 @@ import addressApi from "../services/addressApi";
 import registerApi from "../services/registerApi";
 import Field from "./forms/Fields";
 import LoginApp from "./LoginApp";
-
+import {toast} from "react-toastify";
 
 /***********************************************************************************************************************
  *                                                                                                                     *
@@ -20,7 +20,8 @@ const RegisterApp = () => {
         phone: "",
         password: "",
         passwordConfirm: "",
-        address: ""
+        address: "",
+        roles:""
     });
 
     const [address, setAddress]= useState({
@@ -61,12 +62,11 @@ const RegisterApp = () => {
             // AJOUTER UNE  VERIFICATION AVANT ENVOIE DE L'ADRESSES
             //Creation addresses par default
             const addresseUser = await addressApi.create(address);
-            console.log(addresseUser.data.id);
-            const myUser = {...user, address: addresseUser.data.id};
+            const myUser = {...user, address: addresseUser.data.id, roles: ["ROLE_USER"]};
             await registerApi.register(myUser);
-            // TODO : Flash notification success
+
+            toast.success("🍔 Utilisateur créer!");
             setErrors({});
-            history.replace("/login");
 
         }catch(error){
             const {violations} = error.response.data;

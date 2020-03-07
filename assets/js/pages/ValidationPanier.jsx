@@ -46,7 +46,7 @@ const ValidationPanier = ({history}) => {
         const saveCart = [...totalCart];
 
         try {
-            const order = {price: calculPanier(), addressDelivery: addressSelect.id};
+            const order = {price: calculPanier(), addressDelivery: addressSelect.id, statut:"En cours de préparation"};
             const myOrder = await OrderApi.create(order);
 
 

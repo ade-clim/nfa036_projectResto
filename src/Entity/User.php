@@ -17,7 +17,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     "order"= {"id":"desc"}},
 
  *     collectionOperations={
-        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"}
+        "get"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')"},
+ *     "post"
  *     },
  *     itemOperations={
  *         "get",

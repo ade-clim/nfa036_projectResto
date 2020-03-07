@@ -34,7 +34,6 @@ const Navbar = ({history, toto}) => {
         if(token){
             const {firstName, lastName, id, roles} = jwtDecode(token);
             setUser({firstName: firstName, lastName: lastName, id: id, roles: roles[0]});
-            setIsAuthenticated(true);
         }
     };
 
@@ -62,9 +61,20 @@ const Navbar = ({history, toto}) => {
 
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link text-dark" to={"/card"}>Carte</NavLink>
+                            <NavLink className="nav-link text-dark" to={"/card/burgers"}>Carte</NavLink>
                         </li>
 
+                        {user.roles === "ROLE_MANAGER" &&
+                        <>
+                        {isAuthenticated && <>
+                            <li className="nav-item ">
+                                <NavLink className="nav-link" to={"/validation-orders"}>Orders</NavLink>
+                            </li>
+                        </>}
+
+                        </>
+
+                        }
                         {user.roles != "ROLE_USER" &&
                             <>
                                 {isAuthenticated && (<>
@@ -118,7 +128,16 @@ const Navbar = ({history, toto}) => {
                             )) || (<>
                             <li className="nav-item">
                                 <Link to={"/users/"+ user.id} className="btn btn-link text-secondary">
-                                    Bonjour <small>{user.firstName} {user.lastName}</small>
+                                    <span>Bonjour </span>
+                                    <small>
+                                    {user.roles === "ROLE_MANAGER" &&
+                                        <span className={"text-success"}> manager:</span>
+                                    }
+                                    {user.roles === "ROLE_ADMIN" &&
+                                    <span className={"text-success"}> admin:</span>
+                                    }
+
+                                    {user.firstName}</small>
                                 </Link>
 
                             </li>

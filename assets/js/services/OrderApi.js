@@ -15,7 +15,7 @@ function deleteOrder(id) {
 function find(id){
     return axios
         .get(ORDER_API + "/" + id)
-        .then(response => response.data);
+        .then(response => response.data['hydra:member']);
 }
 
 function update(id, order){

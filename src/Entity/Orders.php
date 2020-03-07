@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  * @ApiResource(
+ *     attributes={
+ *     "order"= {"orderNumber":"asc"}},
  *     normalizationContext={"groups"={"order_read"}}
  * )
  */
@@ -60,6 +62,12 @@ class Orders
      * @Groups({"order_read"})
      */
     private $dateOrder;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"order_read"})
+     */
+    private $statut;
 
     public function __construct()
     {
@@ -158,6 +166,18 @@ class Orders
     public function setDateOrder(\DateTimeInterface $dateOrder): self
     {
         $this->dateOrder = $dateOrder;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

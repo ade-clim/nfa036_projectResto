@@ -29,6 +29,7 @@ import supplementApi from "./services/supplementApi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OrdersPage from "./pages/OrdersPage";
+import OrderManager from "./pages/OrderManager";
 
 require('../css/app.css');
 authApi.setup();
@@ -164,6 +165,7 @@ const App = () => {
                             <Route path={"/card"} component={(props) => <Card {...props}/>}/>
 
 
+                            <PrivateRoute path={"/validation-orders"} component={OrderManager}/>
                             <PrivateRoute path={"/orders"} component={OrdersPage}/>
                             <PrivateRoute path={"/supplements/:id"} component={SupplementPage}/>
                             <PrivateRoute path={"/supplements"} component={SupplementsPage}/>
