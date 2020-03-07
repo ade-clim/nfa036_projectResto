@@ -76,13 +76,15 @@ const MyVerticalCenteredModal = ({product, onHide, show, extras, handleChangeTar
                                     <ul key={supplement.supplement.id} className={"list-group vertical_modal_check"}>
                                         <li className="list-group-item list-group-item-action border rounded mb-2 ">
                                             <input type="checkbox" className={"ml-3"} onClick={() => {selectSupplementProduct(supplement.supplement)}} width={"30px"} height={"30px"}/>
-                                            <label><span className={"ml-2"} style={{fontSize:"1em"}}>
-                                                <span>{supplement.supplement.title}</span>
-                                                {supplement.supplement.price > 0 &&
-                                                <span className={"float-right"}>
-                                                    +{supplement.supplement.price} €
-                                                </span>}
-                                            </span></label>
+                                            <label>
+                                                <div className={"ml-2"} style={{fontSize:"1em"}}>
+                                                    <span>{supplement.supplement.title}</span>
+                                                    {supplement.supplement.price > 0 &&
+                                                    <span className={"float-right"}>
+                                                        +{supplement.supplement.price} €
+                                                    </span>}
+                                                </div>
+                                            </label>
 
                                         </li>
                                     </ul>

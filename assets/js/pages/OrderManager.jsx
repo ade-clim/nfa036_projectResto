@@ -11,10 +11,13 @@ const OrderManager = () => {
     const [search, setSearch] = useState("");
     const itemsPerPage = 5;
 
+    const [refresh, setRefresh] = useState(false);
+
     const fetchOrders= async() => {
         try {
             const data = await OrderApi.findAll();
-            setOders(data)
+            setOders(data);
+            setRefresh(false);
         }catch (error) {
             console.log(error)
         }
@@ -23,7 +26,7 @@ const OrderManager = () => {
 
     useEffect(() => {
         fetchOrders()
-    },[orders]);
+    },[refresh]);
 
 
     // Gestion du changement de page
@@ -55,6 +58,7 @@ const OrderManager = () => {
             const order = await OrderApi.find(idOrder);
             await OrderApi.update(idOrder, {...order, statut: value});
             toast.success("🍔 Statut modifier!");
+            setRefresh(true);
         }catch (error) {
             toast.error("🍔 Erreur lors de la modification!");
             console.log(error)
@@ -98,11 +102,13 @@ const OrderManager = () => {
                                     <>
                                         <option value={"En cours de préparation"}>
                                             En cours de préparation
+
                                         </option>
                                     </>
                                     ||
                                     <option value={"Commande validée"}>
                                         Commande validée
+
                                     </option>
                                     }
 
@@ -155,7 +161,7 @@ const OrderManager = () => {
                                         <td>{product.products.title}</td>
                                         <td>
                                             {product.orderdetailsSupplements.map(supp =>
-                                            <span className={"ml-1"}>
+                                            <span className={"ml-1"} key={supp.id}>
                                                 {supp.supplement.title}
                                             </span>
                                             )}
